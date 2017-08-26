@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOPRoslyn", "AOPRoslyn\AOPRoslyn.csproj", "{5A7CC0A2-CAB6-4268-999A-6B1CFFD7CCFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAOP", "TestAOP\TestAOP.csproj", "{32B46EAC-AFA5-4EBD-8284-A28C1C5F4309}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A7CC0A2-CAB6-4268-999A-6B1CFFD7CCFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A7CC0A2-CAB6-4268-999A-6B1CFFD7CCFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A7CC0A2-CAB6-4268-999A-6B1CFFD7CCFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A7CC0A2-CAB6-4268-999A-6B1CFFD7CCFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32B46EAC-AFA5-4EBD-8284-A28C1C5F4309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32B46EAC-AFA5-4EBD-8284-A28C1C5F4309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32B46EAC-AFA5-4EBD-8284-A28C1C5F4309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32B46EAC-AFA5-4EBD-8284-A28C1C5F4309}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDC38BF9-4910-4596-9818-3A059A934B61}
+	EndGlobalSection
+EndGlobal
