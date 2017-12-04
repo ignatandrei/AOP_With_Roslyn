@@ -2,11 +2,17 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
-
+using FormatWith;
 namespace AOPRoslyn
 {
     public class MethodRewriter: CSharpSyntaxRewriter
     {
+       
+        public MethodRewriter(string formatter)
+        {
+            Formatter = formatter;
+        }
+        public string Formatter { get; }
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
         {
 
@@ -22,8 +28,9 @@ namespace AOPRoslyn
             Console.WriteLine(nameMethod);
             node = (MethodDeclarationSyntax)base.VisitMethodDeclaration(node);
             var lineStart = node.GetLocation().GetLineSpan().StartLinePosition;
-            string nameVariable = $"{nameClass}_{nameMethod}_{lineStart.Line}";
-            var cmd = SyntaxFactory.ParseStatement($"Console.WriteLine(\"{nameVariable}\");//this is automatically added");
+            
+            string nameVariable =Formatter.FormatWith(new { nameClass,nameMethod,lineStartNumber=lineStart.Line});
+            var cmd = SyntaxFactory.ParseStatement(nameVariable);
 
             var blockWithNewStatements = new SyntaxList<StatementSyntax>();
             

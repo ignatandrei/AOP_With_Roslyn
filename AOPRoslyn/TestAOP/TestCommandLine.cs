@@ -8,7 +8,7 @@ namespace TestAOP
     public class TestCommandLine
     {
         [TestMethod]
-        public void TestMethodRewriter()
+        public void TestMethodRewriterSimple()
         {
 
             var rc = new RewriteCode();
@@ -24,7 +24,7 @@ namespace Test1
         }
      }
 }";
-            var result= rc.RewriteCodeMethod();
+            var result = rc.RewriteCodeMethod();
             var newCode = @"
 using System;
 
@@ -34,12 +34,48 @@ namespace Test1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(" + "\"Program_Main_6\"" + @");//this is automatically added
+            Console.WriteLine(" + "\"Program_Main_6\"" + @");
             var dt = DateTime.Now;
         }
     }
 }";
-            Assert.AreEqual(newCode.Replace(Environment.NewLine,""), newCode.Replace(Environment.NewLine, ""));
+            Assert.AreEqual(result.Replace(Environment.NewLine, ""), newCode.Replace(Environment.NewLine, ""));
+        }
+
+
+        [TestMethod]
+        public void TestMethodRewriterAddVariable()
+        {
+
+            var rc = new RewriteCode("string s=\"this is method {nameMethod} from class {nameClass} at line {lineStartNumber}\";");
+            rc.Code = @"
+using System;
+namespace Test1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+              var dt=DateTime.Now;
+        }
+     }
+}";
+            var result = rc.RewriteCodeMethod();
+            var newCode = @"
+using System;
+
+namespace Test1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s = ""this is method Main from class Program at line 6"";
+            var dt = DateTime.Now;
+        }
+    }
+}";
+            Assert.AreEqual(result.Replace(Environment.NewLine, ""), newCode.Replace(Environment.NewLine, ""));
         }
     }
 }
