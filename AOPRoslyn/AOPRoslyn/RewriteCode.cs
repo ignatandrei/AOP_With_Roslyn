@@ -9,12 +9,14 @@ namespace AOPRoslyn
         {
 
         }
-        public RewriteCode(string formatter)
+        public RewriteCode(string formatterFirstLine,string formatterLastLine=null)
         {
-            Formatter = formatter;
+            FormatterFirstLine = formatterFirstLine;
+            FormatterLastLine = formatterLastLine;
         }
         public string Code { get; set; }
-        public string Formatter { get; }
+        public string FormatterFirstLine { get; }
+        public string FormatterLastLine { get; }
 
         public string RewriteCodeMethod()
         {
@@ -22,7 +24,7 @@ namespace AOPRoslyn
 
             var node = tree.GetRoot();
 
-            var LG = new MethodRewriter(Formatter);
+            var LG = new MethodRewriter(FormatterFirstLine,FormatterLastLine);
             var sn = LG.Visit(node);
             return sn.NormalizeWhitespace().ToFullString();
 

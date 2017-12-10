@@ -8,11 +8,13 @@ namespace AOPRoslyn
     public class MethodRewriter: CSharpSyntaxRewriter
     {
        
-        public MethodRewriter(string formatter)
+        public MethodRewriter(string formatterFirstLine,string formatterLastLine=null)
         {
-            Formatter = formatter;
+            FormatterFirstLine = formatterFirstLine;
+            FormatterLastLine = formatterLastLine;
         }
-        public string Formatter { get; }
+        public string FormatterFirstLine { get; }
+        public string FormatterLastLine { get; set; }
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
         {
 
@@ -28,19 +30,32 @@ namespace AOPRoslyn
             Console.WriteLine(nameMethod);
             node = (MethodDeclarationSyntax)base.VisitMethodDeclaration(node);
             var lineStart = node.GetLocation().GetLineSpan().StartLinePosition;
-            
-            string nameVariable =Formatter.FormatWith(new { nameClass,nameMethod,lineStartNumber=lineStart.Line});
-            var cmd = SyntaxFactory.ParseStatement(nameVariable);
 
+            StatementSyntax cmdFirstLine = null;
+            if (FormatterFirstLine != null)
+            {
+                string firstLine = FormatterFirstLine.FormatWith(new { nameClass, nameMethod, lineStartNumber = lineStart.Line });
+                cmdFirstLine = SyntaxFactory.ParseStatement(firstLine);
+            }
+
+            StatementSyntax cmdLastLine = null;
+            if (FormatterLastLine != null)
+            {
+                string lastLine = FormatterLastLine.FormatWith(new { nameClass, nameMethod, lineStartNumber = lineStart.Line });
+                cmdLastLine= SyntaxFactory.ParseStatement(lastLine);
+            }
             var blockWithNewStatements = new SyntaxList<StatementSyntax>();
-            
+            if (cmdLastLine!= null)
+                blockWithNewStatements = blockWithNewStatements.Insert(0, cmdLastLine);
+
             for (int i = node.Body.Statements.Count - 1; i >= 0; i--)
             {
                 var st = node.Body.Statements[i];
                 blockWithNewStatements = blockWithNewStatements.Insert(0, st);
             }
+            if(cmdFirstLine != null)
+                blockWithNewStatements = blockWithNewStatements.Insert(0, cmdFirstLine);
 
-            blockWithNewStatements = blockWithNewStatements.Insert(0, cmd);
 
             var newBlock = SyntaxFactory.Block(blockWithNewStatements);
 
