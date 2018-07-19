@@ -14,6 +14,7 @@ namespace TestAOP
         {
 
             var rc = new RewriteCode();
+            rc.PreserveLinesNumber = false;
             rc.Code = @"
 using System;
 namespace Test1

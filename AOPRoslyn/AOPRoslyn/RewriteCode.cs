@@ -11,6 +11,7 @@ namespace AOPRoslyn
         {
 
         }
+        public bool PreserveLinesNumber { get; set; } = true;
         public RewriteCode(string formatterFirstLine,string formatterLastLine=null)
         {
             FormatterFirstLine = formatterFirstLine;
@@ -27,6 +28,7 @@ namespace AOPRoslyn
             var node = tree.GetRoot();
             node=ModifyRegionToTrivia(node);
             var LG = new MethodRewriter(FormatterFirstLine,FormatterLastLine);
+            LG.PreserveLinesNumber = PreserveLinesNumber;
             var sn = LG.Visit(node);
             return sn.NormalizeWhitespace().ToFullString();
 

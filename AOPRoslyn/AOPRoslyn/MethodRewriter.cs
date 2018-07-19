@@ -7,7 +7,7 @@ namespace AOPRoslyn
 {
     public class MethodRewriter: CSharpSyntaxRewriter
     {
-       
+        public bool PreserveLinesNumber { get; set; } = true;
         public MethodRewriter(string formatterFirstLine,string formatterLastLine=null)
         {
             FormatterFirstLine = formatterFirstLine;
@@ -51,6 +51,11 @@ namespace AOPRoslyn
             for (int i = node.Body.Statements.Count - 1; i >= 0; i--)
             {
                 var st = node.Body.Statements[i];
+                if(PreserveLinesNumber && i == 0  )
+                {
+                    SyntaxTrivia syntaxTrivia = SyntaxFactory.Trivia(SyntaxFactory.LineDirectiveTrivia(SyntaxFactory.Literal(st.GetLocation().GetLineSpan().StartLinePosition.Line + 1), true));
+                    st = st.WithLeadingTrivia(syntaxTrivia);
+                }
                 blockWithNewStatements = blockWithNewStatements.Insert(0, st);
             }
             if(cmdFirstLine != null)

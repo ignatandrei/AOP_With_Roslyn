@@ -15,6 +15,7 @@ namespace TestAOP
                 formatterFirstLine: "Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
                 formatterLastLine: "Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
                 );
+            rc.PreserveLinesNumber = false;
             rc.Code = @"
 using System;
 namespace Test1

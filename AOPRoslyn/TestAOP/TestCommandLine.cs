@@ -12,6 +12,7 @@ namespace TestAOP
         {
 
             var rc = new RewriteCode();
+            rc.PreserveLinesNumber = false;
             rc.Code = @"
 using System;
 namespace Test1
@@ -48,6 +49,7 @@ namespace Test1
         {
 
             var rc = new RewriteCode("string s=\"this is method {nameMethod} from class {nameClass} at line {lineStartNumber}\";");
+            rc.PreserveLinesNumber = false;
             rc.Code = @"
 using System;
 namespace Test1
