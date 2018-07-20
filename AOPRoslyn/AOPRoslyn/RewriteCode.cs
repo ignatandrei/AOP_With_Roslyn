@@ -30,7 +30,7 @@ namespace AOPRoslyn
             var LG = new MethodRewriter(FormatterFirstLine,FormatterLastLine);
             LG.PreserveLinesNumber = PreserveLinesNumber;
             var sn = LG.Visit(node);
-            return sn.NormalizeWhitespace().ToFullString();
+            return sn.ToFullString();
 
         }
 

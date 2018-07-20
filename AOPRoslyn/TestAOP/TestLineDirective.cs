@@ -1,6 +1,8 @@
 ﻿using AOPRoslyn;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -47,36 +49,74 @@ namespace Test1
         }
     }
 }";
-            Assert.AreEqual(result.Replace(Environment.NewLine, ""), newCode.Replace(Environment.NewLine, ""));
+            Assert.AreEqual(result.Replace(" ","").Replace(Environment.NewLine, ""), newCode.Replace(" ", "").Replace(Environment.NewLine, ""));
         }
 
         [TestMethod]
         public void TestException()
         {
-
-            var rc=new RewriteCode("string s=\"this is method {nameMethod} from class {nameClass} at line {lineStartNumber}\";");
-            rc.Code = @"
-using System;
-namespace Test1
-{
-    public class Program
-    {
-        public static string Main()
-        {
-              var dt=DateTime.Now;
-try{
-    throw new ArgumentException(""ersssror"");
-}
-catch(Exception ex){
-    return ex.ToString();
-}
-    return """";
-        }
-     }
+            var rc = new RewriteCode(
+                formatterFirstLine: "Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
+                formatterLastLine: "Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
+                );
+            rc.Code = @"string s = null; 
+// some comment at line 2
+var upper = Test(s); // Null reference exception at line 3
+// more code
+//class X{
+public  string Test(string s) {
+    return s.ToUpper();
+//}
 }";
-            var data1 = ReturnStackTraceError(rc.Code);
-            var data2= ReturnStackTraceError(rc.RewriteCodeMethod());
-            Assert.AreEqual(data1, data2);
+
+            try
+            {
+                var result = CSharpScript.EvaluateAsync<int>(rc.Code
+                    , ScriptOptions.Default.WithEmitDebugInformation(true)).Result;
+
+            }
+            catch (AggregateException e)
+            {
+                if (e.InnerException is NullReferenceException inner)
+                {
+                    var startIndex = inner.StackTrace.IndexOf(":line ", StringComparison.Ordinal) + 6;
+                    var lineNumberStr = inner.StackTrace.Substring(
+                        startIndex, inner.StackTrace.IndexOf("\r", StringComparison.Ordinal) - startIndex);
+                    var lineNumber = Int32.Parse(lineNumberStr);
+
+                    Assert.AreEqual(7, lineNumber);
+                    
+                }
+                else
+                {
+                    Assert.AreEqual(true, false, " should have exception");
+                }
+            }
+            try
+            {
+                var q = rc.RewriteCodeMethod();
+                var result = CSharpScript.EvaluateAsync<int>(rc.RewriteCodeMethod()
+                    , ScriptOptions.Default.WithEmitDebugInformation(true)).Result;
+
+            }
+            catch (AggregateException e)
+            {
+                if (e.InnerException is NullReferenceException inner)
+                {
+                    var startIndex = inner.StackTrace.IndexOf(":line ", StringComparison.Ordinal) + 6;
+                    var lineNumberStr = inner.StackTrace.Substring(
+                        startIndex, inner.StackTrace.IndexOf("\r", StringComparison.Ordinal) - startIndex);
+                    var lineNumber = Int32.Parse(lineNumberStr);
+
+                    Assert.AreEqual(7, lineNumber);
+                    
+                }
+                else
+                {
+                    Assert.AreEqual(true, false, " should have exception");
+                }
+            }
+
         }
         static string ReturnStackTraceError(string code)
         {

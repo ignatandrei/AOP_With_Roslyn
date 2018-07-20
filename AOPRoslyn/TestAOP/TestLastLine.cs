@@ -44,7 +44,7 @@ namespace Test1
         }
     }
 }";
-            Assert.AreEqual(result.Replace(Environment.NewLine, ""), newCode.Replace(Environment.NewLine, ""));
+            Assert.AreEqual(result.Replace(" ", "").Replace(Environment.NewLine, ""), newCode.Replace(" ", "").Replace(Environment.NewLine, ""));
         }
 
 
