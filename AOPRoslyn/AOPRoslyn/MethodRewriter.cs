@@ -55,8 +55,10 @@ namespace AOPRoslyn
                 {
                     var line = st.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
                     var lit = SyntaxFactory.Literal(line.ToString(), line);
-                    SyntaxTrivia syntaxTrivia = SyntaxFactory.Trivia(SyntaxFactory.LineDirectiveTrivia(lit, false));
-                    st = st.WithLeadingTrivia(SyntaxFactory.CarriageReturnLineFeed, syntaxTrivia, SyntaxFactory.CarriageReturnLineFeed);
+                    var ld = SyntaxFactory.LineDirectiveTrivia(lit, true);
+                    var stLine= SyntaxFactory.Trivia(ld);                    
+                    st = st.WithLeadingTrivia(SyntaxFactory.CarriageReturnLineFeed, stLine, SyntaxFactory.CarriageReturnLineFeed);
+
                 }
                 blockWithNewStatements = blockWithNewStatements.Insert(0, st);
             }

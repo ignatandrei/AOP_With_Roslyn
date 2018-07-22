@@ -30,8 +30,10 @@ namespace AOPRoslyn
             var LG = new MethodRewriter(FormatterFirstLine,FormatterLastLine);
             LG.PreserveLinesNumber = PreserveLinesNumber;
             var sn = LG.Visit(node);
-            return sn.ToFullString();
-
+            var data= sn.ToFullString();
+            //BUG - cannot have this space between #line and number
+            data = data.Replace(Environment.NewLine + "#line", Environment.NewLine + "#line ");
+            return data;
         }
 
         private SyntaxNode ModifyRegionToTrivia(SyntaxNode syntaxNode)

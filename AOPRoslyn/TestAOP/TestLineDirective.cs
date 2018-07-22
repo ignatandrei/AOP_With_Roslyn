@@ -118,6 +118,73 @@ public static string Test(string s) {
             }
 
         }
+
+        [TestMethod]
+        public void TestNoLineRefactoring()
+        {
+            var rc = new RewriteCode(
+                formatterFirstLine: "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
+                formatterLastLine: "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
+                );
+            rc.Code = @"string s = null; 
+// some comment at line 2
+var upper = Test(s); // Null reference exception at line 3
+// more code
+//class X{
+public static string Test(string s) {
+    return s.ToUpper();
+}
+//}";
+
+            try
+            {
+                var result = CSharpScript.EvaluateAsync<int>(rc.Code
+                    , ScriptOptions.Default.WithEmitDebugInformation(true)).Result;
+
+            }
+            catch (AggregateException e)
+            {
+                if (e.InnerException is NullReferenceException inner)
+                {
+                    var startIndex = inner.StackTrace.IndexOf(":line ", StringComparison.Ordinal) + 6;
+                    var lineNumberStr = inner.StackTrace.Substring(
+                        startIndex, inner.StackTrace.IndexOf("\r", StringComparison.Ordinal) - startIndex);
+                    var lineNumber = Int32.Parse(lineNumberStr);
+
+                    Assert.AreEqual(7, lineNumber);
+
+                }
+                else
+                {
+                    Assert.AreEqual(true, false, " should have exception");
+                }
+            }
+            try
+            {
+                var q = rc.RewriteCodeMethod();
+                var result = CSharpScript.EvaluateAsync<int>(q
+                    , ScriptOptions.Default.WithEmitDebugInformation(true)).Result;
+
+            }
+            catch (AggregateException e)
+            {
+                if (e.InnerException is NullReferenceException inner)
+                {
+                    var startIndex = inner.StackTrace.IndexOf(":line ", StringComparison.Ordinal) + 6;
+                    var lineNumberStr = inner.StackTrace.Substring(
+                        startIndex, inner.StackTrace.IndexOf("\r", StringComparison.Ordinal) - startIndex);
+                    var lineNumber = Int32.Parse(lineNumberStr);
+
+                    Assert.AreEqual(7, lineNumber);
+
+                }
+                else
+                {
+                    Assert.AreEqual(true, false, " should have exception");
+                }
+            }
+
+        }
         static string ReturnStackTraceError(string code)
         {
             var co= new CSharpCompilationOptions(
