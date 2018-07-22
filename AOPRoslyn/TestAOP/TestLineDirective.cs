@@ -56,17 +56,17 @@ namespace Test1
         public void TestException()
         {
             var rc = new RewriteCode(
-                formatterFirstLine: "Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
-                formatterLastLine: "Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
+                formatterFirstLine: "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
+                formatterLastLine: "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
                 );
             rc.Code = @"string s = null; 
 // some comment at line 2
-var upper = Test(s); // Null reference exception at line 3
+var upper = X.Test(s); // Null reference exception at line 3
 // more code
-//class X{
-public  string Test(string s) {
+class X{
+public static string Test(string s) {
     return s.ToUpper();
-//}
+}
 }";
 
             try
@@ -95,7 +95,7 @@ public  string Test(string s) {
             try
             {
                 var q = rc.RewriteCodeMethod();
-                var result = CSharpScript.EvaluateAsync<int>(rc.RewriteCodeMethod()
+                var result = CSharpScript.EvaluateAsync<int>(q
                     , ScriptOptions.Default.WithEmitDebugInformation(true)).Result;
 
             }
