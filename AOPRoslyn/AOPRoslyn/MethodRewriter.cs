@@ -15,6 +15,34 @@ namespace AOPRoslyn
         }
         public string FormatterFirstLine { get; }
         public string FormatterLastLine { get; set; }
+        private void TryToIdentifyParameter(ParameterSyntax p)
+        {
+            string nameArgument = p.Identifier.Text;
+            string typeArgument = "";
+            
+            var t = p.Type as PredefinedTypeSyntax;
+            if (t != null)
+            {
+                typeArgument = t.Keyword.Text;
+                return;
+            }
+            var i = p.Type as IdentifierNameSyntax;
+            if(i != null)
+            {
+                
+                typeArgument = i.Identifier.Text;
+                return;
+            }
+            var a = p.Type as ArrayTypeSyntax;
+            if(a != null)
+            {
+                typeArgument = a.ElementType.ToString();
+                return;
+            }
+            
+            string full = nameArgument + " " + typeArgument;
+
+        }
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
         {
 
@@ -32,19 +60,7 @@ namespace AOPRoslyn
                 var parameters = node.ParameterList.Parameters;
                 foreach(var p in parameters)
                 {
-                    string nameArgument = p.Identifier.Text;
-                    string typeArgument = "";
-                    var t = p.Type as PredefinedTypeSyntax;
-                    if (t != null)
-                    {
-                         typeArgument = t.Keyword.Text;
-                    }
-                    else
-                    {
-                        var i = p.Type as IdentifierNameSyntax;
-                        typeArgument = i.Identifier.Text;
-                    }
-                    string full = nameArgument + " " + typeArgument;
+                    TryToIdentifyParameter(p);
                 }
             }
             node = (MethodDeclarationSyntax)base.VisitMethodDeclaration(node);
