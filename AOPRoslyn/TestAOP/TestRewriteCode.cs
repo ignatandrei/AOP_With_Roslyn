@@ -9,7 +9,7 @@ namespace TestAOP
 {
     [TestClass]
     public class TestRewriteCode
-    { 
+    {  
 
         [TestMethod]
         public void TestAOPFile()

@@ -5,7 +5,7 @@ using System.Text;
 namespace TestAOP
 {
     class TestClassPerson
-    {
+    { 
         public TestClassPerson(string firstName, string lastName)
         {
             FirstName = firstName;
@@ -15,14 +15,19 @@ namespace TestAOP
         public string FirstName { get; }
         public string LastName { get; }
 
-        public string Name()
-{Console.WriteLine("start TestClassPerson_Name_17");
+        public static TestClassPerson CopyConstructor(TestClassPerson t)
+{Console.WriteLine("start TestClassPerson_CopyConstructor_17");
 #line 20
-return FirstName + " " + LastName;
-Console.WriteLine("end TestClassPerson_Name_17");}        
-        public int Length()
-{Console.WriteLine("start TestClassPerson_Length_22");
+var newTC = new TestClassPerson(t.FirstName, t.LastName);
+            return t;
+Console.WriteLine("end TestClassPerson_CopyConstructor_17");}        public string Name(string separator = "")
+{Console.WriteLine("start TestClassPerson_Name_22");
 #line 25
+return FirstName + separator + LastName;
+Console.WriteLine("end TestClassPerson_Name_22");}        
+        public int Length()
+{Console.WriteLine("start TestClassPerson_Length_27");
+#line 30
 return Name().Length;
-Console.WriteLine("end TestClassPerson_Length_22");}    }
+Console.WriteLine("end TestClassPerson_Length_27");}    }
 }

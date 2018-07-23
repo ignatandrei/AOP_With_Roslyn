@@ -27,7 +27,26 @@ namespace AOPRoslyn
 
             var nameMethod = node.Identifier.Text;
             var nameClass = parent.Identifier.Text;
-            Console.WriteLine(nameMethod);
+            if (node.ParameterList.Parameters.Count > 0)
+            {
+                var parameters = node.ParameterList.Parameters;
+                foreach(var p in parameters)
+                {
+                    string nameArgument = p.Identifier.Text;
+                    string typeArgument = "";
+                    var t = p.Type as PredefinedTypeSyntax;
+                    if (t != null)
+                    {
+                         typeArgument = t.Keyword.Text;
+                    }
+                    else
+                    {
+                        var i = p.Type as IdentifierNameSyntax;
+                        typeArgument = i.Identifier.Text;
+                    }
+                    string full = nameArgument + " " + typeArgument;
+                }
+            }
             node = (MethodDeclarationSyntax)base.VisitMethodDeclaration(node);
             var lineStart = node.GetLocation().GetLineSpan().StartLinePosition;
 
