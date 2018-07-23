@@ -7,12 +7,14 @@ namespace AOPRoslyn
 {
     public class RewriteCode
     {
-        public RewriteCode(): this("Console.WriteLine(\"{nameClass}_{nameMethod}_{lineStartNumber}\");")
+        public static readonly string firstLineMethod = "Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");";
+        public static readonly string lastLineMethod = "Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");";
+        public RewriteCode() : this(firstLineMethod, lastLineMethod)
         {
 
         }
         public bool PreserveLinesNumber { get; set; } = true;
-        public RewriteCode(string formatterFirstLine,string formatterLastLine=null)
+        public RewriteCode(string formatterFirstLine,string formatterLastLine)
         {
             FormatterFirstLine = formatterFirstLine;
             FormatterLastLine = formatterLastLine;
@@ -21,7 +23,7 @@ namespace AOPRoslyn
         public string FormatterFirstLine { get; }
         public string FormatterLastLine { get; }
 
-        public string RewriteCodeMethod()
+        public virtual string RewriteCodeMethod()
         {
             var tree = CSharpSyntaxTree.ParseText(Code);
             

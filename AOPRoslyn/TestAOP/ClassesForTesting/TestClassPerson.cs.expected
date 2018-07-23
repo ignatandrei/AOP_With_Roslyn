@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace TestAOP
+{
+    class TestClassPerson
+    {
+        public TestClassPerson(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
+
+        public string FirstName { get; }
+        public string LastName { get; }
+
+        public string Name()
+{Console.WriteLine("start TestClassPerson_Name_17");
+#line 20
+return FirstName + " " + LastName;
+Console.WriteLine("end TestClassPerson_Name_17");}        
+        public int Length()
+{Console.WriteLine("start TestClassPerson_Length_22");
+#line 25
+return Name().Length;
+Console.WriteLine("end TestClassPerson_Length_22");}    }
+}

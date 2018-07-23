@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
@@ -16,5 +16,19 @@
   <ItemGroup>
     <ProjectReference Include="..\AOPRoslyn\AOPRoslyn.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ClassesForTesting\TestClassPerson.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ClassesForTesting\TestClassPerson.cs.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+ 
 
 </Project>

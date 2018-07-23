@@ -35,8 +35,9 @@ namespace Test1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(" + "\"Program_Main_6\"" + @");
+            Console.WriteLine(" + "\"startProgram_Main_6\"" + @");
             var dt = DateTime.Now;
+            Console.WriteLine(" + "\"endProgram_Main_6\"" + @");
         }
     }
 }";
@@ -48,7 +49,7 @@ namespace Test1
         public void TestMethodRewriterAddVariable()
         {
 
-            var rc = new RewriteCode("string s=\"this is method {nameMethod} from class {nameClass} at line {lineStartNumber}\";");
+            var rc = new RewriteCode("string s=\"this is method {nameMethod} from class {nameClass} at line {lineStartNumber}\";",null);
             rc.PreserveLinesNumber = false;
             rc.Code = @"
 using System;

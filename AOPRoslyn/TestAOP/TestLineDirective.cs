@@ -43,9 +43,10 @@ namespace Test1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(" + "\"Program_Main_6\"" + @");
+            Console.WriteLine(" + "\"startProgram_Main_6\"" + @");
 #line 9
             var dt = DateTime.Now;
+            Console.WriteLine(" + "\"endProgram_Main_6\"" + @");
         }
     }
 }";
