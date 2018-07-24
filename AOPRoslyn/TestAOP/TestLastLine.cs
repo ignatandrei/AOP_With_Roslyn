@@ -12,10 +12,13 @@ namespace TestAOP
         {
 
             var rc = new RewriteCode(
-                formatterFirstLine: "Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
-                formatterLastLine: "Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
+                new AOPFormatter()
+                {
+                    FormatterFirstLine = "Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
+                    FormatterLastLine = "Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
+                }
                 );
-            rc.PreserveLinesNumber = false;
+            rc.Options.PreserveLinesNumber = false;
             rc.Code = @"
 using System;
 namespace Test1

@@ -5,32 +5,35 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace AOPRoslyn
 {
+    public class RewriteOptions
+    {
+        public bool PreserveLinesNumber { get; set; } = true;
+        public bool WriteArguments { get; set; } = false;
+        public string ArgumentSeparator { get; set; } = ",";
+    }
     public class RewriteCode
     {
-        public static readonly string firstLineMethod = "Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");";
-        public static readonly string lastLineMethod = "Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");";
-        public RewriteCode() : this(firstLineMethod, lastLineMethod)
+        public RewriteCode() : this(AOPFormatter.DefaultFormatter)
         {
 
         }
-        public bool PreserveLinesNumber { get; set; } = true;
-        public RewriteCode(string formatterFirstLine,string formatterLastLine)
+        public AOPFormatter Formatter { get; }
+        public RewriteOptions Options { get; }
+        public RewriteCode(AOPFormatter formatter)
         {
-            FormatterFirstLine = formatterFirstLine;
-            FormatterLastLine = formatterLastLine;
+            Formatter = formatter;
+            Options = new RewriteOptions();
         }
         public string Code { get; set; }
-        public string FormatterFirstLine { get; }
-        public string FormatterLastLine { get; }
-
+        
         public virtual string RewriteCodeMethod()
         {
             var tree = CSharpSyntaxTree.ParseText(Code);
             
             var node = tree.GetRoot();
             node=ModifyRegionToTrivia(node);
-            var LG = new MethodRewriter(FormatterFirstLine,FormatterLastLine);
-            LG.PreserveLinesNumber = PreserveLinesNumber;
+            var LG = new MethodRewriter(Formatter, Options);
+                    
             var sn = LG.Visit(node);
             var data= sn.ToFullString();
             //BUG - cannot have this space between #line and number

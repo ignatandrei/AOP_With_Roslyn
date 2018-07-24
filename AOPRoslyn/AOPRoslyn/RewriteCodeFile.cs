@@ -7,13 +7,13 @@ namespace AOPRoslyn
 {
     public class RewriteCodeFile : IRewriteAction
     {
-        RewriteCode rc;
-        public RewriteCodeFile(string fileName): this(RewriteCode.firstLineMethod,RewriteCode.lastLineMethod,fileName)
+        public RewriteCode rc { get; set; }
+        public RewriteCodeFile(string fileName): this(AOPFormatter.DefaultFormatter,fileName)
         {
         }
-        public RewriteCodeFile(string formatterFirstLine, string formatterLastLine, string fileName)
+        public RewriteCodeFile(AOPFormatter formatter, string fileName)
         {
-            rc = new RewriteCode(formatterFirstLine, formatterLastLine);
+            rc = new RewriteCode(formatter);
             FileName = fileName;
         }
 

@@ -12,7 +12,7 @@ namespace TestAOP
         {
 
             var rc = new RewriteCode();
-            rc.PreserveLinesNumber = false;
+            rc.Options.PreserveLinesNumber = false;
             rc.Code = @"
 using System;
 namespace Test1
@@ -49,8 +49,14 @@ namespace Test1
         public void TestMethodRewriterAddVariable()
         {
 
-            var rc = new RewriteCode("string s=\"this is method {nameMethod} from class {nameClass} at line {lineStartNumber}\";",null);
-            rc.PreserveLinesNumber = false;
+            var rc = new RewriteCode(
+                new AOPFormatter()
+                {
+                     FormatterFirstLine= "string s=\"this is method {nameMethod} from class {nameClass} at line {lineStartNumber}\";",
+                     FormatterLastLine = null
+                }
+                );
+            rc.Options.PreserveLinesNumber = false;
             rc.Code = @"
 using System;
 namespace Test1

@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace TestAOP
+{
+    class TestClassPersonWithArguments
+    { 
+        public TestClassPersonWithArguments(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
+
+        public string FirstName { get; }
+        public string LastName { get; }
+
+        public static TestClassPersonWithArguments CopyConstructor(TestClassPersonWithArguments t)
+{Console.WriteLine("start TestClassPersonWithArguments_CopyConstructor_17");Console.WriteLine((t??default(TestClassPersonWithArguments)).ToString());
+#line 20
+var newTC = new TestClassPerson(t.FirstName, t.LastName);
+            return t;
+Console.WriteLine("end TestClassPersonWithArguments_CopyConstructor_17");}        public string Name(string separator = "")
+{Console.WriteLine("start TestClassPersonWithArguments_Name_22");Console.WriteLine((separator??"").ToString());
+#line 25
+return FirstName + separator + LastName;
+Console.WriteLine("end TestClassPersonWithArguments_Name_22");}         
+        public int Length()
+{Console.WriteLine("start TestClassPersonWithArguments_Length_27");Console.WriteLine();
+#line 30
+return Name().Length;
+Console.WriteLine("end TestClassPersonWithArguments_Length_27");}        public static TestClassPersonWithArguments ConstructorFromProperties(string firstName, string lastName)
+{Console.WriteLine("start TestClassPersonWithArguments_ConstructorFromProperties_31");Console.WriteLine((firstName??"").ToString(),(lastName??"").ToString());
+#line 34
+return new TestClassPersonWithArguments(firstName, lastName);
+Console.WriteLine("end TestClassPersonWithArguments_ConstructorFromProperties_31");}    }
+}

@@ -57,8 +57,11 @@ namespace Test1
         public void TestException()
         {
             var rc = new RewriteCode(
-                formatterFirstLine: "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
-                formatterLastLine: "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
+                new AOPFormatter()
+                {
+                    FormatterFirstLine = "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
+                    FormatterLastLine = "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
+                }
                 );
             rc.Code = @"string s = null; 
 // some comment at line 2
@@ -124,8 +127,11 @@ public static string Test(string s) {
         public void TestNoLineRefactoring()
         {
             var rc = new RewriteCode(
-                formatterFirstLine: "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
-                formatterLastLine: "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
+                new AOPFormatter()
+                {
+                    FormatterFirstLine = "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
+                    FormatterLastLine = "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
+                }
                 );
             rc.Code = @"string s = null; 
 // some comment at line 2

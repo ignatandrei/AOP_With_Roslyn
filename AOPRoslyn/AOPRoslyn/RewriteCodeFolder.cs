@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace AOPRoslyn
 {
@@ -8,29 +9,31 @@ namespace AOPRoslyn
         public event EventHandler<string> EndProcessingFile;
         public event EventHandler<string> StartProcessingFile;
         public RewriteCodeFolder( string folderName, string searchPattern) : 
-            this(RewriteCode.firstLineMethod, RewriteCode.lastLineMethod, folderName, searchPattern)
+            this(AOPFormatter.DefaultFormatter, folderName, searchPattern)
         {
 
         }
-        public RewriteCodeFolder(string formatterFirstLine, string formatterLastLine, string folderName, string searchPattern) 
+        public RewriteCodeFolder(AOPFormatter formatter, string folderName, string searchPattern) 
         {
-            FormatterFirstLine = formatterFirstLine;
-            FormatterLastLine = formatterLastLine;
+            
             FolderName = folderName;
             SearchPattern = searchPattern;
-            
+            ExcludeFileNames = new string[0];
+            Formatter = formatter;
         }
-
-        public string FormatterFirstLine { get; }
-        public string FormatterLastLine { get; }
+        public string[] ExcludeFileNames;
+      
         public string FolderName { get; }
         public string SearchPattern { get; }
-
+        public AOPFormatter Formatter { get; }
         public void Rewrite()
         {
-            var rc = new RewriteCodeFile(FormatterFirstLine, FormatterLastLine, null);
+            var rc = new RewriteCodeFile(Formatter, null);
             foreach (var item in Directory.EnumerateFiles(FolderName, SearchPattern, SearchOption.AllDirectories))
             {
+                if (ExcludeFileNames.Contains(Path.GetFileName(item)))
+                    continue;
+
                 if (StartProcessingFile != null) //TODO: make a bool
                     StartProcessingFile(this, item);
                 rc.FileName = item;

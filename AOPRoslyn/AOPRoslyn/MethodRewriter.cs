@@ -5,17 +5,17 @@ using System;
 using FormatWith;
 namespace AOPRoslyn
 {
-    public class MethodRewriter: CSharpSyntaxRewriter
+    internal class MethodRewriter: CSharpSyntaxRewriter
     {
-        public bool PreserveLinesNumber { get; set; } = true;
-        public MethodRewriter(string formatterFirstLine,string formatterLastLine=null)
+        private readonly AOPFormatter Formatter;
+
+        public readonly RewriteOptions Options;
+        public MethodRewriter(AOPFormatter formatter, RewriteOptions options)
         {
-            FormatterFirstLine = formatterFirstLine;
-            FormatterLastLine = formatterLastLine;
+            Options = options;
+            Formatter = formatter;
         }
-        public string FormatterFirstLine { get; }
-        public string FormatterLastLine { get; set; }
-        private void TryToIdentifyParameter(ParameterSyntax p)
+        private static string TryToIdentifyParameter(ParameterSyntax p, AOPFormatter format)
         {
             string nameArgument = p.Identifier.Text;
             string typeArgument = "";
@@ -24,24 +24,30 @@ namespace AOPRoslyn
             if (t != null)
             {
                 typeArgument = t.Keyword.Text;
-                return;
+                
+                
             }
             var i = p.Type as IdentifierNameSyntax;
             if(i != null)
             {
                 
                 typeArgument = i.Identifier.Text;
-                return;
+                
             }
             var a = p.Type as ArrayTypeSyntax;
             if(a != null)
             {
                 typeArgument = a.ElementType.ToString();
-                return;
+                
             }
-            
-            string full = nameArgument + " " + typeArgument;
+            var str = format.FormattedText(typeArgument);
+            if (str == null)
+                return str;
+            str= str.FormatWith(new { item = nameArgument, itemtype = typeArgument });
+            return str;
 
+            //string full = nameArgument + " " + typeArgument;
+            
         }
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
         {
@@ -55,28 +61,36 @@ namespace AOPRoslyn
 
             var nameMethod = node.Identifier.Text;
             var nameClass = parent.Identifier.Text;
-            if (node.ParameterList.Parameters.Count > 0)
+            string arguments = "";
+            if (Options.WriteArguments)
             {
                 var parameters = node.ParameterList.Parameters;
-                foreach(var p in parameters)
+                if (parameters.Count > 0)
                 {
-                    TryToIdentifyParameter(p);
+                    var l = parameters.Count;
+                    var argsArray = new string[l];
+                    for (int i = 0; i < l; i++)
+                    {
+                        argsArray[i]=TryToIdentifyParameter(parameters[i], Formatter);
+                    }
+                    arguments = string.Join(Options.ArgumentSeparator, argsArray);
                 }
             }
             node = (MethodDeclarationSyntax)base.VisitMethodDeclaration(node);
             var lineStart = node.GetLocation().GetLineSpan().StartLinePosition;
 
             StatementSyntax cmdFirstLine = null;
-            if (FormatterFirstLine != null)
+            if (Formatter.FormatterFirstLine != null)
             {
-                string firstLine = FormatterFirstLine.FormatWith(new { nameClass, nameMethod, lineStartNumber = lineStart.Line });
+                string firstLine = Formatter.FormatterFirstLine.FormatWith(new { nameClass, nameMethod, lineStartNumber = lineStart.Line , arguments});
                 cmdFirstLine = SyntaxFactory.ParseStatement(firstLine);
+
             }
 
             StatementSyntax cmdLastLine = null;
-            if (FormatterLastLine != null)
+            if (Formatter.FormatterLastLine != null)
             {
-                string lastLine = FormatterLastLine.FormatWith(new { nameClass, nameMethod, lineStartNumber = lineStart.Line });
+                string lastLine = Formatter.FormatterLastLine.FormatWith(new { nameClass, nameMethod, lineStartNumber = lineStart.Line });
                 cmdLastLine= SyntaxFactory.ParseStatement(lastLine);
             }
             var blockWithNewStatements = new SyntaxList<StatementSyntax>();
@@ -86,7 +100,7 @@ namespace AOPRoslyn
             for (int i = node.Body.Statements.Count - 1; i >= 0; i--)
             {
                 var st = node.Body.Statements[i];
-                if(PreserveLinesNumber && i == 0  )
+                if(Options.PreserveLinesNumber && i == 0  )
                 {
                     var line = st.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
                     var lit = SyntaxFactory.Literal(line.ToString(), line);
