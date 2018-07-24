@@ -10,7 +10,10 @@ namespace AOPRoslyn
         { 
             FormatArguments = new Dictionary<string, string>();
             FormatArguments.Add("string", "({item}??\"\").ToString()");
-            FormatArguments.Add("*", "({item}??default({itemtype})).ToString()");
+            //TODO: add datetime, guid
+            FormatArguments.Add(ArgumentType.Class.ToString(), "({item}??default({itemtype})).ToString()");
+            FormatArguments.Add(ArgumentType.ValueType.ToString(), "{item}.ToString()");
+
 
         }
         public static readonly string firstLineMethod = "Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");";
@@ -32,13 +35,13 @@ namespace AOPRoslyn
 
         //type with text
         public Dictionary<string, string> FormatArguments;
-        public string FormattedText(string type)
+        internal string FormattedText(string type, ArgumentType arg)
         {
             if (FormatArguments.ContainsKey(type))
                 return FormatArguments[type];
 
-            if (FormatArguments.ContainsKey("*"))
-                return FormatArguments["*"];
+            if (FormatArguments.ContainsKey(arg.ToString()))
+                return FormatArguments[arg.ToString()];
 
             return null;
 

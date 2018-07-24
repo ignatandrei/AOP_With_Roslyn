@@ -19,12 +19,12 @@ namespace AOPRoslyn
         {
             string nameArgument = p.Identifier.Text;
             string typeArgument = "";
-            
+            var at = ArgumentType.None;
             var t = p.Type as PredefinedTypeSyntax;
             if (t != null)
             {
                 typeArgument = t.Keyword.Text;
-                
+                at = ArgumentType.ValueType;
                 
             }
             var i = p.Type as IdentifierNameSyntax;
@@ -32,15 +32,15 @@ namespace AOPRoslyn
             {
                 
                 typeArgument = i.Identifier.Text;
-                
+                at = ArgumentType.Class;
             }
             var a = p.Type as ArrayTypeSyntax;
             if(a != null)
             {
                 typeArgument = a.ElementType.ToString();
-                
+                at = ArgumentType.Array;
             }
-            var str = format.FormattedText(typeArgument);
+            var str = format.FormattedText(typeArgument,at);
             if (str == null)
                 return str;
             str= str.FormatWith(new { item = nameArgument, itemtype = typeArgument });
