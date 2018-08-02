@@ -8,7 +8,7 @@ namespace AOPRoslyn
     public class RewriteOptions
     {
         public bool PreserveLinesNumber { get; set; } = true;
-        public bool WriteArguments { get; set; } = false;
+        public string NoArguments { get; set; } = "\"No arguments in FormatArguments\"";
         public string ArgumentSeparator { get; set; } = ",";
     }
     public class RewriteCode

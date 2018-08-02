@@ -14,11 +14,10 @@ namespace TestAOP
         public void TestArgumentsFor()
         { 
             string fileName = @"ClassesForTesting\TestClassPersonWithArguments.cs";
-            var text = File.ReadAllText(fileName);
-            var rcf = new RewriteCodeFile(fileName);
-            rcf.rc.Options.WriteArguments = true;
+            var text = File.ReadAllText(fileName); 
+            var rcf = new RewriteCodeFile(fileName);            
             rcf.rc.Formatter.FormatterFirstLine += "System.Console.WriteLine({arguments});";
-            rcf.Rewrite();
+            rcf.Rewrite(); 
             string expected = File.ReadAllText(fileName);
             Assert.AreNotEqual(text, expected);
             Assert.AreEqual(File.ReadAllText(fileName + ".expected"), expected);

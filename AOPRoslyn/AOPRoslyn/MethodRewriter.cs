@@ -3,6 +3,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using FormatWith;
+using System.Linq;
+
 namespace AOPRoslyn
 {
     internal class MethodRewriter: CSharpSyntaxRewriter
@@ -24,7 +26,7 @@ namespace AOPRoslyn
             if (t != null)
             {
                 typeArgument = t.Keyword.Text;
-                at = ArgumentType.ValueType;
+                
                 
             }
             var i = p.Type as IdentifierNameSyntax;
@@ -32,17 +34,22 @@ namespace AOPRoslyn
             {
                 
                 typeArgument = i.Identifier.Text;
-                at = ArgumentType.Class;
+                
             }
             var a = p.Type as ArrayTypeSyntax;
             if(a != null)
             {
                 typeArgument = a.ElementType.ToString();
-                at = ArgumentType.Array;
+                
             }
-            var str = format.FormattedText(typeArgument,at);
+            var str = format.FormattedText(typeArgument);
             if (str == null)
+            {
+                str = format.DefaultFormattedText();
+            }
+            if(str == null)
                 return str;
+
             str= str.FormatWith(new { item = nameArgument, itemtype = typeArgument });
             return str;
 
@@ -62,7 +69,7 @@ namespace AOPRoslyn
             var nameMethod = node.Identifier.Text;
             var nameClass = parent.Identifier.Text;
             string arguments = "";
-            if (Options.WriteArguments)
+            //if (Options.WriteArguments)
             {
                 var parameters = node.ParameterList.Parameters;
                 if (parameters.Count > 0)
@@ -73,7 +80,11 @@ namespace AOPRoslyn
                     {
                         argsArray[i]=TryToIdentifyParameter(parameters[i], Formatter);
                     }
-                    arguments = string.Join(Options.ArgumentSeparator, argsArray);
+                    var data = argsArray.Where(it => it != null).ToArray();
+                    if (data.Length > 0)
+                        arguments = string.Join(Options.ArgumentSeparator, data);
+                    else
+                        arguments = this.Options.NoArguments;
                 }
             }
             node = (MethodDeclarationSyntax)base.VisitMethodDeclaration(node);

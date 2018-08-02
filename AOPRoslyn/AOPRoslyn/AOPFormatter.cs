@@ -9,10 +9,10 @@ namespace AOPRoslyn
         public AOPFormatter()
         { 
             FormatArguments = new Dictionary<string, string>();
+            FormatArguments.Add("*", "\"no identifiable argument type {itemtype} \"");
             FormatArguments.Add("string", "({item}??\"\").ToString()");
             //TODO: add datetime, guid
-            FormatArguments.Add(ArgumentType.Class.ToString(), "({item}??default({itemtype})).ToString()");
-            FormatArguments.Add(ArgumentType.ValueType.ToString(), "{item}.ToString()");
+            //TODO: see stankins
 
 
         }
@@ -35,14 +35,18 @@ namespace AOPRoslyn
 
         //type with text
         public Dictionary<string, string> FormatArguments;
-        internal string FormattedText(string type, ArgumentType arg)
+        internal string DefaultFormattedText()
+        {
+            if (FormatArguments.ContainsKey("*"))
+                return FormatArguments["*"];
+
+            return null;
+        }
+        internal string FormattedText(string type)
         {
             if (FormatArguments.ContainsKey(type))
-                return FormatArguments[type];
-
-            if (FormatArguments.ContainsKey(arg.ToString()))
-                return FormatArguments[arg.ToString()];
-
+                return FormatArguments[type]; 
+            
             return null;
 
         }

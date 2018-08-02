@@ -11,7 +11,7 @@
       "Class": "({item}??default({itemtype})).ToString()",
       "ValueType": "{item}.ToString()"
     },
-    "FormatterFirstLine": "Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
-    "FormatterLastLine": "Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
+    "FormatterFirstLine": "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");System.Console.WriteLine({arguments});",
+    "FormatterLastLine": "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\"); "
   }
 }

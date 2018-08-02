@@ -16,7 +16,7 @@ namespace TestAOP
         public string LastName { get; }
 
         public static TestClassPersonWithArguments CopyConstructor(TestClassPersonWithArguments t)
-{System.Console.WriteLine("start TestClassPersonWithArguments_CopyConstructor_17");System.Console.WriteLine((t??default(TestClassPersonWithArguments)).ToString());
+{System.Console.WriteLine("start TestClassPersonWithArguments_CopyConstructor_17");System.Console.WriteLine("no identifiable argument type TestClassPersonWithArguments ");
 #line 20
 var newTC = new TestClassPerson(t.FirstName, t.LastName);
             return t;
