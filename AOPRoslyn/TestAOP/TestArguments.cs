@@ -17,7 +17,7 @@ namespace TestAOP
             var text = File.ReadAllText(fileName);
             var rcf = new RewriteCodeFile(fileName);
             rcf.rc.Options.WriteArguments = true;
-            rcf.rc.Formatter.FormatterFirstLine += "Console.WriteLine({arguments});";
+            rcf.rc.Formatter.FormatterFirstLine += "System.Console.WriteLine({arguments});";
             rcf.Rewrite();
             string expected = File.ReadAllText(fileName);
             Assert.AreNotEqual(text, expected);

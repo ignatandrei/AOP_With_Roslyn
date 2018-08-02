@@ -16,8 +16,8 @@ namespace AOPRoslyn
 
 
         }
-        public static readonly string firstLineMethod = "Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");";
-        public static readonly string lastLineMethod = "Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");";
+        public static readonly string firstLineMethod = "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");";
+        public static readonly string lastLineMethod = "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");";
 
         //TODO: Make singleton
         public static AOPFormatter DefaultFormatter {

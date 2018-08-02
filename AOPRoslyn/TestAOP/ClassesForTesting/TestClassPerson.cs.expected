@@ -16,18 +16,18 @@ namespace TestAOP
         public string LastName { get; }
 
         public static TestClassPerson CopyConstructor(TestClassPerson t)
-{Console.WriteLine("start TestClassPerson_CopyConstructor_17");
+{System.Console.WriteLine("start TestClassPerson_CopyConstructor_17");
 #line 20
 var newTC = new TestClassPerson(t.FirstName, t.LastName);
             return t;
-Console.WriteLine("end TestClassPerson_CopyConstructor_17");}        public string Name(string separator = "")
-{Console.WriteLine("start TestClassPerson_Name_22");
+System.Console.WriteLine("end TestClassPerson_CopyConstructor_17");}        public string Name(string separator = "")
+{System.Console.WriteLine("start TestClassPerson_Name_22");
 #line 25
 return FirstName + separator + LastName;
-Console.WriteLine("end TestClassPerson_Name_22");}        
+System.Console.WriteLine("end TestClassPerson_Name_22");}        
         public int Length()
-{Console.WriteLine("start TestClassPerson_Length_27");
+{System.Console.WriteLine("start TestClassPerson_Length_27");
 #line 30
 return Name().Length;
-Console.WriteLine("end TestClassPerson_Length_27");}    }
+System.Console.WriteLine("end TestClassPerson_Length_27");}    }
 }
