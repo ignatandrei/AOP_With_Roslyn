@@ -4,10 +4,14 @@ using System.Linq;
 
 namespace AOPRoslyn
 {
-    public class RewriteCodeFolder: IRewriteAction
+    public class RewriteCodeFolder: RewriteAction
     {
         public event EventHandler<string> EndProcessingFile;
         public event EventHandler<string> StartProcessingFile;
+        public RewriteCodeFolder() : this(null, null)
+        {
+
+        }
         public RewriteCodeFolder( string folderName, string searchPattern) : 
             this(AOPFormatter.DefaultFormatter, folderName, searchPattern)
         {
@@ -21,12 +25,12 @@ namespace AOPRoslyn
             ExcludeFileNames = new string[0];
             Formatter = formatter;
         }
-        public string[] ExcludeFileNames;
-      
-        public string FolderName { get; }
-        public string SearchPattern { get; }
-        public AOPFormatter Formatter { get; }
-        public void Rewrite()
+        public string[] ExcludeFileNames { get; set; }
+
+        public string FolderName { get; set; }
+        public string SearchPattern { get; set; }
+        public AOPFormatter Formatter { get; set; }
+        public override void Rewrite()
         {
             var rc = new RewriteCodeFile(Formatter, null);
             foreach (var item in Directory.EnumerateFiles(FolderName, SearchPattern, SearchOption.AllDirectories))

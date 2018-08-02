@@ -5,9 +5,11 @@ using System.Text;
 
 namespace AOPRoslyn
 {
-    public class RewriteCodeFile : IRewriteAction
+    public class RewriteCodeFile : RewriteAction
     {
-        public RewriteCode rc { get; set; }
+        public RewriteCodeFile() : this(AOPFormatter.DefaultFormatter, null)
+        {
+        }
         public RewriteCodeFile(string fileName): this(AOPFormatter.DefaultFormatter,fileName)
         {
         }
@@ -16,9 +18,9 @@ namespace AOPRoslyn
             rc = new RewriteCode(formatter);
             FileName = fileName;
         }
-
-        public string FileName { get; internal set; }
-        public void Rewrite()
+        public RewriteCode rc { get; set; }
+        public string FileName { get;  set; }
+        public override void Rewrite()
         {
             var Code = File.ReadAllText(FileName);
             if (string.IsNullOrWhiteSpace(Code))
