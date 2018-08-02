@@ -1,0 +1,17 @@
+{
+  "$type": "AOPRoslyn.RewriteCodeFolder, AOPRoslyn",
+  "ExcludeFileNames": [],
+  "FolderName": ".",
+  "SearchPattern": "*.cs",
+  "Formatter": {
+    "$type": "AOPRoslyn.AOPFormatter, AOPRoslyn",
+    "FormatArguments": {
+      "$type": "System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib],[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+      "string": "({item}??\"\").ToString()",
+      "Class": "({item}??default({itemtype})).ToString()",
+      "ValueType": "{item}.ToString()"
+    },
+    "FormatterFirstLine": "Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
+    "FormatterLastLine": "Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
+  }
+}

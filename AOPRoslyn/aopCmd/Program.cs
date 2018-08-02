@@ -1,9 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
+using AOPRoslyn;
 using McMaster.Extensions.CommandLineUtils;
 
 namespace aop
 {
+    //TODO: add debug own version
     [Command(Description = "Simple dot net aop.")]
     class Program
     {
@@ -19,6 +22,8 @@ namespace aop
 
         private int OnExecute()
         {
+            var rewrite = RewriteAction.UnSerializeMe(File.ReadAllText(Name));
+            rewrite.Rewrite();            
             return 0;
             //for (var i = 0; i < Count; i++)
             //{

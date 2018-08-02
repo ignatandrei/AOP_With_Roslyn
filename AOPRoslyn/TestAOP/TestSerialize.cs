@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Text;
 
 namespace TestAOP
@@ -16,6 +18,8 @@ namespace TestAOP
             var text = rc.SerializeMe();
             var newClass = RewriteAction.UnSerializeMe(text) as RewriteCodeFolder;
             Assert.IsNotNull(newClass);
+            //File.WriteAllText("a.txt", text);
+            //Process.Start("notepad.exe", "a.txt");
             Assert.AreEqual(rc.FolderName, newClass.FolderName);
 
         }
