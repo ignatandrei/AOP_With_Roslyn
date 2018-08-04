@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace AOPRoslyn
 {
+    [DebuggerDisplay("AOPFormatter= {DebugDisplay()}")]
     public class AOPFormatter
     {
         public AOPFormatter()
@@ -13,6 +15,10 @@ namespace AOPRoslyn
             //TODO: see stankins
 
 
+        }
+        public string DebugDisplay()
+        {
+            return $"Number arguments {FormatArguments?.ToString()} ";
         }
         public static readonly string firstLineMethod = "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");";
         public static readonly string lastLineMethod = "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");";

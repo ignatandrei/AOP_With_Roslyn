@@ -9,7 +9,7 @@
     "FormatArguments": {
       "$type": "System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib],[System.String, System.Private.CoreLib]], System.Private.CoreLib",
       "*": "\"no identifiable argument type {itemtype} \"",
-      "string": "({item}??\"\").ToString()"
+      "AOPFormatter": "({item}?.DebugDisplay()"
     },
     "FormatterFirstLine": "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");System.Console.WriteLine({arguments});",
     "FormatterLastLine": "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\"); "
