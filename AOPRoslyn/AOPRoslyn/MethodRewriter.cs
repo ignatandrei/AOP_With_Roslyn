@@ -72,7 +72,11 @@ namespace AOPRoslyn
             //if (Options.WriteArguments)
             {
                 var parameters = node.ParameterList.Parameters;
-                if (parameters.Count > 0)
+                if (parameters.Count == 0)
+                {
+                    arguments = this.Options.NoArguments;
+                }
+                else
                 {
                     var l = parameters.Count;
                     var argsArray = new string[l];

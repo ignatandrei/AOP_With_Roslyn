@@ -3,6 +3,7 @@
   "ExcludeFileNames": [],
   "FolderName": ".",
   "SearchPattern": "*.cs",
+"AddDefaultArguments": "true",
   "Formatter": {
     "$type": "AOPRoslyn.AOPFormatter, AOPRoslyn",
     "FormatArguments": {

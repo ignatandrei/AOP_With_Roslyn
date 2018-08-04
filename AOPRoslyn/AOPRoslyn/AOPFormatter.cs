@@ -40,6 +40,7 @@ namespace AOPRoslyn
             AddIfNotExists("*", "\"no identifiable argument type {itemtype} \"");
             AddIfNotExists("string", "({item}??\"\").ToString()");
             AddIfNotExists("ParameterSyntax", "{item}?.ToString()");
+            AddIfNotExists("MethodDeclarationSyntax", "{item}?.ToFullString()");
             AddedOnce = true;
         }
         private void AddIfNotExists(string key, string value)

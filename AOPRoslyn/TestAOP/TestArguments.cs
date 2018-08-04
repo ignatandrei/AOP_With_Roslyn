@@ -1,5 +1,6 @@
 ﻿using AOPRoslyn;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,8 +20,12 @@ namespace TestAOP
             rcf.rc.Formatter.FormatterFirstLine += "System.Console.WriteLine({arguments});";
             rcf.Rewrite(); 
             string expected = File.ReadAllText(fileName);
+            
             Assert.AreNotEqual(text, expected);
-            Assert.AreEqual(File.ReadAllText(fileName + ".expected"), expected);
+            var fromDisk = File.ReadAllText(fileName + ".expected");
+            expected.ShouldBe(fromDisk, StringCompareShould.IgnoreCase);
+
+            //Assert.AreEqual(fromDisk, expected);
             FileInfo fi = new FileInfo(fileName);
             fi.IsReadOnly = false;
             File.WriteAllText(fileName, text);
