@@ -9,8 +9,6 @@ namespace AOPRoslyn
         public AOPFormatter()
         { 
             FormatArguments = new Dictionary<string, string>();
-            FormatArguments.Add("*", "\"no identifiable argument type {itemtype} \"");
-            FormatArguments.Add("string", "({item}??\"\").ToString()");
             //TODO: add datetime, guid
             //TODO: see stankins
 
@@ -18,7 +16,7 @@ namespace AOPRoslyn
         }
         public static readonly string firstLineMethod = "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");";
         public static readonly string lastLineMethod = "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");";
-
+        public bool AddDefaultArguments { get; set; } = true;
         //TODO: Make singleton
         public static AOPFormatter DefaultFormatter {
             get
@@ -33,7 +31,23 @@ namespace AOPRoslyn
         public string FormatterFirstLine { get; set; }
         public string FormatterLastLine { get; set; }
 
-        //type with text
+        private bool AddedOnce = false;
+        private void AddDefaultArgumentsOnce()
+        {
+            if (AddedOnce)
+                return;
+
+            AddIfNotExists("*", "\"no identifiable argument type {itemtype} \"");
+            AddIfNotExists("string", "({item}??\"\").ToString()");
+            AddIfNotExists("ParameterSyntax", "{item}?.ToString()");
+            AddedOnce = true;
+        }
+        private void AddIfNotExists(string key, string value)
+        {
+            if (FormatArguments.ContainsKey(key))
+                return;
+            FormatArguments.Add(key, value);
+        }
         public Dictionary<string, string> FormatArguments;
         internal string DefaultFormattedText()
         {
@@ -44,6 +58,9 @@ namespace AOPRoslyn
         }
         internal string FormattedText(string type)
         {
+            if(AddDefaultArguments & !AddedOnce)
+                AddDefaultArgumentsOnce();
+
             if (FormatArguments.ContainsKey(type))
                 return FormatArguments[type]; 
             
