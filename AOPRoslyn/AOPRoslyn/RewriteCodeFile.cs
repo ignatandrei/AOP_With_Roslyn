@@ -15,10 +15,10 @@ namespace AOPRoslyn
         }
         public RewriteCodeFile(AOPFormatter formatter, string fileName)
         {
-            rc = new RewriteCode(formatter);
+            rc = new RewriteCode(formatter);           
             FileName = fileName;
         }
-        public RewriteCode rc { get; set; }
+        private RewriteCode rc { get; set; }
         public string FileName { get;  set; }
         public override void Rewrite()
         {
@@ -26,6 +26,8 @@ namespace AOPRoslyn
             if (string.IsNullOrWhiteSpace(Code))
                 return;
             rc.Code = Code;
+            rc.Formatter = Formatter;
+            rc.Options = Options;
             FileInfo fi = new FileInfo(FileName);
             if (fi.IsReadOnly)
                 fi.IsReadOnly = false;

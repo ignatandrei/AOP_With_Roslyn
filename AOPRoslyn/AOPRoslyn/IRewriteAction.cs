@@ -4,7 +4,15 @@ namespace AOPRoslyn
 {
     public abstract class RewriteAction
     {
+        public RewriteAction()
+        {
+            this.Formatter = AOPFormatter.DefaultFormatter;
+            this.Options = new RewriteOptions();
+        }
         public abstract void Rewrite();
+
+        public AOPFormatter Formatter { get; set; }
+        public RewriteOptions Options { get; set; }
         public string SerializeMe()
         {
             var settings = new JsonSerializerSettings()

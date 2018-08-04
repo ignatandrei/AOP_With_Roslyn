@@ -5,20 +5,14 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace AOPRoslyn
 {
-    public class RewriteOptions
-    {
-        public bool PreserveLinesNumber { get; set; } = true;
-        public string NoArguments { get; set; } = "\"No arguments in method\"";
-        public string ArgumentSeparator { get; set; } = "+";
-    }
     public class RewriteCode
     {
         public RewriteCode() : this(AOPFormatter.DefaultFormatter)
         {
 
         }
-        public AOPFormatter Formatter { get; }
-        public RewriteOptions Options { get; }
+        public AOPFormatter Formatter { get; internal set; }
+        public RewriteOptions Options { get; internal set; }
         public RewriteCode(AOPFormatter formatter)
         {
             Formatter = formatter;

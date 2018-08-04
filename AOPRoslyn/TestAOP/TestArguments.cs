@@ -13,11 +13,11 @@ namespace TestAOP
     {
         [TestMethod]
         public void TestArgumentsFor()
-        {
+        {    
             string fileName = @"ClassesForTesting\TestClassPersonWithArguments.cs";
             var text = File.ReadAllText(fileName); 
             var rcf = new RewriteCodeFile(fileName);            
-            rcf.rc.Formatter.FormatterFirstLine += "System.Console.WriteLine({arguments});";
+            rcf.Formatter.FormatterFirstLine += "System.Console.WriteLine({arguments});";
             rcf.Rewrite(); 
             string expected = File.ReadAllText(fileName);
             

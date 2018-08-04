@@ -10,7 +10,7 @@ namespace AOPRoslyn
         public event EventHandler<string> StartProcessingFile;
         public RewriteCodeFolder() : this(null, null)
         {
-
+           
         }
         public RewriteCodeFolder( string folderName, string searchPattern) : 
             this(AOPFormatter.DefaultFormatter, folderName, searchPattern)
@@ -24,15 +24,18 @@ namespace AOPRoslyn
             SearchPattern = searchPattern;
             ExcludeFileNames = new string[0];
             Formatter = formatter;
+            Options = new RewriteOptions();
+
         }
         public string[] ExcludeFileNames { get; set; }
 
         public string FolderName { get; set; }
         public string SearchPattern { get; set; }
-        public AOPFormatter Formatter { get; set; }
+        
         public override void Rewrite()
         {
             var rc = new RewriteCodeFile(Formatter, null);
+            rc.Options = Options;
             foreach (var item in Directory.EnumerateFiles(FolderName, SearchPattern, SearchOption.AllDirectories))
             {
                 if (ExcludeFileNames.Contains(Path.GetFileName(item)))

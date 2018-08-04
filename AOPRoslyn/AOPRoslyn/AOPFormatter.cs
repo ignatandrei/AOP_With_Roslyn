@@ -30,7 +30,8 @@ namespace AOPRoslyn
                 return new AOPFormatter()
                 {
                     FormatterFirstLine = firstLineMethod,
-                    FormatterLastLine = lastLineMethod
+                    FormatterLastLine = lastLineMethod,
+                    AddDefaultArguments = true
                 };
             }
         }
@@ -62,6 +63,9 @@ namespace AOPRoslyn
         public Dictionary<string, string> FormatArguments;
         internal string DefaultFormattedText()
         {
+            if (AddDefaultArguments & !AddedOnce)
+                AddDefaultArgumentsOnce();
+
             if (FormatArguments.ContainsKey("*"))
                 return FormatArguments["*"];
 
