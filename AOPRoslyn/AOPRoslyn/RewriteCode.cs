@@ -9,7 +9,7 @@ namespace AOPRoslyn
     {
         public bool PreserveLinesNumber { get; set; } = true;
         public string NoArguments { get; set; } = "\"No arguments in FormatArguments\"";
-        public string ArgumentSeparator { get; set; } = ",";
+        public string ArgumentSeparator { get; set; } = "+";
     }
     public class RewriteCode
     {

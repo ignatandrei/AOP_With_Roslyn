@@ -30,7 +30,7 @@ System.Console.WriteLine("end TestClassPersonWithArguments_Name_22");}
 #line 30
 return Name().Length;
 System.Console.WriteLine("end TestClassPersonWithArguments_Length_27");}        public static TestClassPersonWithArguments ConstructorFromProperties(string firstName, string lastName)
-{System.Console.WriteLine("start TestClassPersonWithArguments_ConstructorFromProperties_31");System.Console.WriteLine("firstName="+(firstName??"").ToString(),"lastName="+(lastName??"").ToString());
+{System.Console.WriteLine("start TestClassPersonWithArguments_ConstructorFromProperties_31");System.Console.WriteLine("firstName="+(firstName??"").ToString()+"lastName="+(lastName??"").ToString());
 #line 34
 return new TestClassPersonWithArguments(firstName, lastName);
 System.Console.WriteLine("end TestClassPersonWithArguments_ConstructorFromProperties_31");}    }
