@@ -42,6 +42,7 @@ namespace AOPRoslyn
             AddIfNotExists("ParameterSyntax", "{item}?.ToString()");
             AddIfNotExists("MethodDeclarationSyntax", "{item}?.ToFullString()");
             AddIfNotExists("SyntaxNode", "{item}?.ToFullString()");
+            AddIfNotExists("Compilation", "{item}?.AssemblyName");
 
 
             AddedOnce = true;
