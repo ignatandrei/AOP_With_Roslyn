@@ -44,11 +44,11 @@ namespace AOPRoslyn
                 return;
 
             AddIfNotExists("*", "\"no identifiable argument type {itemtype} \"");
-            AddIfNotExists("string", "({item}??\"\").ToString()");
-            AddIfNotExists("ParameterSyntax", "{item}?.ToString()");
-            AddIfNotExists("MethodDeclarationSyntax", "{item}?.ToFullString()");
-            AddIfNotExists("SyntaxNode", "{item}?.ToFullString()");
-            AddIfNotExists("Compilation", "{item}?.AssemblyName");
+            AddIfNotExists("string", "\"{item}=\"+({item}??\"\").ToString()");
+            AddIfNotExists("ParameterSyntax", "\"{item}=\"+{item}?.ToString()");
+            AddIfNotExists("MethodDeclarationSyntax", "\"{item}=\"+{item}?.ToFullString()");
+            AddIfNotExists("SyntaxNode", "\"{item}=\"+{item}?.ToFullString()");
+            AddIfNotExists("Compilation", "\"{item}=\"+{item}?.AssemblyName");
 
 
             AddedOnce = true;

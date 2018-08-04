@@ -21,7 +21,7 @@ namespace TestAOP
 var newTC = new TestClassPerson(t.FirstName, t.LastName);
             return t;
 System.Console.WriteLine("end TestClassPersonWithArguments_CopyConstructor_17");}        public string Name(string separator = "")
-{System.Console.WriteLine("start TestClassPersonWithArguments_Name_22");System.Console.WriteLine((separator??"").ToString());
+{System.Console.WriteLine("start TestClassPersonWithArguments_Name_22");System.Console.WriteLine("separator="+(separator??"").ToString());
 #line 25
 return FirstName + separator + LastName;
 System.Console.WriteLine("end TestClassPersonWithArguments_Name_22");}         
@@ -30,7 +30,7 @@ System.Console.WriteLine("end TestClassPersonWithArguments_Name_22");}
 #line 30
 return Name().Length;
 System.Console.WriteLine("end TestClassPersonWithArguments_Length_27");}        public static TestClassPersonWithArguments ConstructorFromProperties(string firstName, string lastName)
-{System.Console.WriteLine("start TestClassPersonWithArguments_ConstructorFromProperties_31");System.Console.WriteLine((firstName??"").ToString(),(lastName??"").ToString());
+{System.Console.WriteLine("start TestClassPersonWithArguments_ConstructorFromProperties_31");System.Console.WriteLine("firstName="+(firstName??"").ToString(),"lastName="+(lastName??"").ToString());
 #line 34
 return new TestClassPersonWithArguments(firstName, lastName);
 System.Console.WriteLine("end TestClassPersonWithArguments_ConstructorFromProperties_31");}    }
