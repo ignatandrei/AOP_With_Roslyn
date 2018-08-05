@@ -7,6 +7,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>dotnet.aop</AssemblyName>
+    <Authors>Andrei Ignat</Authors>
+    <Description>Simple AOP for .NET with Roslyn</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +16,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="..\processme.txt" Link="processme.txt">
+      <IncludeInPackage>True</IncludeInPackage>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="InterpreterDll" Version="2018.7.13.3" />
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.2.3" />
   </ItemGroup>
 
