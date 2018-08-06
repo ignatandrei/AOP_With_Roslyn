@@ -22,6 +22,7 @@ namespace AOPRoslyn
         public string FileName { get;  set; }
         public override void Rewrite()
         {
+            //dotnet-aop-uncomment System.Console.WriteLine($"processing " + FileName);
             var Code = File.ReadAllText(FileName);
             if (string.IsNullOrWhiteSpace(Code))
                 return;
