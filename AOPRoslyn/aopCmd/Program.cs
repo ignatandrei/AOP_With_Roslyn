@@ -18,7 +18,9 @@ namespace aop
             {
                 var pathDll = Assembly.GetEntryAssembly().Location;
                 var path = Path.GetDirectoryName(pathDll);
-                args = new string[] { Path.Combine(path, "processme.txt") };
+                var pathFile = Path.Combine(path, "processme.txt");
+                Console.WriteLine(" taking default process me on " + pathFile);
+                args = new string[] { pathFile };
             }
             return CommandLineApplication.Execute<Program>(args);
         }
