@@ -34,8 +34,8 @@ namespace AOPRoslyn
         
         public override void Rewrite()
         {
-            //dotnet-aop-uncomment System.Console.WriteLine($"processing " + FolderName);
             var rc = new RewriteCodeFile(Formatter, null);
+            //dotnet-aop-uncomment System.Console.WriteLine($"processing " + FolderName);
             rc.Options = Options;
             foreach (var item in Directory.EnumerateFiles(FolderName, SearchPattern, SearchOption.AllDirectories))
             {
