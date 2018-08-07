@@ -37,6 +37,7 @@ namespace AOPRoslyn
             var rc = new RewriteCodeFile(Formatter, null);
             //dotnet-aop-uncomment System.Console.WriteLine($"processing " + FolderName);
             rc.Options = Options;
+            rc.Formatter = Formatter;
             foreach (var item in Directory.EnumerateFiles(FolderName, SearchPattern, SearchOption.AllDirectories))
             {
                 if (ExcludeFileNames.Contains(Path.GetFileName(item)))

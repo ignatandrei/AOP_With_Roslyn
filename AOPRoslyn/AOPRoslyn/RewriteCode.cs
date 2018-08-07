@@ -61,12 +61,12 @@ namespace AOPRoslyn
             {
                 if (item.RawKind == (int)SyntaxKind.SingleLineCommentTrivia)
                 {
-                    string text2 = item.ToFullString();
-                    if (text2.ToLower().Contains("dotnet-aop-uncomment"))
+                    string text = item.ToFullString();
+                    if (text.ToLower().Contains("dotnet-aop-uncomment"))
                     {
-                        string text3 = text2.Replace("//dotnet-aop-uncomment", "");
+                        string valueText= text.Replace("//dotnet-aop-uncomment", "");
 
-                        triviaReplace.Add(item, SyntaxFactory.SyntaxTrivia(SyntaxKind.SingleLineCommentTrivia, text3));
+                        triviaReplace.Add(item, SyntaxFactory.SyntaxTrivia(SyntaxKind.SingleLineCommentTrivia, valueText));
                     }
                 }
             }

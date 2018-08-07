@@ -1,5 +1,6 @@
 ﻿using AOPRoslyn;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,6 +32,19 @@ namespace TestAOP
             var newClass = RewriteAction.UnSerializeMe(text) as RewriteCodeFile;
             Assert.IsNotNull(newClass);
             Assert.AreEqual(rc.FileName, newClass.FileName);
+
+        }
+        [TestMethod]
+        public void TestSerializeRewriteCodeFolderFormatter()
+        {
+            var rc = new RewriteCodeFolder(".", "*.cs");
+            rc.Formatter.FormatterFirstLine = "System.Console.WriteLine('andrei ignat')";
+            var text = rc.SerializeMe();
+            var newClass = RewriteAction.UnSerializeMe(text) as RewriteCodeFolder;
+            Assert.IsNotNull(newClass);
+            //File.WriteAllText("a.txt", text);
+            //Process.Start("notepad.exe", "a.txt");
+            rc.Formatter.FormatterFirstLine.ShouldBe(newClass.Formatter.FormatterFirstLine);
 
         }
     }

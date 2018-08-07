@@ -46,11 +46,33 @@ namespace AOPRoslyn
 
             AddIfNotExists("*", "\"no identifiable argument type {itemtype} \"");
             AddIfNotExists("string", "\"{item}=\"+({item}??\"\").ToString()");
+            AddIfNotExists("bool", "\"{item}=\"+{item}.ToString()");
+            AddIfNotExists("int", "\"{item}=\"+{item}.ToString()");
+            AddIfNotExists("long", "\"{item}=\"+{item}.ToString()");
             AddIfNotExists("ParameterSyntax", "\"{item}=\"+{item}?.ToString()");
             AddIfNotExists("MethodDeclarationSyntax", "\"{item}=\"+{item}?.ToFullString()");
             AddIfNotExists("SyntaxNode", "\"{item}=\"+{item}?.ToFullString()");
             AddIfNotExists("Compilation", "\"{item}=\"+{item}?.AssemblyName");
+            AddIfNotExists("object", "\"{item}=\"+{item}?.ToString()");
+            AddIfNotExists("JsonWriter", "\"{item}=\"+{item}?.Path");
+            AddIfNotExists("JsonReader", "\"{item}=\"+{item}?.Path");
+            AddIfNotExists("Type", "\"{item}=\"+{item}?.FullName");
+            AddIfNotExists("DbCommand", "\"{item}=\"+{item}?.CommandText");
+            AddIfNotExists("Assembly","\"{item}=\"+{item}?.FullName");
+            AddIfNotExists("TypeInfo", "\"{item}=\"+{item}?.FullName");
+            AddIfNotExists("Exception", "\"{item}=\"+{item}?.ToString()");
+            AddIfNotExists("EventArgs", "\"{item}=\"+{item}.ToString()");
+            AddIfNotExists("ParameterInfo", "\"{item}=\"+{item}.Name");
+            AddIfNotExists("CultureInfo", "\"{item}=\"+{item}.Name");
+            AddIfNotExists("DirectoryInfo", "\"{item}=\"+{item}.Name");
+            AddIfNotExists("AssemblyName", "\"{item}=\"+{item}.Name");
 
+
+            
+            //public static bool CompareDictionary(Dictionary<string, object> x, Dictionary<string, object> y)
+            //JsonSerializer
+            //Dictionary<string, object> obj
+            //string[]
 
             AddedOnce = true;
         }
