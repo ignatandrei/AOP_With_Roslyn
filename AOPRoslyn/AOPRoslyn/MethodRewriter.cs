@@ -20,7 +20,7 @@ namespace AOPRoslyn
         private static string TryToIdentifyParameter(ParameterSyntax p, AOPFormatter format)
         {
             string nameArgument = p.Identifier.Text;
-            string typeArgument = "";
+            string typeArgument = null;
             var at = ArgumentType.None;
             var t = p.Type as PredefinedTypeSyntax;
             if (t != null)
@@ -40,9 +40,24 @@ namespace AOPRoslyn
             if(a != null)
             {
                 typeArgument = a.ElementType.ToString();
-                
+                typeArgument = typeArgument + "[]";    
+            }
+            var q = p.Type as QualifiedNameSyntax;
+            if(q!= null)
+            {
+                typeArgument = q.Right.Identifier.Text;
+            }
+            var g = p.Type as GenericNameSyntax;
+            if(g != null)
+            {
+                typeArgument = g.ToFullString().Trim();
+            }
+            if(typeArgument == null)
+            {
+                typeArgument = "!"+p.Type.ToFullString();
             }
             var str = format.FormattedText(typeArgument);
+            
             if (str == null)
             {
                 str = format.DefaultFormattedText();

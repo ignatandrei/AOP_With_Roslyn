@@ -68,12 +68,24 @@ namespace AOPRoslyn
             AddIfNotExists("AssemblyName", "\"{item}=\"+{item}.Name");
 
 
-            
+
             //public static bool CompareDictionary(Dictionary<string, object> x, Dictionary<string, object> y)
             //JsonSerializer
+            //IServiceCollection
             //Dictionary<string, object> obj
             //string[]
-
+            //ActionContext
+            //object[]
+            //ITypeDescriptorContext 
+            //Regex 
+            //Match 
+            //AssemblyLoadContext 
+            //List<ValuesToTranslate> 
+            //char
+            //byte[]
+            //KeyValuePair<string, string> 
+            //IHostingEnvironment 
+            //ErrorEventArgs
             AddedOnce = true;
         }
         private void AddIfNotExists(string key, string value)
