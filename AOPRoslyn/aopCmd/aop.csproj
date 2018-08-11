@@ -29,7 +29,7 @@ dotnet aop processme.txt</Description>
     <RepositoryUrl>https://github.com/ignatandrei/AOP_With_Roslyn/</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>AOP;Roslyn;C#</PackageTags>
-    <PackageReleaseNotes>Now with more syntax</PackageReleaseNotes>
+    <PackageReleaseNotes>See all releases at https://github.com/ignatandrei/AOP_With_Roslyn/releases</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
