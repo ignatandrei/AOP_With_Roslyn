@@ -19,7 +19,7 @@ namespace aop
                 var pathDll = Assembly.GetEntryAssembly().Location;
                 var path = Path.GetDirectoryName(pathDll);
                 var pathFile = Path.Combine(path, "processme.txt");
-                Console.WriteLine(" taking default process me on " + pathFile);
+                Console.WriteLine($" taking default process me on {pathFile}");
                 args = new string[] { pathFile };
             }
             return CommandLineApplication.Execute<Program>(args);
@@ -32,7 +32,7 @@ namespace aop
         
         private int OnExecute()
         {
-            
+            Console.WriteLine($"processing files accordingly to settings from {Name}");
             var i = new Interpret();
             var text = i.InterpretText(File.ReadAllText(Name));
             var rewrite = RewriteAction.UnSerializeMe(text);

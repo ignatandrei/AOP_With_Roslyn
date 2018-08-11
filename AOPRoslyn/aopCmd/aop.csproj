@@ -8,8 +8,28 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>dotnet.aop</AssemblyName>
     <Authors>Andrei Ignat</Authors>
-    <Description>Simple AOP for .NET with Roslyn</Description>
+    <Description>Simple AOP for .NET with Roslyn
+To use 
+Install as global tool as
+
+dotnet tool install -g dotnet-aop
+
+go to your solution folder run
+
+dotnet aop
+
+For customizing , see https://github.com/ignatandrei/AOP_With_Roslyn/blob/master/AOPRoslyn/processme.txt
+
+Modify this file and run
+dotnet aop processme.txt</Description>
     <Version>2.0.0</Version>
+    <Copyright>Andrei Ignat</Copyright>
+    <PackageLicenseUrl>https://github.com/ignatandrei/AOP_With_Roslyn/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>http://msprogrammer.serviciipeweb.ro/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ignatandrei/AOP_With_Roslyn/</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageTags>AOP;Roslyn;C#</PackageTags>
+    <PackageReleaseNotes>Now with more syntax</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
