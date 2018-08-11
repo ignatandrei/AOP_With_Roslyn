@@ -50,8 +50,8 @@ namespace AOPRoslyn
             AddIfNotExists("int", "\"{item}=\"+{item}.ToString()");
             AddIfNotExists("long", "\"{item}=\"+{item}.ToString()");
             AddIfNotExists("ParameterSyntax", "\"{item}=\"+{item}?.ToString()");
-            AddIfNotExists("MethodDeclarationSyntax", "\"{item}=\"+{item}?.ToFullString()");
-            AddIfNotExists("SyntaxNode", "\"{item}=\"+{item}?.ToFullString()");
+            AddIfNotExists("MethodDeclarationSyntax", "\"{item}=\"+{item}?.Identifier.Text");
+            AddIfNotExists("SyntaxNode", "\"{item}=\"+((SyntaxKind){item}?.RawKind)");
             AddIfNotExists("Compilation", "\"{item}=\"+{item}?.AssemblyName");
             AddIfNotExists("object", "\"{item}=\"+{item}?.ToString()");
             AddIfNotExists("JsonWriter", "\"{item}=\"+{item}?.Path");
