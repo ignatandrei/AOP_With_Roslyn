@@ -32,6 +32,11 @@ dotnet aop processme.txt</Description>
     <PackageReleaseNotes>See all releases at https://github.com/ignatandrei/AOP_With_Roslyn/releases</PackageReleaseNotes>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="dotnet-aop.1.0.0.nupkg" />
     <None Remove="dotnet-aop.2.0.0.nupkg" />
