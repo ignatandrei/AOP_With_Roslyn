@@ -21,7 +21,6 @@ namespace AOPRoslyn
         {
             string nameArgument = p.Identifier.Text;
             string typeArgument = null;
-            var at = ArgumentType.None;
             var t = p.Type as PredefinedTypeSyntax;
             if (t != null)
             {

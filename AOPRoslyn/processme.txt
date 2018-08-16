@@ -10,8 +10,8 @@
       "$type": "System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib],[System.String, System.Private.CoreLib]], System.Private.CoreLib"
     },
     "AddDefaultArguments": true,
-    "FormatterFirstLine": "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");System.Console.WriteLine(\"!!!arguments \" + {arguments});",
-    "FormatterLastLine": "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
+    "FormatterFirstLine": "try{{System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");System.Console.WriteLine(\"!!!arguments \" + {arguments});",
+    "FormatterLastLine": "}}catch(System.Exception ex){{System.Console.WriteLine(\"error in{nameClass}_{nameMethod}_{lineStartNumber}:\" + ex.Message);throw;}}finally{{System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");}}"
   },
   "Options": {
     "$type": "AOPRoslyn.RewriteOptions, AOPRoslyn",
