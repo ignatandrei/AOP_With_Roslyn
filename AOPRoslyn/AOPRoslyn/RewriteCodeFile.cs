@@ -22,9 +22,12 @@ namespace AOPRoslyn
         public string FileName { get;  set; }
         public override void Rewrite()
         {
-            
+
             var Code = File.ReadAllText(FileName);
+            //dotnet-aop-uncomment var cc = System.Console.ForegroundColor;
+            //dotnet-aop-uncomment System.Console.ForegroundColor = ConsoleColor.Red;
             //dotnet-aop-uncomment System.Console.WriteLine($"processing " + FileName);
+            //dotnet-aop-uncomment System.Console.ForegroundColor =cc;
             if (string.IsNullOrWhiteSpace(Code))
                 return;
             rc.Code = Code;
