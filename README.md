@@ -4,7 +4,6 @@
 
 [![NuGet](https://img.shields.io/nuget/v/dotnet-aop.svg)](https://img.shields.io/nuget/v/dotnet-aop.svg)
 
-[![DepShield Badge](https://depshield.sonatype.org/badges/ignatandrei/AOP_With_Roslyn/depshield.svg)](https://depshield.github.io)
 
 Install as global tool as
 
