@@ -66,7 +66,7 @@ namespace AOPRoslyn
             AddIfNotExists("CultureInfo", "\"{item}=\"+{item}.Name");
             AddIfNotExists("DirectoryInfo", "\"{item}=\"+{item}.Name");
             AddIfNotExists("AssemblyName", "\"{item}=\"+{item}.Name");
-
+            AddIfNotExists("[]", "\"{item}.Count=\"+{item}?.Length");
 
 
             //public static bool CompareDictionary(Dictionary<string, object> x, Dictionary<string, object> y)
@@ -111,8 +111,11 @@ namespace AOPRoslyn
                 AddDefaultArgumentsOnce();
 
             if (FormatArguments.ContainsKey(type))
-                return FormatArguments[type]; 
-            
+                return FormatArguments[type];
+
+            if (type.EndsWith("[]") && FormatArguments.ContainsKey("[]"))
+                return FormatArguments["[]"];
+
             return null;
 
         }
