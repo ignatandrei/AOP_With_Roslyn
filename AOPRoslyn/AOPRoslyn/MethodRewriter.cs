@@ -82,6 +82,12 @@ namespace AOPRoslyn
 
             var nameMethod = node.Identifier.Text;
             var nameClass = parent.Identifier.Text;
+
+            //dotnet-aop-uncomment var cc = System.Console.ForegroundColor;
+            //dotnet-aop-uncomment System.Console.ForegroundColor = ConsoleColor.Yellow;
+            //dotnet-aop-uncomment System.Console.WriteLine($"processing method {nameMethod} from class {nameClass}");
+            //dotnet-aop-uncomment System.Console.ForegroundColor =cc;
+
             string arguments = "";
             //if (Options.WriteArguments)
             {
