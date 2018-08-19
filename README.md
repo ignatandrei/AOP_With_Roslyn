@@ -20,4 +20,6 @@ For customizing what you want to insert at every method at first line and last l
 
 
 You can save the document in your solution root and execute with
+
+
 dotnet aop <your file name>
