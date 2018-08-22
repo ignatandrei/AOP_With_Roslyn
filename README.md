@@ -2,7 +2,7 @@
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ignatandrei/Interpreter/blob/master/LICENSE)  
 
-[![NuGet](https://img.shields.io/nuget/v/dotnet-aop.svg)](https://img.shields.io/nuget/v/dotnet-aop.svg)
+[![NuGet](https://img.shields.io/nuget/v/dotnet-aop.svg)](https://www.nuget.org/packages/dotnet-aop)
 
 
 Install as global tool as
@@ -15,4 +15,11 @@ run
 
 dotnet aop
 
-For customizing , see https://github.com/ignatandrei/AOP_With_Roslyn/blob/master/AOPRoslyn/processme.txt
+
+For customizing what you want to insert at every method at first line and last line, see https://github.com/ignatandrei/AOP_With_Roslyn/blob/master/AOPRoslyn/processme.txt
+
+
+You can save the document in your solution root and execute with
+
+
+dotnet aop &lt;your file name&gt;
