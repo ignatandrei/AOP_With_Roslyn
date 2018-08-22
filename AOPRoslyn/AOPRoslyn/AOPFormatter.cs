@@ -13,6 +13,7 @@ namespace AOPRoslyn
             FormatArguments = new Dictionary<string, string>();
             //TODO: add datetime, guid
             //TODO: see stankins
+            MethodsToLog = ModifierMethod.All;
 
 
         }
@@ -37,7 +38,7 @@ namespace AOPRoslyn
         }
         public string FormatterFirstLine { get; set; }
         public string FormatterLastLine { get; set; }
-
+        public ModifierMethod MethodsToLog { get; set; }
         private bool AddedOnce = false;
         private void AddDefaultArgumentsOnce()
         {

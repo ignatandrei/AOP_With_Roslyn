@@ -82,11 +82,26 @@ namespace AOPRoslyn
 
             var nameMethod = node.Identifier.Text;
             var nameClass = parent.Identifier.Text;
+            bool logMethod = false;
+            foreach(var mod in node.Modifiers)
+            {
+                var kind = mod.Kind();
+                if (this.Formatter.MethodsToLog.IsOnEnum(kind))
+                    logMethod = true;
+            }
+            if (!logMethod)
+            {
 
-            //dotnet-aop-uncomment var cc = System.Console.ForegroundColor;
+                //dotnet-aop-uncomment {var cc = System.Console.ForegroundColor;
+                //dotnet-aop-uncomment System.Console.ForegroundColor = ConsoleColor.Blue;
+                //dotnet-aop-uncomment System.Console.WriteLine($"{nameMethod} from class {nameClass} not logged because of this.Formatter.MethodsToLog = {this.Formatter.MethodsToLog.ToString()}");
+                //dotnet-aop-uncomment System.Console.ForegroundColor =cc;}
+                return node;
+            }
+            //dotnet-aop-uncomment {var cc = System.Console.ForegroundColor;
             //dotnet-aop-uncomment System.Console.ForegroundColor = ConsoleColor.Yellow;
             //dotnet-aop-uncomment System.Console.WriteLine($"processing method {nameMethod} from class {nameClass}");
-            //dotnet-aop-uncomment System.Console.ForegroundColor =cc;
+            //dotnet-aop-uncomment System.Console.ForegroundColor =cc;}
 
             string arguments = "";
             //if (Options.WriteArguments)
