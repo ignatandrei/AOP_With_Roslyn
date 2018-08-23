@@ -6,21 +6,43 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace AOPRoslyn
 {
+    /// <summary>
+    /// default worker implementation
+    /// </summary>
     public class RewriteCode
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public RewriteCode() : this(AOPFormatter.DefaultFormatter)
         {
 
         }
+        /// <summary>
+        /// the formatter
+        /// </summary>
         public AOPFormatter Formatter { get; internal set; }
+        /// <summary>
+        /// options to format
+        /// </summary>
         public RewriteOptions Options { get; internal set; }
+        /// <summary>
+        /// constructor with formatter and default options
+        /// </summary>
+        /// <param name="formatter"></param>
         public RewriteCode(AOPFormatter formatter)
         {
             Formatter = formatter;
             Options = new RewriteOptions();
         }
+        /// <summary>
+        /// the Code to be AOP'ed
+        /// </summary>
         public string Code { get; set; }
-        
+        /// <summary>
+        /// the main action 
+        /// </summary>
+        /// <returns>code AOP'ed</returns>
         public virtual string RewriteCodeMethod()
         {
             var tree = CSharpSyntaxTree.ParseText(Code);

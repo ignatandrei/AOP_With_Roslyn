@@ -5,9 +5,15 @@ using System.Text;
 
 namespace AOPRoslyn
 {
+    /// <summary>
+    /// Formatter arguments and more for AOP
+    /// </summary>
     [DebuggerDisplay("AOPFormatter= {DebugDisplay()}")]
     public class AOPFormatter
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public AOPFormatter()
         { 
             FormatArguments = new Dictionary<string, string>();
@@ -17,14 +23,32 @@ namespace AOPRoslyn
 
 
         }
+        /// <summary>
+        /// just debugger string
+        /// </summary>
+        /// <returns>debugger string</returns>
         public string DebugDisplay()
         {
             return $"Number arguments {FormatArguments?.ToString()} ";
         }
+        /// <summary>
+        /// default first line to be inserted
+        /// </summary>
         public static readonly string firstLineMethod = "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");";
+        /// <summary>
+        /// default last line to be inserted
+        /// </summary>
         public static readonly string lastLineMethod = "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");";
+        /// <summary>
+        /// adding default arguments  
+        /// improving with each version
+        /// </summary>
         public bool AddDefaultArguments { get; set; } = true;
-        //TODO: Make singleton
+        
+        /// <summary>
+        /// TODO: Make singleton
+        /// default formatter
+        /// </summary>
         public static AOPFormatter DefaultFormatter {
             get
             {
@@ -36,8 +60,18 @@ namespace AOPRoslyn
                 };
             }
         }
+        /// <summary>
+        /// first line to be inserted( supports new line)
+        /// </summary>
         public string FormatterFirstLine { get; set; }
+        /// <summary>
+        /// last line to be inserted( supports new line)
+        /// </summary>
         public string FormatterLastLine { get; set; }
+        /// <summary>
+        /// what are the methods to log
+        /// support bitwise flags
+        /// </summary>
         public ModifierMethod MethodsToLog { get; set; }
         private bool AddedOnce = false;
         private void AddDefaultArgumentsOnce()
@@ -95,6 +129,9 @@ namespace AOPRoslyn
                 return;
             FormatArguments.Add(key, value);
         }
+        /// <summary>
+        /// how to format various arguments
+        /// </summary>
         public Dictionary<string, string> FormatArguments;
         internal string DefaultFormattedText()
         {
