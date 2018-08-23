@@ -12,6 +12,18 @@ namespace TestAOP
     public class TestRewriteCode
     {
         [TestMethod]
+        public void TestModifierMethodNoCodeInFile()
+        {
+            string fileName = "andrei.cs";
+            var rc = new RewriteCodeFile();
+            rc.FileName = fileName;
+            File.WriteAllText(fileName, "   ");
+            rc.Rewrite();
+            var res = File.ReadAllText(fileName);
+            res.Trim().ShouldBeEmpty();
+
+        }
+        [TestMethod]
         public void TestModifierMethod()
         {
             var rc = new RewriteCode();
