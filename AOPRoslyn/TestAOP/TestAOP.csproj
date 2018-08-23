@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-
+  
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -12,6 +12,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="coveragereport\**" />
+    <EmbeddedResource Remove="coveragereport\**" />
+    <None Remove="coveragereport\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="coverage.opencover.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+      <PackageReference Include="coverlet.msbuild" Version="2.1.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="2.8.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
