@@ -65,7 +65,7 @@ namespace AOPRoslyn
                     mm = ModifierMethod.AbstractKeyword;
                     break;
                 case SyntaxKind.VirtualKeyword:
-                    mm = ModifierMethod.AbstractKeyword;
+                    mm = ModifierMethod.VirtualKeyword;
                     break;
 
             }
