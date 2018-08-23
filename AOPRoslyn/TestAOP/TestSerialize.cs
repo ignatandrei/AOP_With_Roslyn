@@ -27,11 +27,17 @@ namespace TestAOP
         [TestMethod]
         public void TestSerializeRewriteCodeFile()
         {
+            #region arrange
             var rc = new RewriteCodeFile("andrei.cs");
+            #endregion
+            #region act
             var text = rc.SerializeMe();
             var newClass = RewriteAction.UnSerializeMe(text) as RewriteCodeFile;
+            #endregion
+            #region assert
             Assert.IsNotNull(newClass);
             Assert.AreEqual(rc.FileName, newClass.FileName);
+            #endregion
 
         }
         [TestMethod]
