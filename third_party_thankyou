@@ -1,0 +1,399 @@
+ ---------------------------------------------------------------
+ Package:InterpreterDll
+ Page:https://github.com/ignatandrei/interpreter
+ Andrei Ignat
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:McMaster.Extensions.CommandLineUtils
+ Page:https://github.com/natemcmaster/CommandLineUtils
+ Nate McMaster
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:McMaster.Extensions.CommandLineUtils-max
+ Page:https://github.com/natemcmaster/CommandLineUtils-max
+ Nate McMaster
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:McMaster.Extensions.CommandLineUtils-max2
+ Page:https://github.com/natemcmaster/CommandLineUtils-max2
+ Nate McMaster
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:CommandLine.Core.CommandLineUtils
+ Page:https://github.com/mthamil/CommandLine.Core
+ Matt Hamilton
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:CommandLineUtils.Extensions
+ Page:https://github.com/mthamil/CommandLine.Core
+ Matt Hamilton
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:FormatWith
+ Page:https://github.com/crozone/FormatWith
+ Ryan Crosby
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:netfx-System.StringFormatWith
+ Page:http://netfx.codeplex.com/
+ Henri Wiechers,  Daniel Cazzulino,  kzu,  Clarius
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:netfx-System.StringFormatWith.Tests
+ Page:http://netfx.codeplex.com/
+ Henri Wiechers,  Daniel Cazzulino,  kzu,  Clarius
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:DocumentFormat.OpenXml
+ Page:https://github.com/OfficeDev/Open-XML-SDK
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:ZXing.Net
+ Page:https://github.com/micjahn/ZXing.Net/
+ Michael Jahn
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Google.Protobuf
+ Page:https://github.com/google/protobuf
+ Google Inc.
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:ExcelNumberFormat
+ Page:https://github.com/andersnm/ExcelNumberFormat
+ ExcelNumberFormat developers
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:NUnit.Runners
+ Page:http://nunit.org/
+ Charlie Poole
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:WebP.Touch
+ Page:https://github.com/molinch/WebP.Touch
+ Daniel Luberda, Molinet Fabien, Cosmin Gordea
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:BclContrib-ParseFormat
+ Page:http://code.google.com/p/bclcontrib-parseformat/
+ Sky Morey
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:SmartFormat.NET
+ Page:https://github.com/scottrippey/SmartFormat.NET
+ Scott Rippey,axuno gGmbH,Bernhard Millauer and other contributors.
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:SFD.StringFormat
+ Page:
+ AdamSpeight2008
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:ActionMessageFormat
+ Page:https://github.com/mntone/Data.Amf
+ mntone and qwerty
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:FileFormatWavefront
+ Page:https://github.com/dwmkerr/file-format-wavefront
+ Dave Kerr
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:String.Format.Js
+ Page:http://mstr.se/sffjs
+ Daniel Mester Pirttijärvi
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:ActionMessageFormat.UWP
+ Page:https://github.com/tor4kichi/Data.Amf
+ tor4kichi
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:jQuery.dateFormat
+ Page:https://github.com/phstc/jquery-dateFormat
+ Pablo Cantero
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:TMU-BioTextMining.i2b2.Format
+ Page:https://sites.google.com/site/hongjiedai/projects/tmuclinicalnet
+ Hong-Jie Dai
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Estat.Sri.Ws.Format.Sdmx
+ Page:https://webgate.ec.europa.eu/CITnet/stash/projects/SDMXRI/repos/nsiws.net/browse
+ Eurostat
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:FormatProviders
+ Page:
+ AdamSpeight2008
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Microsoft.CodeAnalysis.CSharp
+ Page:https://github.com/dotnet/roslyn
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Microsoft.CodeAnalysis.CSharp.Workspaces
+ Page:https://github.com/dotnet/roslyn
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Microsoft.CodeAnalysis.CSharp.Scripting
+ Page:https://github.com/dotnet/roslyn
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Microsoft.CodeAnalysis.CSharp.Features
+ Page:https://github.com/dotnet/roslyn
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Microsoft.CodeAnalysis.CSharp.Extensions
+ Page:https://github.com/denis-tsv/Microsoft.CodeAnalysis.CSharp.Extensions
+ Denis Tsvettsih
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Sawmill.Microsoft.CodeAnalysis.CSharp
+ Page:https://github.com/benjamin-hodgson/Sawmill
+ benjamin.hodgson
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Forked-MS.CodeAnalysis.CSharp-KeywordAlias
+ Page:https://github.com/rickardp/roslyn
+ Rickard
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Roslynator.CodeFixes
+ Page:http://github.com/JosefPihrt/Roslynator
+ Josef Pihrt
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Roslynator.Analyzers
+ Page:http://github.com/JosefPihrt/Roslynator
+ Josef Pihrt
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Ben.Demystifier-RoslynScriptingCompatibility
+ Page:https://github.com/molinch/Ben.Demystifier-RoslynScriptingCompatibility
+ ben_a_adams molinch
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Microsoft.CodeAnalysis.Compilers
+ Page:https://github.com/dotnet/roslyn
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Microsoft.CodeAnalysis
+ Page:https://github.com/dotnet/roslyn
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Microsoft.CodeAnalysis.Workspaces.MSBuild
+ Page:https://github.com/dotnet/roslyn
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Microsoft.CodeAnalysis.CSharp.Scripting
+ Page:https://github.com/dotnet/roslyn
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Ben.Demystifier-RoslynScriptingCompatibility
+ Page:https://github.com/molinch/Ben.Demystifier-RoslynScriptingCompatibility
+ ben_a_adams molinch
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Newtonsoft.Json
+ Page:https://www.newtonsoft.com/json
+ James Newton-King
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Amplified.ValueObjects.Newtonsoft.Json
+ Page:https://github.com/Nillerr/Amplified.ValueObjects
+ Nicklas Jensen
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:CommonSerializer.Newtonsoft.Json
+ Page:https://github.com/BrannonKing/CommonSerializer
+ Brannon King
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Remote.Linq.Newtonsoft.Json
+ Page:https://github.com/6bee/Remote.Linq
+ Christof Senn
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:aqua-core-newtonsoft-json
+ Page:https://github.com/6bee/aqua-core
+ Christof Senn
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:RestSharp.Newtonsoft.Json.NetCore
+ Page:https://github.com/Alterdata/RestSharp.Newtonsoft.Json.NetCore
+ Bernardo Esbérard
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Newtonsoft.Json.FSharp
+ Page:
+ Henrik Feldt,  Logibit AB
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Orleans.Serialization.Newtonsoft.Json
+ Page:https://github.com/OrleansContrib/orleans.serialization.json
+ Daniel Marbach
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Newtonsoft.Json.Net20.dll
+ Page:
+ wx1983@gmail.com
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Sfa.Core.Newtonsoft.Json
+ Page:https://github.com/SkillsFundingAgency/Core
+ Skills Funding Agency
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:NServiceBus.Newtonsoft.Json
+ Page:https://docs.particular.net/nuget/NServiceBus.Newtonsoft.Json
+ Particular Software
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:RestSharp.Newtonsoft.Json
+ Page:https://github.com/adamfisher/RestSharp.Serializers.Newtonsoft.Json
+ Adam Fisher
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Bridge.Newtonsoft.Json
+ Page:https://github.com/bridgedotnet/Bridge.Newtonsoft.Json
+ Object.NET, Inc.
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Gu.SerializationAsserts.Newtonsoft.Json
+ Page:https://github.com/JohanLarsson/Gu.SerializationAsserts
+ Johan Larsson
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:RestSharp.Newtonsoft.Json.Extensions
+ Page:https://github.com/i4004/RestSharp.Newtonsoft.Json.Extensions
+ Alexander Krylkov
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Mgazza.Newtonsoft.Json
+ Page:https://github.com/mgazza/Optional
+ Mark Gascoyne
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Newtonsoft.Json.Akshay
+ Page:
+ Akshay.Shingnapurkar, Yuvraj.Repe
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:WampSharp.NewtonsoftJson
+ Page:https://wampsharp.net/
+ CodeSharp
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Pollock.Newtonsoft.Json
+ Page:
+ wallymathieu
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Lykke.WampSharp.NewtonsoftJson
+ Page:https://github.com/LykkeCity/WampSharp
+ Lykke
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:coverlet.msbuild
+ Page:http://github.com/tonerdo/coverlet
+ tonerdo
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Microsoft.CodeAnalysis.CSharp.Scripting
+ Page:https://github.com/dotnet/roslyn
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Ben.Demystifier-RoslynScriptingCompatibility
+ Page:https://github.com/molinch/Ben.Demystifier-RoslynScriptingCompatibility
+ ben_a_adams molinch
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Microsoft.NET.Test.Sdk
+ Page:https://github.com/microsoft/vstest/
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:MSTest.TestAdapter
+ Page:https://github.com/microsoft/testfx
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:MSTestX.TestAdapter
+ Page:https://github.com/dotMorten/MSTestX
+ Morten Nielsen
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:MSTest.TestFramework
+ Page:https://github.com/microsoft/testfx
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:MSTest.TestFramework
+ Page:https://github.com/microsoft/testfx
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:MSTest.TestAdapter
+ Page:https://github.com/microsoft/testfx
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Microsoft.UnitTestFramework.Extensions
+ Page:https://github.com/Microsoft/mstest-extensions/wiki
+ Microsoft
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Nosnitor.TestFramework.Extensions.MSTest
+ Page:
+ Nosnitor Corporation
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Riganti.Selenium.MSTest2Integration
+ Page:https://github.com/riganti/selenium-utils
+ Ladislav Šesták
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:LightBDD.MsTest2
+ Page:https://github.com/LightBDD/LightBDD
+ Wojciech Kotlarski
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Shouldly
+ Page:http://shouldly.github.com/
+ Shouldly
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Sollertes.Bdd.Shouldly
+ Page:https://github.com/Sollertes/BDD
+ Marcin Markowski
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:ITLibrium.BDD.Shouldly
+ Page:https://github.com/itlibrium/BDD
+ Marcin Markowski
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Mgazza.Shouldly
+ Page:https://github.com/mgazza/Optional
+ Mark Gascoyne
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:Shouldly.EqualityExtensions
+ Page:https://github.com/whortleberrybearer/shouldly
+ whortleberrybearer
+ ---------------------------------------------------------------
+ ---------------------------------------------------------------
+ Package:NorwegianShouldly
+ Page:https://github.com/eaardal/norwegian-shouldly
+ This language wrapper: Eirik Årdal. Original Shouldly: See Shouldly NuGet package
