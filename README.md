@@ -4,6 +4,8 @@
 
 [![NuGet](https://img.shields.io/nuget/v/dotnet-aop.svg)](https://www.nuget.org/packages/dotnet-aop)
 
+[![Build status](https://ci.appveyor.com/api/projects/status/q63slvkomrifq3ha?svg=true)](https://ci.appveyor.com/project/ignatandrei/aop-with-roslyn)
+
 
 Install as global tool as
 
