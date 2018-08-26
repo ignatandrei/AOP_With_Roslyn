@@ -20,7 +20,7 @@ test_script:
   - cmd: dotnet restore ./AOPRoslyn/TestAOP/TestAOP.csproj --verbosity m
   # run the unit tests (requires changing into the test directory)
   - cmd: dotnet test AOPRoslyn\TestAOP\TestAOP.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover 
-  - cmd: reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
+  #- cmd: reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
 on_finish :
   # any cleanup in here
 deploy: off
