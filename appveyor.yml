@@ -15,7 +15,7 @@ build_script:
   
 test_script:
   # restore packages for our unit tests
-  - cmd: dotnet restore ./AOPRoslyn/TestAOP/tests.csproj --verbosity m
+  - cmd: dotnet restore ./AOPRoslyn/TestAOP/TestAOP.csproj --verbosity m
   # run the unit tests (requires changing into the test directory)
   #- cmd: cd tests
   #- cmd: dotnet xunit
