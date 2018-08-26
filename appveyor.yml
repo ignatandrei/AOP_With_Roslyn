@@ -25,7 +25,7 @@ test_script:
   - cmd: dir *.svg /s 
   
  artifacts:
-   - path: **\*.svg
+   - path: '**\*.svg'
 on_finish :
   # any cleanup in here
 deploy: off
