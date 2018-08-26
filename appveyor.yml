@@ -26,6 +26,7 @@ test_script:
   
 artifacts:
    - path: '**\*.svg'
+   - path: '**\*.png'
    
 on_finish :
   # any cleanup in here
