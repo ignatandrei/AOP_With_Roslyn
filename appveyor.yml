@@ -5,11 +5,10 @@ init:
   - cmd: git config --global core.autocrlf true
  
  before_build:
-- cmd: >-
-    dotnet --version
-    dot restore ./AOPRoslyn/AOPRoslyn.sln --verbosity m
-    dotnet tool install -g dotnet-aop
-    dotnet aop
+- cmd: dotnet --version
+  - cmd: dot restore ./AOPRoslyn/AOPRoslyn.sln --verbosity m
+    - cmd:dotnet tool install -g dotnet-aop
+    - cmd:dotnet aop
 build:
 build_script:
   - cmd: dotnet publish ./AOPRoslyn/AOPRoslyn.sln
