@@ -8,6 +8,8 @@ before_build:
   - cmd: dotnet --version
   - cmd: dotnet restore ./AOPRoslyn/AOPRoslyn.sln --verbosity m
   - cmd: dotnet tool install -g dotnet-aop
+  - cmd: dotnet tool install -g coverlet.console
+  - cmd: dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.0.0-alpha10
   - cmd: dotnet aop
 
 build_script:
@@ -17,8 +19,8 @@ test_script:
   # restore packages for our unit tests
   - cmd: dotnet restore ./AOPRoslyn/TestAOP/TestAOP.csproj --verbosity m
   # run the unit tests (requires changing into the test directory)
-  #- cmd: cd tests
-  #- cmd: dotnet xunit
+  - cmd: dotnet test AOPRoslyn\TestAOP\TestAOP.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover 
+  - cmd: reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
 on_finish :
   # any cleanup in here
 deploy: off
