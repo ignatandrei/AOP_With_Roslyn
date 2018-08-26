@@ -23,6 +23,9 @@ test_script:
   - cmd: dir coverage*.* /S
   - cmd: reportgenerator "-reports:./AOPRoslyn/TestAOP/coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
   - cmd: dir *.svg /s 
+  
+ artifacts:
+   -path: **\*.svg
 on_finish :
   # any cleanup in here
 deploy: off
