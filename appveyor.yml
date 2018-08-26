@@ -22,6 +22,7 @@ test_script:
   - cmd: dotnet test AOPRoslyn\TestAOP\TestAOP.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover 
   - cmd: dir coverage*.* /S
   - cmd: reportgenerator "-reports:./AOPRoslyn/TestAOP/coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
+  - cmd: dir *.svg /s 
 on_finish :
   # any cleanup in here
 deploy: off
