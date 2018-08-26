@@ -26,6 +26,7 @@ test_script:
   
  artifacts:
    - path: '**\*.svg'
+   name: badges
 on_finish :
   # any cleanup in here
 deploy: off
