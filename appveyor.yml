@@ -4,7 +4,7 @@ init:
   # Good practise, because Windows line endings are different from Unix/Linux ones
   - cmd: git config --global core.autocrlf true
  
- before_build:
+before_build:
 - cmd: dotnet --version
   - cmd: dot restore ./AOPRoslyn/AOPRoslyn.sln --verbosity m
     - cmd:dotnet tool install -g dotnet-aop
