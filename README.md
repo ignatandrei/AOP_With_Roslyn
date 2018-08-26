@@ -6,9 +6,11 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/q63slvkomrifq3ha?svg=true)](https://ci.appveyor.com/project/ignatandrei/aop-with-roslyn)
 
-
+ <a target='_blank' href='https://ci.appveyor.com/api/projects/ignatandrei/aop-with-roslyn/artifacts/coveragereport/badge_combined.svg' >Link to code coverage badge</a>
+ 
+ 
+ 
 Install as global tool as
-
 
 dotnet tool install -g dotnet-aop
 
