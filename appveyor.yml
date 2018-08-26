@@ -1,0 +1,25 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+init:
+  # Good practise, because Windows line endings are different from Unix/Linux ones
+  - cmd: git config --global core.autocrlf true
+ 
+ before_build:
+- cmd: >-
+    dotnet --version
+    dot restore ./AOPRoslyn/AOPRoslyn.sln --verbosity m
+    dotnet tool install -g dotnet-aop
+    dotnet aop
+build:
+build_script:
+  - cmd: dotnet publish ./AOPRoslyn/AOPRoslyn.sln
+  
+test_script:
+  # restore packages for our unit tests
+  - cmd: dotnet restore ./AOPRoslyn/TestAOP/tests.csproj --verbosity m
+  # run the unit tests (requires changing into the test directory)
+  #- cmd: cd tests
+  #- cmd: dotnet xunit
+on_finish :
+  # any cleanup in here
+deploy: off
