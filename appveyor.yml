@@ -14,10 +14,7 @@ before_build:
 
 build_script:
   - cmd: dotnet publish ./AOPRoslyn/AOPRoslyn.sln
-test:
-  # only assemblies to test
-  assemblies:
-    - '**\*test*.dll'
+
 test_script:
   # restore packages for our unit tests
   - cmd: dotnet restore ./AOPRoslyn/TestAOP/TestAOP.csproj --verbosity m
@@ -25,11 +22,11 @@ test_script:
   - cmd: dotnet test AOPRoslyn\TestAOP\TestAOP.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover 
   - cmd: dir coverage*.* /S
   - cmd: reportgenerator "-reports:./AOPRoslyn/TestAOP/coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
-  - cmd: dir *.svg /s 
+  - cmd: dir *.svg /s
+  - cmd: vstest.console  /logger:Appveyor AOPRoslyn\TestAOP\bin\Debug\netcoreapp2.0\TestAOP.dll
   
 artifacts:
-   - path: '**\*.svg'
-   - path: '**\*.png'
+   - path: '**\*.svg'   
    
 on_finish :
   # any cleanup in here
