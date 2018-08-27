@@ -14,7 +14,10 @@ before_build:
 
 build_script:
   - cmd: dotnet publish ./AOPRoslyn/AOPRoslyn.sln
-  
+ test:
+  # only assemblies to test
+  assemblies:
+    - '**\*test*.dll'
 test_script:
   # restore packages for our unit tests
   - cmd: dotnet restore ./AOPRoslyn/TestAOP/TestAOP.csproj --verbosity m
