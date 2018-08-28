@@ -15,7 +15,7 @@ before_build:
 
 build_script:
   - cmd: dotnet publish ./AOPRoslyn/AOPRoslyn.sln
-  - cmd: dotnet gcr
+  - cmd: dotnet gcr ignatandrei AOP_With_Roslyn
 
 test_script:
   # restore packages for our unit tests
