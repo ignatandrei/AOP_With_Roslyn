@@ -10,10 +10,12 @@ before_build:
   - cmd: dotnet tool install -g dotnet-aop
   - cmd: dotnet tool install -g coverlet.console
   - cmd: dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.0.0-alpha10
+  - cmd: dotnet tool install -g dotnet-gcr
   - cmd: dotnet aop
 
 build_script:
   - cmd: dotnet publish ./AOPRoslyn/AOPRoslyn.sln
+  - cmd: dotnet gcr
 
 test_script:
   # restore packages for our unit tests
