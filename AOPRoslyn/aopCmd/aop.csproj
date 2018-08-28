@@ -8,6 +8,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>dotnet.aop</AssemblyName>
     <Authors>Andrei Ignat</Authors>
+     <RepositoryUrl>https://github.com/ignatandrei/AOP_With_Roslyn.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <Description>Simple AOP for .NET with Roslyn
 To use 
 Install as global tool as
