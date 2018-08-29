@@ -25,7 +25,7 @@
   "Options": {
     "$type": "AOPRoslyn.RewriteOptions, AOPRoslyn",
     "PreserveLinesNumber": true,
-    "NoArguments": "\"No arguments in method\"",
+    "NoArguments": "\"No arguments in method {nameMethod} line {lineStartNumber}  class {nameClass}\"",
     "ArgumentSeparator": "+"
   }
 }

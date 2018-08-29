@@ -102,14 +102,14 @@ namespace AOPRoslyn
             //dotnet-aop-uncomment System.Console.ForegroundColor = ConsoleColor.Yellow;
             //dotnet-aop-uncomment System.Console.WriteLine($"processing method {nameMethod} from class {nameClass}");
             //dotnet-aop-uncomment System.Console.ForegroundColor =cc;}
-
+            var lineStart = node.GetLocation().GetLineSpan().StartLinePosition;
             string arguments = "";
             //if (Options.WriteArguments)
             {
                 var parameters = node.ParameterList.Parameters;
                 if (parameters.Count == 0)
                 {
-                    arguments = this.Options.NoArguments;
+                    arguments = this.Options.NoArguments.FormatWith(new { nameClass, nameMethod, lineStartNumber = lineStart.Line }); 
                 }
                 else
                 {
@@ -123,11 +123,11 @@ namespace AOPRoslyn
                     if (data.Length > 0)
                         arguments = string.Join(Options.ArgumentSeparator, data);
                     else
-                        arguments = this.Options.NoArguments;
+                        arguments = this.Options.NoArguments.FormatWith(new { nameClass, nameMethod, lineStartNumber = lineStart.Line }); ;
                 }
             }
             node = (MethodDeclarationSyntax)base.VisitMethodDeclaration(node);
-            var lineStart = node.GetLocation().GetLineSpan().StartLinePosition;
+            
 
             StatementSyntax cmdFirstLine = null;
             if (Formatter.FormatterFirstLine != null)

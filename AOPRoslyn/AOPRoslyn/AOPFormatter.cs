@@ -102,7 +102,9 @@ namespace AOPRoslyn
             AddIfNotExists("DirectoryInfo", "\"{item}=\"+{item}.Name");
             AddIfNotExists("AssemblyName", "\"{item}=\"+{item}.Name");
             AddIfNotExists("[]", "\"{item}.Count=\"+{item}?.Length");
-
+            AddIfNotExists("ModifierMethod", "\"{item}=\"+{item}.ToString()");
+            AddIfNotExists("SyntaxKind", "\"{item}=\"+{item}.ToString()");
+            
 
             //public static bool CompareDictionary(Dictionary<string, object> x, Dictionary<string, object> y)
             //JsonSerializer

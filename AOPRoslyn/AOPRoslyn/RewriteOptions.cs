@@ -12,7 +12,7 @@
         /// <summary>
         /// if the method has no arguments, put this text
         /// </summary>
-        public string NoArguments { get; set; } = "\"No arguments in method\"";
+        public string NoArguments { get; set; } = "\"No arguments in method {nameMethod} line {lineStartNumber}  class {nameClass}\"";
         /// <summary>
         /// seaprator between arguments
         /// </summary>
