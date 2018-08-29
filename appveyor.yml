@@ -12,6 +12,7 @@ before_build:
   - cmd: dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.0.0-alpha10
   - cmd: dotnet tool install -g dotnet-gcr
   - cmd: dotnet aop
+  - choco install codecov
 
 build_script:
   - cmd: dotnet publish ./AOPRoslyn/AOPRoslyn.sln
@@ -26,6 +27,7 @@ test_script:
   - cmd: dir coverage*.* /S
   - cmd: reportgenerator "-reports:./AOPRoslyn/TestAOP/coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
   - cmd: dir *.svg /s
+  - codecov -f ./AOPRoslyn/TestAOP/coverage.opencover.xml -t $(CODECOV_TOKEN)
   
   
 artifacts:
