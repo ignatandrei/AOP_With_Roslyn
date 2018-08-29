@@ -26,7 +26,7 @@ System.Console.WriteLine("end TestClassPersonWithArguments_CopyConstructor_17");
 return FirstName + separator + LastName;
 System.Console.WriteLine("end TestClassPersonWithArguments_Name_22");}         
         public int Length()
-{System.Console.WriteLine("start TestClassPersonWithArguments_Length_27");System.Console.WriteLine("No arguments in method");
+{System.Console.WriteLine("start TestClassPersonWithArguments_Length_27");System.Console.WriteLine("No arguments in method Length line 27  class TestClassPersonWithArguments");
 #line 30
 return Name().Length;
 System.Console.WriteLine("end TestClassPersonWithArguments_Length_27");}        public static TestClassPersonWithArguments ConstructorFromProperties(string firstName, string lastName)
