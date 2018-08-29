@@ -6,7 +6,7 @@
 
 [![codecov](https://codecov.io/gh/ignatandrei/AOP_With_Roslyn/branch/master/graph/badge.svg)](https://codecov.io/gh/ignatandrei/AOP_With_Roslyn)
 
- <a target='_blank' href='https://ci.appveyor.com/api/projects/ignatandrei/aop-with-roslyn/artifacts/coveragereport/badge_combined.svg' >Link to code coverage badge</a>
+
  
  
  
