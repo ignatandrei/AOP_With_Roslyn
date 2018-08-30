@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAOP", "TestAOP\TestAOP.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aop", "aopCmd\aop.csproj", "{7526A87F-3178-426F-881B-3517F180232D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOPStatistics", "AOPStatistics\AOPStatistics.csproj", "{8BC1DE15-4199-4339-8013-9C71EBB4A9CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7526A87F-3178-426F-881B-3517F180232D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7526A87F-3178-426F-881B-3517F180232D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7526A87F-3178-426F-881B-3517F180232D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BC1DE15-4199-4339-8013-9C71EBB4A9CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BC1DE15-4199-4339-8013-9C71EBB4A9CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BC1DE15-4199-4339-8013-9C71EBB4A9CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BC1DE15-4199-4339-8013-9C71EBB4A9CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
