@@ -54,10 +54,12 @@ dotnet aop processme.txt</Description>
   <ItemGroup>
     <PackageReference Include="InterpreterDll" Version="2018.7.13.3" />
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.2.3" />
+    <PackageReference Include="PortableConsoleLibs" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AOPRoslyn\AOPRoslyn.csproj" />
+    <ProjectReference Include="..\AOPStatistics\AOPStatistics.csproj" />
   </ItemGroup>
 
 </Project>

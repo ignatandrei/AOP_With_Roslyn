@@ -1,6 +1,6 @@
 {
   "$type": "AOPRoslyn.RewriteCodeFolder, AOPRoslyn",
-  "ExcludeFileNames": ["TestClassPerson.cs","TestClassPersonWithArguments.cs"],
+  "ExcludeFileNames": ["TestClassPerson.cs","TestClassPersonWithArguments.cs","AOPMethod.cs","GatherStatistics.cs"],
   "FolderName": "@static:Environment.CurrentDirectory@",
   "SearchPattern": "*.cs",
 "AddDefaultArguments": "true",
@@ -11,15 +11,19 @@
     },
 	"MethodsToLog":1,
     "AddDefaultArguments": true,
-    "FormatterFirstLine": "try
+    "FormatterFirstLine": "
+	using(new AOPStatistics.AOPMethod(\"{nameClass}\",\"{nameMethod}\",{lineStartNumber})){{
+	try
 	{{
 	System.Console.WriteLine(\"start method {nameClass}_{nameMethod}_{lineStartNumber}\");System.Console.WriteLine(\"!!!arguments \" + {arguments});
 	",
-    "FormatterLastLine": "}}
+    "FormatterLastLine": "
+	}}//try
 	catch(System.Exception ex)
 	{{
 	System.Console.WriteLine(\"error in{nameClass}_{nameMethod}_{lineStartNumber}:\" + ex.Message);throw;}}finally{{System.Console.WriteLine(\"end method {nameClass}_{nameMethod}_{lineStartNumber}\");
 	}}
+	}}//using
 	"
   },
   "Options": {
