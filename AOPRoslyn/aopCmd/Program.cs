@@ -16,9 +16,15 @@ namespace aop
         {
             if(args.Length == 0)
             {
-                var pathDll = Assembly.GetEntryAssembly().Location;
-                var path = Path.GetDirectoryName(pathDll);
-                var pathFile = Path.Combine(path, "processme.txt");
+                //Taking processme.txt from current directory
+                var pathFile = Path.Combine(Environment.CurrentDirectory, "processme.txt");
+                if (!File.Exists(pathFile))
+                {
+
+                    var pathDll = Assembly.GetEntryAssembly().Location;
+                    var path = Path.GetDirectoryName(pathDll);
+                    pathFile = Path.Combine(path, "processme.txt");
+                }
                 Console.WriteLine($"no arguments name file, taking default processme.txt file from on {pathFile}");                
                 args = new string[] { pathFile };
             }
