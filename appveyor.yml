@@ -32,7 +32,7 @@ test_script:
   
 artifacts:
    - path: '**\*.svg'  
-   - path: '**\stati*.txt'
+   - path: '**\statistics.txt'
    
 on_finish :
   # any cleanup in here
