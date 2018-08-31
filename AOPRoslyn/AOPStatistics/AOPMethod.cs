@@ -11,10 +11,11 @@ namespace AOPStatistics
         private readonly Stopwatch sw;
         public AOPMethod(string className, string methodName, int line)
         {
-            sw = Stopwatch.StartNew();            
+                   
             this.className = className;
             this.methodName = methodName;
-            this.line = line;            
+            this.line = line;   
+            sw = Stopwatch.StartNew();    
         }
 
         
