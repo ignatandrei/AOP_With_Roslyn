@@ -36,7 +36,7 @@ namespace TestAOP
             {
                 table.AddRow(item.m.className, $"{item.m.methodName}({item.m.line})", item.NumberHits, item.TotalDuration, (item.TotalDuration / item.NumberHits));
             }
-            var s = table.ToStringAlternative();
+            var s = table.ToMarkDownString();
             File.WriteAllText("statistics.txt", s);
 
 
