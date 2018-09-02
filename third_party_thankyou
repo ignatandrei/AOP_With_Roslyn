@@ -1,7 +1,22 @@
  Sites:
- http://www.picturetopeople.org/text_generator/others/transparent/transparent-text-generator.html 
- Generating nuget icon for the package
+ http://www.GitHub.com  , obviously
  
+ http://www.picturetopeople.org/text_generator/others/transparent/transparent-text-generator.html ,  Generating nuget icon for the package
+ 
+ https://www.nuget.org/ , hosting package
+ 
+ https://shields.io/ , images of shields for nuget version
+ 
+ https://appveyor.com, continous integration
+ 
+ https://codecov.io/ , code coverage online
+ 
+ https://visualstudio.com/, continous delivery 
+ 
+ 
+ 
+ 
+ NuGet packages:
  ---------------------------------------------------------------
  Package:InterpreterDll
  Page:https://github.com/ignatandrei/interpreter
