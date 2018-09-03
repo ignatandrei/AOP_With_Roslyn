@@ -20,8 +20,9 @@ namespace TestAOP
         public void TestLineSimple()
         {
 
-            var rc = new RewriteCode();
-            rc.Code = @"
+            var rc = new RewriteCode
+            {
+                Code = @"
 using System;
 namespace Test1
 {
@@ -32,7 +33,8 @@ namespace Test1
               var dt=DateTime.Now;
         }
      }
-}";
+}"
+            };
             var result = rc.RewriteCodeMethod();
             var newCode = @"
 using System;
@@ -62,8 +64,9 @@ namespace Test1
                     FormatterFirstLine = "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
                     FormatterLastLine = "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
                 }
-                );
-            rc.Code = @"string s = null; 
+                )
+            {
+                Code = @"string s = null; 
 // some comment at line 2
 var upper = X.Test(s); // Null reference exception at line 3
 // more code
@@ -71,7 +74,8 @@ class X{
 public static string Test(string s) {
     return s.ToUpper();
 }
-}";
+}"
+            };
 
             try
             {
@@ -132,8 +136,9 @@ public static string Test(string s) {
                     FormatterFirstLine = "System.Console.WriteLine(\"start {nameClass}_{nameMethod}_{lineStartNumber}\");",
                     FormatterLastLine = "System.Console.WriteLine(\"end {nameClass}_{nameMethod}_{lineStartNumber}\");"
                 }
-                );
-            rc.Code = @"string s = null; 
+                )
+            {
+                Code = @"string s = null; 
 // some comment at line 2
 var upper = Test(s); // Null reference exception at line 3
 // more code
@@ -141,7 +146,8 @@ var upper = Test(s); // Null reference exception at line 3
 public static string Test(string s) {
     return s.ToUpper();
 }
-//}";
+//}"
+            };
 
             try
             {
