@@ -2,7 +2,7 @@
 # Build and test ASP.NET Core web applications targeting .NET Core.
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/vsts/pipelines/languages/dotnet-core
-
+#https://dev.azure.com/ignatandrei1970/AOPRoslyn/
 pool:
   vmImage: 'VS2017-Win2016'
 
