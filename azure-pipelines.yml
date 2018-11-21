@@ -11,7 +11,7 @@ variables:
 
 steps:
   displayName: 'dotnet build $(buildConfiguration)'
-- script cd AOPRoslyn
+- script: cd AOPRoslyn
 - script: dotnet restore
 - script: dotnet build --configuration $(buildConfiguration)
   
