@@ -14,5 +14,5 @@ steps:
 #- script: cd AOPRoslyn
 #- script: dir 
 - script: dotnet restore AOPRoslyn\AOPRoslyn.sln
-- script: dotnet build AOPRoslyn\AOPRoslyn.sln--configuration $(buildConfiguration)
+- script: dotnet build AOPRoslyn\AOPRoslyn.sln --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
