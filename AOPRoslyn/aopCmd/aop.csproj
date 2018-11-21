@@ -33,6 +33,8 @@ dotnet aop processme.txt</Description>
     <PackageTags>AOP;Roslyn;C#</PackageTags>
     <PackageReleaseNotes>See all releases at https://github.com/ignatandrei/AOP_With_Roslyn/releases</PackageReleaseNotes>
     <PackageIconUrl>https://raw.githubusercontent.com/ignatandrei/AOP_With_Roslyn/master/aopnugetIcon.png</PackageIconUrl>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>dotnetaop.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
