@@ -10,7 +10,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-displayName: 'dotnet build $(buildConfiguration)'
+  displayName: 'dotnet build $(buildConfiguration)'
 - script cd AOPRoslyn
 - script: dotnet restore
 - script: dotnet build --configuration $(buildConfiguration)
