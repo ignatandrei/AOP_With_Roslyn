@@ -10,6 +10,10 @@
     <Authors>Andrei Ignat</Authors>
      <RepositoryUrl>https://github.com/ignatandrei/AOP_With_Roslyn.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    
     <Description>Simple AOP for .NET with Roslyn
 To use 
 Install as global tool as
@@ -57,6 +61,10 @@ dotnet aop processme.txt</Description>
   <ItemGroup>
     <PackageReference Include="InterpreterDll" Version="2018.7.13.3" />
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.2.3" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="PortableConsoleLibs" Version="1.0.0" />
   </ItemGroup>
 
