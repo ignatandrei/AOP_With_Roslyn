@@ -18,7 +18,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="ClassesForTesting\TestClassYield.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClassesForTesting\TestClassYield.cs.expected" />
     <None Remove="coverage.opencover.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClassesForTesting\TestClassYield.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ClassesForTesting\TestClassYield.cs.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

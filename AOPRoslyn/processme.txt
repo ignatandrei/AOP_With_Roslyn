@@ -12,7 +12,7 @@
 	"MethodsToLog":1,
     "AddDefaultArguments": true,
     "FormatterFirstLine": "
-	using(new AOPStatistics.AOPMethod(\"{nameClass}\",\"{nameMethod}\",{lineStartNumber})){{
+	//using(new AOPStatistics.AOPMethod(\"{nameClass}\",\"{nameMethod}\",{lineStartNumber})){{
 	try
 	{{
 	System.Console.WriteLine(\"start method {nameClass}_{nameMethod}_{lineStartNumber}\");System.Console.WriteLine(\"!!!arguments \" + {arguments});
@@ -23,7 +23,7 @@
 	{{
 	System.Console.WriteLine(\"error in{nameClass}_{nameMethod}_{lineStartNumber}:\" + ex.Message);throw;}}finally{{System.Console.WriteLine(\"end method {nameClass}_{nameMethod}_{lineStartNumber}\");
 	}}
-	}}//using
+	//}}//using
 	"
   },
   "Options": {

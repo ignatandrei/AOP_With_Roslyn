@@ -1,0 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace TestAOP.ClassesForTesting
+{
+    class TestClassYield
+    {
+       
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        public string Name(string separator = "")
+{System.Console.WriteLine("start TestClassYield_Name_12");System.Console.WriteLine("separator="+(separator??"").ToString());
+#line 15
+return FirstName + separator + LastName;
+System.Console.WriteLine("end TestClassYield_Name_12");}
+        
+    }
+}
