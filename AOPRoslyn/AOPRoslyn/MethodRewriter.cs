@@ -79,7 +79,13 @@ namespace AOPRoslyn
             var parent = node.Parent as ClassDeclarationSyntax;
             if (parent == null)
                 return base.VisitMethodDeclaration(node);
-
+            var yieldType = typeof(YieldStatementSyntax).FullName;
+            if (node.Body.Statements.Count(it=>
+            {
+                return it.GetType().FullName == yieldType;
+                    
+            })>0)
+                return base.VisitMethodDeclaration(node);
             var nameMethod = node.Identifier.Text;
             var nameClass = parent.Identifier.Text;
             bool logMethod = false;

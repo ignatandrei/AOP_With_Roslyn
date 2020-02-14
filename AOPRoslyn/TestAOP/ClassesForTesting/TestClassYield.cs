@@ -15,6 +15,12 @@ namespace TestAOP.ClassesForTesting
             return FirstName + separator + LastName;
         }
 
+
+        public IEnumerable<string> Test()
+        {
+            yield return FirstName;
+            yield return LastName;
+        }
         
     }
 }

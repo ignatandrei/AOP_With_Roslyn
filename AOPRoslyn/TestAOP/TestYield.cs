@@ -23,7 +23,7 @@ namespace TestAOP
             
             Assert.AreNotEqual(text, expected);
             var fromDisk = File.ReadAllText(fileName + ".expected");
-            File.WriteAllText(@"E:\test.cs", expected);
+            //File.WriteAllText(@"E:\test.cs", expected);
             expected.ShouldBe(fromDisk, StringCompareShould.IgnoreCase | StringCompareShould.IgnoreLineEndings);
 
             //Assert.AreEqual(fromDisk, expected);
