@@ -19,13 +19,15 @@ namespace AOPRoslyn
         }
         private static string TryToIdentifyParameter(ParameterSyntax p, AOPFormatter format)
         {
+            if (p.Modifiers.Any(it => it.Text == "out"))
+                return null;//TODO: make text for out
             string nameArgument = p.Identifier.Text;
             string typeArgument = null;
             var t = p.Type as PredefinedTypeSyntax;
             if (t != null)
             {
                 typeArgument = t.Keyword.Text;
-                
+                    
                 
             }
             var i = p.Type as IdentifierNameSyntax;
