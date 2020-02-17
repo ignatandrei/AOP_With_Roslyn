@@ -36,14 +36,14 @@ steps:
 #   inputs:
 #     nuGetServiceConnections: 'nugetAndrei'
 
- - task: NuGetCommand@2
-   inputs:
-     command: push
-     nuGetFeedType: external
-     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
-     nuGetFeedType: 'external'
-     publishFeedCredentials: 'nugetAndrei'
-   displayName: 'dotnet nuget'
+- task: NuGetCommand@2
+  inputs:
+    command: push
+    nuGetFeedType: external
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'nugetAndrei'
+  displayName: 'dotnet nuget'
 
 # - task: DotNetCoreCLI@2
 #   displayName: Push Nuget Package
