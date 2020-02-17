@@ -4,8 +4,7 @@
 
 [![NuGet](https://img.shields.io/nuget/v/dotnet-aop.svg)](https://www.nuget.org/packages/dotnet-aop)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/q63slvkomrifq3ha?svg=true)](https://ci.appveyor.com/project/ignatandrei/aop-with-roslyn)
-
+[![Build Status](https://dev.azure.com/ignatandrei1970/AOPRoslyn/_apis/build/status/ignatandrei.AOP_With_Roslyn?branchName=master)](https://dev.azure.com/ignatandrei1970/AOPRoslyn/_build/latest?definitionId=1&branchName=master)
 
 [![codecov](https://codecov.io/gh/ignatandrei/AOP_With_Roslyn/branch/master/graph/badge.svg)](https://codecov.io/gh/ignatandrei/AOP_With_Roslyn)
 
