@@ -12,8 +12,9 @@ variables:
 steps:
  
 
-- script: cd AOPRoslyn |
-          dotnet tool restore 
+- script: | 
+    cd AOPRoslyn 
+    dotnet tool restore 
 - script: dotnet restore AOPRoslyn\AOPRoslyn.sln
 - script: dotnet build AOPRoslyn\AOPRoslyn.sln --configuration $(buildConfiguration)
 - script: dotnet pwsh -f ./makenuget.ps1
