@@ -18,12 +18,12 @@ steps:
   displayName: 'restore tool'
 - script: dotnet restore AOPRoslyn\AOPRoslyn.sln
   displayName: 'restore project'
-- script: dotnet build AOPRoslyn\AOPRoslyn.sln --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
 - script:  | 
     cd AOPRoslyn 
     dotnet tool run pwsh -f ./makenuget.ps1
   displayName: 'powershell to version and pack'
+- script: dotnet build AOPRoslyn\AOPRoslyn.sln --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
 - script: dotnet pack AOPRoslyn\aopCmd\aop.csproj  --no-build -o $(Build.ArtifactStagingDirectory) /p:Configuration=$(buildConfiguration) # --verbosity Detailed
   displayName: 'dotnet pack '
 
@@ -42,7 +42,7 @@ steps:
     nuGetFeedType: external
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
     publishFeedCredentials: 'nugetAndrei'
-  displayName: 'dotnet nuget'
+  displayName: 'dotnet nuget push'
 
 # - task: DotNetCoreCLI@2
 #   displayName: Push Nuget Package

@@ -30,13 +30,12 @@ Modify this file and run
 dotnet aop processme.txt</Description>
     <Version>2.0.0</Version>
     <Copyright>Andrei Ignat</Copyright>
-    <PackageLicenseUrl>https://github.com/ignatandrei/AOP_With_Roslyn/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicense>MIT</PackageLicense>
     <PackageProjectUrl>http://msprogrammer.serviciipeweb.ro/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ignatandrei/AOP_With_Roslyn/</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>AOP;Roslyn;C#</PackageTags>
     <PackageReleaseNotes>See all releases at https://github.com/ignatandrei/AOP_With_Roslyn/releases</PackageReleaseNotes>
-    <PackageIconUrl>https://raw.githubusercontent.com/ignatandrei/AOP_With_Roslyn/master/aopnugetIcon.png</PackageIconUrl>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>dotnetaop.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
