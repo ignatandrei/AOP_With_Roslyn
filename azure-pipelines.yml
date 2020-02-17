@@ -10,9 +10,9 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-#- script: dir 
-#- script: cd AOPRoslyn
-#- script: dir 
+ 
+- script: cd AOPRoslyn
+- script: dotnet tool restore 
 - script: dotnet restore AOPRoslyn\AOPRoslyn.sln
 - script: dotnet build AOPRoslyn\AOPRoslyn.sln --configuration $(buildConfiguration)
 - script: dotnet pack AOPRoslyn\aopCmd\aop.csproj /p:Configuration=$(buildConfiguration) --verbosity Detailed
