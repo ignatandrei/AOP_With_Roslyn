@@ -34,3 +34,4 @@ steps:
   inputs:
     command: push
     nuGetFeedType: external
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg
