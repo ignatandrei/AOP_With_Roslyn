@@ -41,7 +41,6 @@ steps:
     command: push
     nuGetFeedType: external
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
-    nuGetFeedType: 'external'
     publishFeedCredentials: 'nugetAndrei'
   displayName: 'dotnet nuget'
 
