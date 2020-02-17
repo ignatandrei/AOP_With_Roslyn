@@ -28,9 +28,9 @@ steps:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
     artifactName: drop1
 
-- task: NuGetAuthenticate@0
-  inputs:
-    nuGetServiceConnections: 'nugetAndrei'
+# - task: NuGetAuthenticate@0
+#   inputs:
+#     nuGetServiceConnections: 'nugetAndrei'
 
 # - task: NuGetCommand@2
 #   inputs:
