@@ -19,7 +19,16 @@ steps:
 - script: dotnet pack AOPRoslyn\aopCmd\aop.csproj  --no-build -o $(Build.ArtifactStagingDirectory) /p:Configuration=$(buildConfiguration) # --verbosity Detailed
   displayName: 'dotnet build $(buildConfiguration)'
 
-  - task: PublishBuildArtifacts@1
+- task: PublishBuildArtifacts@1
 inputs:
   pathtoPublish: '$(Build.ArtifactStagingDirectory)'
   artifactName: drop1
+
+- task: NuGetAuthenticate@0
+  inputs:
+    nuGetServiceConnections: 'nugetAndrei'
+
+- task: NuGetCommand@2
+  inputs:
+    command: push
+    nuGetFeedType: external
