@@ -20,9 +20,9 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'
 
 - task: PublishBuildArtifacts@1
-inputs:
-  pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-  artifactName: drop1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: drop1
 
 - task: NuGetAuthenticate@0
   inputs:
