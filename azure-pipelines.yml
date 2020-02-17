@@ -32,11 +32,11 @@ steps:
   inputs:
     nuGetServiceConnections: 'nugetAndrei'
 
-- task: NuGetCommand@2
-  inputs:
-    command: push
-    nuGetFeedType: external
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+# - task: NuGetCommand@2
+#   inputs:
+#     command: push
+#     nuGetFeedType: external
+#     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
 
 - task: DotNetCoreCLI@2
   displayName: Push Nuget Package
@@ -45,5 +45,5 @@ steps:
     custom: nuget
     arguments: >
       push $(Build.ArtifactStagingDirectory)/*.nupkg
-      -s $(NuGetSourceServerUrl)
+      -s https://api.nuget.org/v3/index.json
       -k $(NuGetSourceServerApiKey)
