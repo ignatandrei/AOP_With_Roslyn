@@ -15,13 +15,17 @@ steps:
 - script: | 
     cd AOPRoslyn 
     dotnet tool restore 
+  displayName: 'restore tool'
 - script: dotnet restore AOPRoslyn\AOPRoslyn.sln
+  displayName: 'restore project'
 - script: dotnet build AOPRoslyn\AOPRoslyn.sln --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
 - script:  | 
     cd AOPRoslyn 
     dotnet tool run pwsh -f ./makenuget.ps1
+  displayName: 'powershell to version and pack'
 - script: dotnet pack AOPRoslyn\aopCmd\aop.csproj  --no-build -o $(Build.ArtifactStagingDirectory) /p:Configuration=$(buildConfiguration) # --verbosity Detailed
-  displayName: 'dotnet build $(buildConfiguration)'
+  displayName: 'dotnet pack '
 
 - task: PublishBuildArtifacts@1
   inputs:
@@ -32,18 +36,21 @@ steps:
 #   inputs:
 #     nuGetServiceConnections: 'nugetAndrei'
 
-# - task: NuGetCommand@2
-#   inputs:
-#     command: push
-#     nuGetFeedType: external
-#     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+ - task: NuGetCommand@2
+   inputs:
+     command: push
+     nuGetFeedType: external
+     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+     nuGetFeedType: 'external'
+     publishFeedCredentials: 'nugetAndrei'
+   displayName: 'dotnet nuget'
 
-- task: DotNetCoreCLI@2
-  displayName: Push Nuget Package
-  inputs:
-    command: custom
-    custom: nuget
-    arguments: >
-      push $(Build.ArtifactStagingDirectory)/*.nupkg
-      -s https://api.nuget.org/v3/index.json
-      -k $(NuGetSourceServerApiKey)
+# - task: DotNetCoreCLI@2
+#   displayName: Push Nuget Package
+#   inputs:
+#     command: custom
+#     custom: nuget
+#     arguments: >
+#       push $(Build.ArtifactStagingDirectory)\*.nupkg
+#       -s https://api.nuget.org/v3/index.json
+#       -k $(NuGetSourceServerApiKey)
