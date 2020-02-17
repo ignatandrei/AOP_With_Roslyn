@@ -15,5 +15,11 @@ steps:
 - script: dotnet tool restore 
 - script: dotnet restore AOPRoslyn\AOPRoslyn.sln
 - script: dotnet build AOPRoslyn\AOPRoslyn.sln --configuration $(buildConfiguration)
-- script: dotnet pack AOPRoslyn\aopCmd\aop.csproj /p:Configuration=$(buildConfiguration) --verbosity Detailed
+- script: dotnet pwsh -f ./makenuget.ps1
+- script: dotnet pack AOPRoslyn\aopCmd\aop.csproj  --no-build -o $(Build.ArtifactStagingDirectory) /p:Configuration=$(buildConfiguration) # --verbosity Detailed
   displayName: 'dotnet build $(buildConfiguration)'
+
+  - task: PublishBuildArtifacts@1
+inputs:
+  pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+  artifactName: drop1
