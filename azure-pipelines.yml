@@ -8,6 +8,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  deployNuget: '0'
 
 steps:
  
@@ -37,6 +38,7 @@ steps:
 #     nuGetServiceConnections: 'nugetAndrei'
 
 - task: NuGetCommand@2
+  condition: and(succeeded(), eq(variables['deployNuget'], '1'))
   inputs:
     command: push
     nuGetFeedType: external
