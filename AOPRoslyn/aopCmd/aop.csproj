@@ -5,7 +5,7 @@
     <PackageId>dotnet-aop</PackageId>
     <PackAsTool>True</PackAsTool>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>dotnet.aop</AssemblyName>
     <Authors>Andrei Ignat</Authors>
      <RepositoryUrl>https://github.com/ignatandrei/AOP_With_Roslyn.git</RepositoryUrl>
