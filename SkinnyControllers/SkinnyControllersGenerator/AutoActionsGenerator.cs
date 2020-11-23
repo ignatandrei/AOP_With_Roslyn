@@ -114,7 +114,7 @@ namespace {namespaceName}
         {
             context.RegisterForSyntaxNotifications(() => new SyntaxReceiverFields());
 
-            //Debugger.Launch();
+            Debugger.Launch();
         }
     }
 }

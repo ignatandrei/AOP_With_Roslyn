@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SkinnyControllerTest.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public partial class WeatherForecastController : ControllerBase
     {
 

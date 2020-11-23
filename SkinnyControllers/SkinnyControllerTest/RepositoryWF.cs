@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SkinnyControllerTest
 {
@@ -12,8 +13,12 @@ namespace SkinnyControllerTest
 
         public WeatherForecast[] GetData()
         {
+            return DataToDo(5);
+        }
+        public WeatherForecast[] DataToDo(int i)
+        {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return Enumerable.Range(1, i).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
@@ -22,6 +27,10 @@ namespace SkinnyControllerTest
             .ToArray();
 
         }
-        
+        public async Task<WeatherForecast> GetMyDataInAsyncManner()
+        {
+            await Task.Delay(5000);
+            return DataToDo(1)[0];
+        }
     }
 }
