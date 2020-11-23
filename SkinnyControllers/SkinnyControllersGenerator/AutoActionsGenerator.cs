@@ -34,7 +34,7 @@ namespace SkinnyControllersGenerator
                     }
                 }
 
-                foreach (IGrouping<INamedTypeSymbol, IFieldSymbol> group in fieldSymbols.GroupBy(f => f.ContainingType))
+                foreach (var group in fieldSymbols.GroupBy(f => f.ContainingType))
                 {
                     string classSource = ProcessClass(group.Key, group.ToArray(),   context);
                     if (string.IsNullOrWhiteSpace(classSource))
@@ -51,6 +51,7 @@ namespace SkinnyControllersGenerator
               //  $"processing {classSymbol.Name}");
             if (!classSymbol.ContainingSymbol.Equals(classSymbol.ContainingNamespace, SymbolEqualityComparer.Default))
             {
+                //log diagnostic
                 return null;                 
             }
             string namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
@@ -63,7 +64,7 @@ namespace {namespaceName}
 
             foreach (var fieldSymbol in fields)
             {
-                source.Append(ProcessField(fieldSymbol));
+                source.AppendLine(ProcessField(fieldSymbol));
             }
 
             source.Append(@"
@@ -75,28 +76,45 @@ namespace {namespaceName}
 
         private string ProcessField(IFieldSymbol fieldSymbol)
         {
+            var code = new StringBuilder();
             string fieldName = fieldSymbol.Name;
             var fieldType = fieldSymbol.Type;
             var members = fieldType.GetMembers();
             foreach(var m in members)
             {
-                if (m.Kind != SymbolKind.Method)
-                    continue;
                 if (m.IsStatic)
                     continue;
                 if (m.IsAbstract)
                     continue;
 
-                var Q = m.IsStatic;
+                if (m.Kind != SymbolKind.Method)
+                    continue; //diagnostic
+                
+                var ms = m as IMethodSymbol;
+                if (ms is null)//log diagnostic
+                    continue;
+                if ((ms.Name == fieldName || ms.Name==".ctor") && ms.ReturnsVoid)
+                    continue;
+
+                var parametersDefinition = string.Join(",", ms.Parameters.Select(it => it.Type.ContainingNamespace + "." + it.Type.Name + " " + it.Name).ToArray()); 
+                var parametersCall = string.Join(",", ms.Parameters.Select(it => it.Name).ToArray());
+                string method = "[Microsoft.AspNetCore.Mvc.HttpGetAttribute]";
+                if(ms.Parameters.Any())
+                    method = "[Microsoft.AspNetCore.Mvc.HttpPostAttribute]";
+                code.AppendLine(method);
+                code.AppendLine( $"public {ms.ReturnType} {ms.Name}  ({parametersDefinition})  {{");
+                code.AppendLine(ms.ReturnsVoid ? "" : "return ");
+                code.AppendLine($"{fieldName}.{ms.Name}({parametersCall});");
+                code.AppendLine("}");
             }
-            return "";
+            return code.ToString();
         }
 
         public void Initialize(GeneratorInitializationContext context)
         {
             context.RegisterForSyntaxNotifications(() => new SyntaxReceiverFields());
 
-            Debugger.Launch();
+            //Debugger.Launch();
         }
     }
 }

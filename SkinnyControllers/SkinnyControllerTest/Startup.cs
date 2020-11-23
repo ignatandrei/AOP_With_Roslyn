@@ -31,6 +31,7 @@ namespace SkinnyControllerTest
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SkinnyControllerTest", Version = "v1" });
             });
+            services.AddTransient<RepositoryWF>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

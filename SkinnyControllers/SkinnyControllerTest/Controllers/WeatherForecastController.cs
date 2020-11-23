@@ -17,13 +17,15 @@ namespace SkinnyControllerTest.Controllers
 
         [AutoActions]
         private readonly RepositoryWF repository;
-
+        
         public WeatherForecastController(ILogger<WeatherForecastController> logger, RepositoryWF repository)
         {
             _logger = logger;
             this.repository = repository;
-            this.id = "asd";
+            
         }
+
+
 
     }
 }
