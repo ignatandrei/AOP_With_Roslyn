@@ -14,5 +14,4 @@
     <ProjectReference Include="..\SkinnyControllersCommon\SkinnyControllersCommon.csproj" />
     <ProjectReference Include="..\SkinnyControllersGenerator\SkinnyControllersGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
-
 </Project>

@@ -3,5 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
+  <PropertyGroup>
+    <Description>
+      ** C# 9.0 ONLY **
+    </Description>
+    <Version>2020.11.23</Version>
+  </PropertyGroup>
+      <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
+
+  </ItemGroup>
 
 </Project>
