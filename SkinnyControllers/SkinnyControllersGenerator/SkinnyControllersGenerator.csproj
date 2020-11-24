@@ -11,6 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Take a public dependency on Json.Net. Consumers of this generator will get a reference to this package -->
+    <PackageReference Include="SkinnyControllersCommon" Version="2020.11.23" />
     <!-- Package the generator in the analyzer directory of the nuget package -->
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup> 
@@ -23,7 +25,7 @@
       private readonly RepositoryWF repository;
 
     </Description>
-    <Version>2020.11.24.2040</Version>  
+    <Version>2020.11.24.2135</Version>  
   </PropertyGroup>
 
   <ItemGroup>

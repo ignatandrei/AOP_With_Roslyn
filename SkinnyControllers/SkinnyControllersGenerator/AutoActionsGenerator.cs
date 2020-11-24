@@ -10,15 +10,30 @@ using System.Text;
 
 namespace SkinnyControllersGenerator
 {
-    
+
     [Generator]
     public class AutoActionsGenerator : ISourceGenerator
     {
+
         string autoActions = typeof(AutoActionsAttribute).Name;
         public void Execute(GeneratorExecutionContext context)
         {
+            {
+                var dd = new DiagnosticDescriptor("Test", "StartExecution", "StartExecution", "SkinnyControllers", DiagnosticSeverity.Info, true);
+                var d = Diagnostic.Create(dd, Location.Create("skinnycontrollers.cs", new TextSpan(1, 2), new LinePositionSpan()));
+                context.ReportDiagnostic(d);
+            }
+            if (!context.Compilation.ReferencedAssemblyNames.Any(ai => ai.Name.Equals("SkinnyControllersCommon", StringComparison.OrdinalIgnoreCase)))
+            {
+                var dd= new DiagnosticDescriptor("Andrei","do not have skinny controllers common", "do not have skinny controllers common", "SkinnyControllers", DiagnosticSeverity.Error, true);
+                var d = Diagnostic.Create(dd, Location.Create("skinnycontrollers.cs", new TextSpan(1,2),new LinePositionSpan()));
+                context.ReportDiagnostic(d);
+            }
+
             if (!(context.SyntaxReceiver is SyntaxReceiverFields receiver))
                 return;
+
+
             var compilation = context.Compilation;
             var fieldSymbols = new List<IFieldSymbol>();
             foreach (var field in receiver.CandidateFields)
