@@ -33,8 +33,10 @@ namespace SkinnyControllersGenerator
                         fieldSymbols.Add(fieldSymbol);
                     }
                 }
-
-                foreach (var group in fieldSymbols.GroupBy(f => f.ContainingType))
+                
+                var g = fieldSymbols.GroupBy(f => f.ContainingType).ToArray();
+                
+                foreach (var group in g)
                 {
                     string classSource = ProcessClass(group.Key, group.ToArray(),   context);
                     if (string.IsNullOrWhiteSpace(classSource))
@@ -60,7 +62,7 @@ namespace {namespaceName}
 {{
     public partial class {classSymbol.Name} 
     {{
-            public string id;");
+            ");
 
             foreach (var fieldSymbol in fields)
             {
