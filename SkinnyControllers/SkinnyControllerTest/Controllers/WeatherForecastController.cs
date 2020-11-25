@@ -22,7 +22,7 @@ namespace SkinnyControllerTest.Controllers
         {
             _logger = logger;
             this.repository = repository;
-                    
+                   
         }
 
 

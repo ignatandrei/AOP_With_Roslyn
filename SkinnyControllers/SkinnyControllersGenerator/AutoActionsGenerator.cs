@@ -79,8 +79,12 @@ namespace SkinnyControllersGenerator
             }
             string namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
             var source = new StringBuilder($@"
+using System.CodeDom.Compiler;
+using System.Runtime.CompilerServices;
 namespace {namespaceName}
 {{
+    [GeneratedCode(""{ThisAssembly.Info.Product}"", ""{ThisAssembly.Info.Version}"")]
+    [CompilerGenerated]
     public partial class {classSymbol.Name} 
     {{
             ");
