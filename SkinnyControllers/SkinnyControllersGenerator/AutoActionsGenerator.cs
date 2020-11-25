@@ -15,14 +15,20 @@ namespace SkinnyControllersGenerator
     public class AutoActionsGenerator : ISourceGenerator
     {
 
+        static Diagnostic DoDiagnostic(DiagnosticSeverity ds,string message)
+        {
+            //info  could be seen only with 
+            // dotnet build -v diag
+            var dd = new DiagnosticDescriptor("SkinnyControllersGenerator", $"StartExecution", $"{message}", "SkinnyControllers", ds, true);
+            var d = Diagnostic.Create(dd, Location.Create("skinnycontrollers.cs", new TextSpan(1, 2), new LinePositionSpan()));
+            return d;
+        }
         string autoActions = typeof(AutoActionsAttribute).Name;
         public void Execute(GeneratorExecutionContext context)
         {
-            {
-                var dd = new DiagnosticDescriptor("Test", "StartExecution", "StartExecution", "SkinnyControllers", DiagnosticSeverity.Warning, true);
-                var d = Diagnostic.Create(dd, Location.Create("skinnycontrollers.cs", new TextSpan(1, 2), new LinePositionSpan()));
-                context.ReportDiagnostic(d);
-            }
+            string name = $"{ThisAssembly.Project.AssemblyName} {ThisAssembly.Info.Version}";
+            context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info,name));
+
             //if (!context.Compilation.ReferencedAssemblyNames.Any(ai => ai.Name.Equals("SkinnyControllersCommon", StringComparison.OrdinalIgnoreCase)))
             //{
             //    var dd= new DiagnosticDescriptor("Andrei","do not have skinny controllers common", "do not have skinny controllers common", "SkinnyControllers", DiagnosticSeverity.Error, true);
@@ -105,11 +111,19 @@ namespace {namespaceName}
                     continue;
 
                 if (m.Kind != SymbolKind.Method)
-                    continue; //diagnostic
-                
+                {
+                    //context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{m.Name} is not a method"));
+                    continue; //pass context to do diagnostic
+
+                }
+
                 var ms = m as IMethodSymbol;
-                if (ms is null)//log diagnostic
-                    continue;
+                if (ms is null)
+                {
+                    //context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{m.Name} is not a method"));
+                    continue; //pass context to do diagnostic
+
+                }
                 if ((ms.Name == fieldName || ms.Name==".ctor") && ms.ReturnsVoid)
                     continue;
 
