@@ -11,10 +11,11 @@ using System.Text;
 namespace SkinnyControllersGenerator
 {
 
+
     [Generator]
     public class AutoActionsGenerator : ISourceGenerator
     {
-
+        GeneratorExecutionContext context;
         static Diagnostic DoDiagnostic(DiagnosticSeverity ds,string message)
         {
             //info  could be seen only with 
@@ -26,6 +27,7 @@ namespace SkinnyControllersGenerator
         string autoActions = typeof(AutoActionsAttribute).Name;
         public void Execute(GeneratorExecutionContext context)
         {
+            this.context = context;
             string name = $"{ThisAssembly.Project.AssemblyName} {ThisAssembly.Info.Version}";
             context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info,name));
 
@@ -39,7 +41,7 @@ namespace SkinnyControllersGenerator
             if (!(context.SyntaxReceiver is SyntaxReceiverFields receiver))
                 return;
 
-
+            context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, "starting data"));
             var compilation = context.Compilation;
             var fieldSymbols = new List<IFieldSymbol>();
             foreach (var field in receiver.CandidateFields)
@@ -55,10 +57,11 @@ namespace SkinnyControllersGenerator
                     }
                 }
                 
-                var g = fieldSymbols.GroupBy(f => f.ContainingType).ToArray();
+                var g = fieldSymbols.GroupBy(f => f.ContainingType,new EqComparer()).ToArray();
                 
                 foreach (var group in g)
                 {
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"starting class {group.Key}"));
                     string classSource = ProcessClass(group.Key, group.ToArray(),   context);
                     if (string.IsNullOrWhiteSpace(classSource))
                         continue;
@@ -73,8 +76,8 @@ namespace SkinnyControllersGenerator
             //var d=Diagnostic.Create(new DiagnosticDescriptor())
               //  $"processing {classSymbol.Name}");
             if (!classSymbol.ContainingSymbol.Equals(classSymbol.ContainingNamespace, SymbolEqualityComparer.Default))
-            {
-                //log diagnostic
+            {                
+                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {classSymbol.Name} is in other namespace; please put directly "));
                 return null;                 
             }
             string namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
@@ -117,16 +120,16 @@ namespace {namespaceName}
 
                 if (m.Kind != SymbolKind.Method)
                 {
-                    //context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{m.Name} is not a method"));
-                    continue; //pass context to do diagnostic
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{m.Name} is not a method ? "));
+                    continue; 
 
                 }
 
                 var ms = m as IMethodSymbol;
                 if (ms is null)
                 {
-                    //context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{m.Name} is not a method"));
-                    continue; //pass context to do diagnostic
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{m.Name} is not a IMethodSymbol"));
+                    continue; 
 
                 }
                 if ((ms.Name == fieldName || ms.Name==".ctor") && ms.ReturnsVoid)
@@ -148,8 +151,9 @@ namespace {namespaceName}
 
         public void Initialize(GeneratorInitializationContext context)
         {
+            
             context.RegisterForSyntaxNotifications(() => new SyntaxReceiverFields());
-
+            //in development
             //Debugger.Launch();
         }
     }

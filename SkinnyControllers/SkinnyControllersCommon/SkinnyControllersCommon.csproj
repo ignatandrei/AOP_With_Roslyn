@@ -9,9 +9,9 @@
     </Description>
     <Version>2020.11.23</Version>
   </PropertyGroup>
-      <ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
-
+  
   </ItemGroup>
 
 </Project>
