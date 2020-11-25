@@ -83,6 +83,7 @@ using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 namespace {namespaceName}
 {{
+    //intellisense
     [GeneratedCode(""{ThisAssembly.Info.Product}"", ""{ThisAssembly.Info.Version}"")]
     [CompilerGenerated]
     public partial class {classSymbol.Name} 
