@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -11,8 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Take a public dependency on Json.Net. Consumers of this generator will get a reference to this package -->
-    <PackageReference Include="SkinnyControllersCommon" Version="2020.11.23" />
+    <!-- Take a public dependency on SkinnyControllersCommon Consumers of this generator will get a reference to this package -->
+    <PackageReference Include="SkinnyControllersCommon" Version="2020.11.23"  PrivateAssets="all" GeneratePathProperty="true"/>
     <!-- Package the generator in the analyzer directory of the nuget package -->
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup> 
@@ -25,7 +25,7 @@
       private readonly RepositoryWF repository;
 
     </Description>
-    <Version>2020.11.24.2135</Version>  
+    <Version>2020.11.25.632</Version>  
   </PropertyGroup>
 
   <ItemGroup>
