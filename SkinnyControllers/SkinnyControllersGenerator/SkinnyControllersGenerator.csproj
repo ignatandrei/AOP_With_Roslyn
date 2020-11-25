@@ -9,10 +9,11 @@
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <!-- Do not include the generator as a lib dependency -->
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\SkinnyControllersCommon\AutoActionsAttribute.cs" Link="AutoActionsAttribute.cs" />
+  </ItemGroup>
 
   <ItemGroup>
-    <!-- Take a public dependency on SkinnyControllersCommon Consumers of this generator will get a reference to this package -->
-    <PackageReference Include="SkinnyControllersCommon" Version="2020.11.23"  PrivateAssets="all" GeneratePathProperty="true"/>
     <!-- Package the generator in the analyzer directory of the nuget package -->
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup> 
@@ -25,7 +26,7 @@
       private readonly RepositoryWF repository;
 
     </Description>
-    <Version>2020.11.25.632</Version>  
+    <Version>2020.11.25.701</Version>  
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,9 +34,6 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
 
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SkinnyControllersCommon\SkinnyControllersCommon.csproj" />
   </ItemGroup>
 
 </Project>
