@@ -57,7 +57,7 @@ namespace SkinnyControllersGenerator
                     }
                 }
                 
-                var g = fieldSymbols.GroupBy(f => f.ContainingType,new EqComparer()).ToArray();
+                var g = fieldSymbols.GroupBy(f => f.ContainingType).ToArray();
                 
                 foreach (var group in g)
                 {
@@ -95,7 +95,8 @@ namespace {namespaceName}
 
             foreach (var fieldSymbol in fields)
             {
-                source.AppendLine(ProcessField(fieldSymbol));
+                //add to the class definition
+                ProcessField(fieldSymbol);
             }
 
             source.Append(@"
@@ -105,8 +106,9 @@ namespace {namespaceName}
             return source.ToString();
         }
 
-        private string ProcessField(IFieldSymbol fieldSymbol)
+        private MethodDefinition[] ProcessField(IFieldSymbol fieldSymbol)
         {
+            var ret = new List<MethodDefinition>();
             var code = new StringBuilder();
             string fieldName = fieldSymbol.Name;
             var fieldType = fieldSymbol.Type;
@@ -135,18 +137,26 @@ namespace {namespaceName}
                 if ((ms.Name == fieldName || ms.Name==".ctor") && ms.ReturnsVoid)
                     continue;
 
-                var parametersDefinition = string.Join(",", ms.Parameters.Select(it => it.Type.ContainingNamespace + "." + it.Type.Name + " " + it.Name).ToArray()); 
-                var parametersCall = string.Join(",", ms.Parameters.Select(it => it.Name).ToArray());
-                string method = "[Microsoft.AspNetCore.Mvc.HttpGetAttribute]";
-                if(ms.Parameters.Any())
-                    method = "[Microsoft.AspNetCore.Mvc.HttpPostAttribute]";
-                code.AppendLine(method);
-                code.AppendLine( $"public {ms.ReturnType} {ms.Name}  ({parametersDefinition})  {{");
-                code.AppendLine(ms.ReturnsVoid ? "" : "return ");
-                code.AppendLine($"{fieldName}.{ms.Name}({parametersCall});");
-                code.AppendLine("}");
+                var md = new MethodDefinition();
+                md.Name = ms.Name;
+                md.ReturnsVoid = ms.ReturnsVoid;
+                md.ReturnType = ms.ReturnType.Name;
+                md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it.Type.Name);
+
+                ret.Add( md);
+                //var parametersDefinition = string.Join(",", ms.Parameters.Select(it => it.Type.ContainingNamespace + "." + it.Type.Name + " " + it.Name).ToArray()); 
+                //var parametersCall = string.Join(",", ms.Parameters.Select(it => it.Name).ToArray());
+                //string method = "[Microsoft.AspNetCore.Mvc.HttpGetAttribute]";
+                //if(ms.Parameters.Any())
+                //    method = "[Microsoft.AspNetCore.Mvc.HttpPostAttribute]";
+                //code.AppendLine(method);
+                //code.AppendLine( $"public {ms.ReturnType} {ms.Name}  ({parametersDefinition})  {{");
+                //code.AppendLine(ms.ReturnsVoid ? "" : "return ");
+                //code.AppendLine($"{fieldName}.{ms.Name}({parametersCall});");
+                //code.AppendLine("}");
             }
-            return code.ToString();
+            return ret.ToArray();
+            //return code.ToString();
         }
 
         public void Initialize(GeneratorInitializationContext context)
