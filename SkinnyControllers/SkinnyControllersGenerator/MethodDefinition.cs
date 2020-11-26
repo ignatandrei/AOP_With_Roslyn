@@ -8,7 +8,7 @@ namespace SkinnyControllersGenerator
         public string ClassName { get; set; }
         public string Name { get; set; }
 
-        public Type ReturnType;
+        public string ReturnType;
         public bool ReturnsVoid;
         //name, type
         public Dictionary<string, string> Parameters;
