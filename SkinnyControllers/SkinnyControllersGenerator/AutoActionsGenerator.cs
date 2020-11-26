@@ -5,7 +5,9 @@ using SkinnyControllersCommon;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace SkinnyControllersGenerator
@@ -21,7 +23,7 @@ namespace SkinnyControllersGenerator
             //info  could be seen only with 
             // dotnet build -v diag
             var dd = new DiagnosticDescriptor("SkinnyControllersGenerator", $"StartExecution", $"{message}", "SkinnyControllers", ds, true);
-            var d = Diagnostic.Create(dd, Location.Create("skinnycontrollers.cs", new TextSpan(1, 2), new LinePositionSpan()));
+            var d = Diagnostic.Create(dd, Location.None,"andrei.txt" );
             return d;
         }
         string autoActions = typeof(AutoActionsAttribute).Name;
@@ -29,7 +31,7 @@ namespace SkinnyControllersGenerator
         {
             this.context = context;
             string name = $"{ThisAssembly.Project.AssemblyName} {ThisAssembly.Info.Version}";
-            context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info,name));
+            context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, name));
 
             //if (!context.Compilation.ReferencedAssemblyNames.Any(ai => ai.Name.Equals("SkinnyControllersCommon", StringComparison.OrdinalIgnoreCase)))
             //{
@@ -56,17 +58,26 @@ namespace SkinnyControllersGenerator
                         fieldSymbols.Add(fieldSymbol);
                     }
                 }
-                
+
                 var g = fieldSymbols.GroupBy(f => f.ContainingType).ToArray();
-                
+
                 foreach (var group in g)
                 {
                     context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"starting class {group.Key}"));
-                    string classSource = ProcessClass(group.Key, group.ToArray(),   context);
-                    if (string.IsNullOrWhiteSpace(classSource))
-                        continue;
+                    try
+                    {
+                        string classSource = ProcessClass(group.Key, group.ToArray(), context);
+                        if (string.IsNullOrWhiteSpace(classSource))
+                            continue;
 
-                    context.AddSource($"{group.Key.Name}_autogenerate.cs", SourceText.From(classSource, Encoding.UTF8));
+
+                        context.AddSource($"{group.Key.Name}_autogenerate.cs", SourceText.From(classSource, Encoding.UTF8));
+
+                    }
+                    catch (Exception ex)
+                    {
+                        context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{group.Key} error {ex.Message}"));
+                    }
                 }
             }
         }
@@ -81,29 +92,34 @@ namespace SkinnyControllersGenerator
                 return null;                 
             }
             string namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
-            var source = new StringBuilder($@"
+            var cd = new ClassDefinition();
+            cd.NamespaceName = namespaceName;
+            cd.ClassName = classSymbol.Name;
+            cd.DictNameField_Methods = fields
+                .SelectMany(it => ProcessField(it))
+                .GroupBy(it=>it.FieldName)
+                .ToDictionary(it => it.Key, it => it.ToArray());
+            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SkinnyControllersGenerator.AllPost.txt");
+            using var reader = new StreamReader(stream);
+            var post = reader.ReadToEnd();
+            var template = Scriban.Template.Parse(post);
+            var output = template.Render(cd, member => member.Name);
+            return $@"
 using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
-namespace {namespaceName}
-{{
-    //intellisense
-    [GeneratedCode(""{ThisAssembly.Info.Product}"", ""{ThisAssembly.Info.Version}"")]
+/*
+{output}
+*/
+                    namespace {cd.NamespaceName} {{
+ [GeneratedCode(""{ThisAssembly.Info.Product}"", ""{ThisAssembly.Info.Version}"")]
     [CompilerGenerated]
-    public partial class {classSymbol.Name} 
-    {{
-            ");
+                        partial class {cd.ClassName}{{ 
+                                private int id(){{
+return 1;                                    
+}} 
+                            }} 
+                    }}";
 
-            foreach (var fieldSymbol in fields)
-            {
-                //add to the class definition
-                ProcessField(fieldSymbol);
-            }
-
-            source.Append(@"
-    }//end class
-}//end namespace
-");
-            return source.ToString();
         }
 
         private MethodDefinition[] ProcessField(IFieldSymbol fieldSymbol)
@@ -139,6 +155,7 @@ namespace {namespaceName}
 
                 var md = new MethodDefinition();
                 md.Name = ms.Name;
+                md.FieldName = fieldName;
                 md.ReturnsVoid = ms.ReturnsVoid;
                 md.ReturnType = ms.ReturnType.Name;
                 md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it.Type.Name);

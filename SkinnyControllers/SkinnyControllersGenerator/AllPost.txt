@@ -1,0 +1,23 @@
+﻿using System.CodeDom.Compiler;
+using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+
+namespace {{NamespaceName}} {
+  [GeneratedCode("SkinnyControllersGenerator", "{{version}}")]
+  [CompilerGenerated]
+  partial class WeatherForecastController{ 
+    private int id(){return 1;} 
+    {{~ for kvp in DictNameField_Methods ~}}
+      #region start generating for {{kvp.Key}}
+      {{~ for mi in kvp.Value ~}}
+        [HttpPost]
+        public {{mi.ReturnType}} {{mi.Name}} (){
+            
+        }
+      {{~ end ~}}
+      #endregion
+    {{~ end ~}}
+    
+  }
+}              

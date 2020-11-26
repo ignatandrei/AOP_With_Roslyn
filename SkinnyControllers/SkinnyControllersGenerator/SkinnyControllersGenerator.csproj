@@ -16,6 +16,7 @@
   <ItemGroup>
     <!-- Package the generator in the analyzer directory of the nuget package -->
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="$(PkgScriban)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup> 
   <PropertyGroup>
     <Description>
@@ -27,14 +28,21 @@
 
     </Description>
     <Version>2020.11.25.1356</Version>  
-  </PropertyGroup>
+  </PropertyGroup> 
+  <ItemGroup>
+    <None Remove="AllPost.txt" />
+  </ItemGroup> 
+  <ItemGroup>
+    <EmbeddedResource Include="AllPost.txt" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.1" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
-    <PackageReference Include="ThisAssembly" Version="1.0.0" />
-    <PackageReference Include="Scriban" Version="3.0.0" PrivateAssets="all" />
+    <PackageReference Include="Scriban" Version="3.0.2" GeneratePathProperty="true" />
+    <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.0" />
+    <PackageReference Include="ThisAssembly.Project" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
