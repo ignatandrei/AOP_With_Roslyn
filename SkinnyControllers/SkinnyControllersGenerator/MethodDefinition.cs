@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SkinnyControllersGenerator
 {
@@ -17,7 +19,11 @@ namespace SkinnyControllersGenerator
         public string ReturnType;
         public bool ReturnsVoid;
         //name, type
-        public Dictionary<string, string> Parameters;
+        public Dictionary<string, ITypeSymbol> Parameters;
+
+        public string parametersDefinitionCSharp => string.Join(",", Parameters.Select(it => it.Value.ContainingNamespace + "." + it.Value.Name + " " + it.Key).ToArray());
+        public string parametersCallCSharp => string.Join(",", Parameters.Select(it => it.Key).ToArray());
+
 
     }
 }

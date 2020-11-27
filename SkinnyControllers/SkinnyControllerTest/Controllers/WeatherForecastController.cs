@@ -22,14 +22,14 @@ namespace SkinnyControllerTest.Controllers
         {
             _logger = logger;
             this.repository = repository;
-            var x=this.id ();                             
+            //var x=this.id ();                             
         }
 
-        [HttpGet]
-        public string s()
-        {
-            return "a";
-        }
+        //[HttpGet]
+        //public string s()
+        //{
+        //    return "a";
+        //}
 
 
     }

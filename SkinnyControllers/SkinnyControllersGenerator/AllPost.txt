@@ -14,8 +14,12 @@ namespace {{NamespaceName}} {
     {{~ for kvp in DictNameField_Methods ~}}
       #region start generating for {{kvp.Key}}
       {{~ for mi in kvp.Value ~}}
+      {{
+            mi.Parameters.Length
+      }}
+
         [HttpPost]
-        public {{mi.ReturnType}} {{mi.Name}} (){
+        public {{mi.ReturnType}} {{mi.Name}} ({{mi.parametersDefinitionCSharp }}){
             {{
                 if mi.ReturnsVoid == false
             }}
@@ -23,7 +27,7 @@ namespace {{NamespaceName}} {
             {{
                 end
             }}
-            {{kvp.Key}}.{{mi.Name}}();
+            {{kvp.Key}}.{{mi.Name}}({{ mi.parametersCallCSharp }});
 
         }
       {{~ end ~}}

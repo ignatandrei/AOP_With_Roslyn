@@ -104,23 +104,24 @@ namespace SkinnyControllersGenerator
             var post = reader.ReadToEnd();
             var template = Scriban.Template.Parse(post);
             var output = template.Render(cd, member => member.Name);
-            return $@"
-using System.CodeDom.Compiler;
-using System.Runtime.CompilerServices;
-/*
-{output}
-*/
-                    namespace {cd.NamespaceName} {{
- [GeneratedCode(""{ThisAssembly.Info.Product}"", ""{ThisAssembly.Info.Version}"")]
-    [CompilerGenerated]
-                        partial class {cd.ClassName}{{ 
+            return output;
+//            return $@"
+//using System.CodeDom.Compiler;
+//using System.Runtime.CompilerServices;
+///*
+//{output}
+//*/
+//                    namespace {cd.NamespaceName} {{
+// [GeneratedCode(""{ThisAssembly.Info.Product}"", ""{ThisAssembly.Info.Version}"")]
+//    [CompilerGenerated]
+//                        partial class {cd.ClassName}{{ 
 
-                                private int id(){{
-System.Diagnostics.Debugger.Break();
-return 1;                                    
-}} 
-                            }} 
-                    }}";
+//                                private int id(){{
+//System.Diagnostics.Debugger.Break();
+//return 1;                                    
+//}} 
+//                            }} 
+//                    }}";
 
         }
 
@@ -159,23 +160,12 @@ return 1;
                 md.Name = ms.Name;
                 md.FieldName = fieldName;
                 md.ReturnsVoid = ms.ReturnsVoid;
-                md.ReturnType = ms.ReturnType.Name;
-                md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it.Type.Name);
+                md.ReturnType = ms.ReturnType.ToString();
+                md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it.Type);
 
                 ret.Add( md);
-                //var parametersDefinition = string.Join(",", ms.Parameters.Select(it => it.Type.ContainingNamespace + "." + it.Type.Name + " " + it.Name).ToArray()); 
-                //var parametersCall = string.Join(",", ms.Parameters.Select(it => it.Name).ToArray());
-                //string method = "[Microsoft.AspNetCore.Mvc.HttpGetAttribute]";
-                //if(ms.Parameters.Any())
-                //    method = "[Microsoft.AspNetCore.Mvc.HttpPostAttribute]";
-                //code.AppendLine(method);
-                //code.AppendLine( $"public {ms.ReturnType} {ms.Name}  ({parametersDefinition})  {{");
-                //code.AppendLine(ms.ReturnsVoid ? "" : "return ");
-                //code.AppendLine($"{fieldName}.{ms.Name}({parametersCall});");
-                //code.AppendLine("}");
             }
             return ret.ToArray();
-            //return code.ToString();
         }
 
         public void Initialize(GeneratorInitializationContext context)
