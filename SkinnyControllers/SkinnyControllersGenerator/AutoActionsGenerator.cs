@@ -114,7 +114,9 @@ using System.Runtime.CompilerServices;
  [GeneratedCode(""{ThisAssembly.Info.Product}"", ""{ThisAssembly.Info.Version}"")]
     [CompilerGenerated]
                         partial class {cd.ClassName}{{ 
+
                                 private int id(){{
+System.Diagnostics.Debugger.Break();
 return 1;                                    
 }} 
                             }} 

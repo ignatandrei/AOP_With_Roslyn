@@ -15,6 +15,10 @@ namespace SkinnyControllerTest
         {
             return DataToDo(5);
         }
+        public void DoStuff()
+        {
+            Console.WriteLine("do stuff");
+        }
         public WeatherForecast[] DataToDo(int i)
         {
             var rng = new Random();
