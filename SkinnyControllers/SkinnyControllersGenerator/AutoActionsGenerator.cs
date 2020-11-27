@@ -33,13 +33,6 @@ namespace SkinnyControllersGenerator
             string name = $"{ThisAssembly.Project.AssemblyName} {ThisAssembly.Info.Version}";
             context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, name));
 
-            //if (!context.Compilation.ReferencedAssemblyNames.Any(ai => ai.Name.Equals("SkinnyControllersCommon", StringComparison.OrdinalIgnoreCase)))
-            //{
-            //    var dd= new DiagnosticDescriptor("Andrei","do not have skinny controllers common", "do not have skinny controllers common", "SkinnyControllers", DiagnosticSeverity.Error, true);
-            //    var d = Diagnostic.Create(dd, Location.Create("skinnycontrollers.cs", new TextSpan(1,2),new LinePositionSpan()));
-            //    context.ReportDiagnostic(d);
-            //}
-
             if (!(context.SyntaxReceiver is SyntaxReceiverFields receiver))
                 return;
 
@@ -52,10 +45,15 @@ namespace SkinnyControllersGenerator
                 foreach (var variable in field.Declaration.Variables)
                 {
                     var fieldSymbol = model.GetDeclaredSymbol(variable) as IFieldSymbol;
-                    var attr = fieldSymbol.GetAttributes();
-                    if (attr.Any(ad => ad.AttributeClass.Name == autoActions))
+                    var attrArray = fieldSymbol.GetAttributes();
+                    var attr = attrArray.FirstOrDefault(it => it.AttributeClass.Name == autoActions);
+                    if (attr != null)
                     {
-                        fieldSymbols.Add(fieldSymbol);
+                        var na = attr.NamedArguments;
+                        if (na.Length > 0)
+                        {
+                            fieldSymbols.Add(fieldSymbol);
+                        }
                     }
                 }
 
@@ -91,6 +89,7 @@ namespace SkinnyControllersGenerator
                 context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {classSymbol.Name} is in other namespace; please put directly "));
                 return null;                 
             }
+            
             string namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
             var cd = new ClassDefinition();
             cd.NamespaceName = namespaceName;
@@ -99,6 +98,12 @@ namespace SkinnyControllersGenerator
                 .SelectMany(it => ProcessField(it))
                 .GroupBy(it=>it.FieldName)
                 .ToDictionary(it => it.Key, it => it.ToArray());
+
+
+            //var attrArray = fieldSymbol.GetAttributes();
+            //var attr = attrArray.FirstOrDefault(it => it.AttributeClass.Name == autoActions);
+
+
             using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SkinnyControllersGenerator.AllPost.txt");
             using var reader = new StreamReader(stream);
             var post = reader.ReadToEnd();
@@ -173,7 +178,7 @@ namespace SkinnyControllersGenerator
             
             context.RegisterForSyntaxNotifications(() => new SyntaxReceiverFields());
             //in development
-            //Debugger.Launch();
+            Debugger.Launch();
         }
     }
 }

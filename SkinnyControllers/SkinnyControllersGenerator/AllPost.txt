@@ -7,12 +7,12 @@ namespace {{NamespaceName}} {
   [GeneratedCode("SkinnyControllersGenerator", "{{version}}")]
   [CompilerGenerated]
   partial class WeatherForecastController{ 
-    private int id(){
+    /*[HttpGet()]
+    public int id(){
     System.Diagnostics.Debugger.Break();
     return 1;
-    } 
+    } */
     {{~ for kvp in DictNameField_Methods ~}}
-      #region start generating for {{kvp.Key}}
       {{~ for mi in kvp.Value ~}}
       {{
             mi.Parameters.Length
@@ -31,7 +31,7 @@ namespace {{NamespaceName}} {
 
         }
       {{~ end ~}}
-      #endregion
+      
     {{~ end ~}}
     
   }
