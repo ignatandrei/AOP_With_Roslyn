@@ -15,4 +15,9 @@
     <ProjectReference Include="..\SkinnyControllersCommon\SkinnyControllersCommon.csproj" />
     <ProjectReference Include="..\SkinnyControllersGenerator\SkinnyControllersGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
+<Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <Compile Remove="**/*.autogenerate.cs" />
+    </ItemGroup>
+  </Target>
 </Project>

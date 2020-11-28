@@ -31,6 +31,12 @@ namespace SkinnyControllerTest
             .ToArray();
 
         }
+
+        public long Add(int i, int j)
+        {
+            return i + j;
+
+        }
         public async Task<WeatherForecast> GetMyDataInAsyncManner()
         {
             await Task.Delay(5000);

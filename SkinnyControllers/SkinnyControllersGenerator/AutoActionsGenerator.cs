@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using SkinnyControllersCommon;
 using System;
@@ -18,12 +19,12 @@ namespace SkinnyControllersGenerator
     public class AutoActionsGenerator : ISourceGenerator
     {
         GeneratorExecutionContext context;
-        static Diagnostic DoDiagnostic(DiagnosticSeverity ds,string message)
+        static Diagnostic DoDiagnostic(DiagnosticSeverity ds, string message)
         {
             //info  could be seen only with 
             // dotnet build -v diag
             var dd = new DiagnosticDescriptor("SkinnyControllersGenerator", $"StartExecution", $"{message}", "SkinnyControllers", ds, true);
-            var d = Diagnostic.Create(dd, Location.None,"andrei.txt" );
+            var d = Diagnostic.Create(dd, Location.None, "andrei.txt");
             return d;
         }
         string autoActions = typeof(AutoActionsAttribute).Name;
@@ -39,69 +40,88 @@ namespace SkinnyControllersGenerator
             context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, "starting data"));
             var compilation = context.Compilation;
             var fieldSymbols = new List<IFieldSymbol>();
-            foreach (var field in receiver.CandidateFields)
+            foreach (var classDec in receiver.CandidatesControllers)
             {
-                SemanticModel model = compilation.GetSemanticModel(field.SyntaxTree);
-                foreach (var variable in field.Declaration.Variables)
+                SemanticModel model = compilation.GetSemanticModel(classDec.SyntaxTree);
+                var attrArray = classDec.AttributeLists;
+                var myController = model.GetDeclaredSymbol(classDec);
+                var att = myController.GetAttributes()
+                    .FirstOrDefault(it => it.AttributeClass.Name == autoActions);
+                if (att == null)
+                    continue;
+
+                //verify for null
+                var template = att.NamedArguments.First(it => it.Key == "template")
+                    .Value
+                    .Value
+                    .ToString();
+                var templateId = (TemplateIndicator)long.Parse(template);
+                var fields = att.NamedArguments.First(it => it.Key == "FieldsName")
+                    .Value
+                    .Values
+                    .Select(it => it.Value)
+                    .ToArray()
+                    ;
+                var memberFields = myController
+                        .GetMembers()
+                        .Where(it => fields.Contains(it.Name))
+                        .Select(it => it as IFieldSymbol)
+                        .Where(it => it != null)
+                        .ToArray();
+                if (memberFields.Length < fields.Length)
                 {
-                    var fieldSymbol = model.GetDeclaredSymbol(variable) as IFieldSymbol;
-                    var attrArray = fieldSymbol.GetAttributes();
-                    var attr = attrArray.FirstOrDefault(it => it.AttributeClass.Name == autoActions);
-                    if (attr != null)
-                    {
-                        var na = attr.NamedArguments;
-                        if (na.Length > 0)
-                        {
-                            fieldSymbols.Add(fieldSymbol);
-                        }
-                    }
+                    //report also the mismatched names
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
+                                $"controller {myController.Name} have some fields to generate that were not found"));
+                }
+                if (memberFields.Length == 0)
+                {
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
+                            $"controller {myController.Name} do not have fields to generate"));
+                }
+                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"starting class {myController.Name}"));
+                try
+                {
+                    string classSource = ProcessClass(myController, memberFields, templateId);
+                    if (string.IsNullOrWhiteSpace(classSource))
+                        continue;
+
+
+                    context.AddSource($"{myController.Name}.autogenerate.cs", SourceText.From(classSource, Encoding.UTF8));
+
+                }
+                catch (Exception ex)
+                {
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error, $"{myController.Name} error {ex.Message}"));
                 }
 
-                var g = fieldSymbols.GroupBy(f => f.ContainingType).ToArray();
-
-                foreach (var group in g)
-                {
-                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"starting class {group.Key}"));
-                    try
-                    {
-                        string classSource = ProcessClass(group.Key, group.ToArray(), context);
-                        if (string.IsNullOrWhiteSpace(classSource))
-                            continue;
-
-
-                        context.AddSource($"{group.Key.Name}_autogenerate.cs", SourceText.From(classSource, Encoding.UTF8));
-
-                    }
-                    catch (Exception ex)
-                    {
-                        context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{group.Key} error {ex.Message}"));
-                    }
-                }
             }
         }
 
-        private string ProcessClass(INamedTypeSymbol classSymbol, IFieldSymbol[] fields, GeneratorExecutionContext context)
+        private string ProcessClass(INamedTypeSymbol classSymbol, IFieldSymbol[] fields, TemplateIndicator ti)
         {
-            //var d=Diagnostic.Create(new DiagnosticDescriptor())
-              //  $"processing {classSymbol.Name}");
-            if (!classSymbol.ContainingSymbol.Equals(classSymbol.ContainingNamespace, SymbolEqualityComparer.Default))
-            {                
-                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {classSymbol.Name} is in other namespace; please put directly "));
-                return null;                 
+            if (ti == TemplateIndicator.None)
+            {
+                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"class {classSymbol.Name} has no template "));
+                return null;
             }
             
+            if (!classSymbol.ContainingSymbol.Equals(classSymbol.ContainingNamespace, SymbolEqualityComparer.Default))
+            {
+                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {classSymbol.Name} is in other namespace; please put directly "));
+                return null;
+            }
+
             string namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
             var cd = new ClassDefinition();
             cd.NamespaceName = namespaceName;
             cd.ClassName = classSymbol.Name;
             cd.DictNameField_Methods = fields
                 .SelectMany(it => ProcessField(it))
-                .GroupBy(it=>it.FieldName)
+                .GroupBy(it => it.FieldName)
                 .ToDictionary(it => it.Key, it => it.ToArray());
 
 
-            //var attrArray = fieldSymbol.GetAttributes();
-            //var attr = attrArray.FirstOrDefault(it => it.AttributeClass.Name == autoActions);
 
 
             using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SkinnyControllersGenerator.AllPost.txt");
@@ -110,24 +130,7 @@ namespace SkinnyControllersGenerator
             var template = Scriban.Template.Parse(post);
             var output = template.Render(cd, member => member.Name);
             return output;
-//            return $@"
-//using System.CodeDom.Compiler;
-//using System.Runtime.CompilerServices;
-///*
-//{output}
-//*/
-//                    namespace {cd.NamespaceName} {{
-// [GeneratedCode(""{ThisAssembly.Info.Product}"", ""{ThisAssembly.Info.Version}"")]
-//    [CompilerGenerated]
-//                        partial class {cd.ClassName}{{ 
-
-//                                private int id(){{
-//System.Diagnostics.Debugger.Break();
-//return 1;                                    
-//}} 
-//                            }} 
-//                    }}";
-
+            
         }
 
         private MethodDefinition[] ProcessField(IFieldSymbol fieldSymbol)
@@ -137,7 +140,7 @@ namespace SkinnyControllersGenerator
             string fieldName = fieldSymbol.Name;
             var fieldType = fieldSymbol.Type;
             var members = fieldType.GetMembers();
-            foreach(var m in members)
+            foreach (var m in members)
             {
                 if (m.IsStatic)
                     continue;
@@ -147,7 +150,7 @@ namespace SkinnyControllersGenerator
                 if (m.Kind != SymbolKind.Method)
                 {
                     context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{m.Name} is not a method ? "));
-                    continue; 
+                    continue;
 
                 }
 
@@ -155,10 +158,10 @@ namespace SkinnyControllersGenerator
                 if (ms is null)
                 {
                     context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{m.Name} is not a IMethodSymbol"));
-                    continue; 
+                    continue;
 
                 }
-                if ((ms.Name == fieldName || ms.Name==".ctor") && ms.ReturnsVoid)
+                if ((ms.Name == fieldName || ms.Name == ".ctor") && ms.ReturnsVoid)
                     continue;
 
                 var md = new MethodDefinition();
@@ -168,17 +171,17 @@ namespace SkinnyControllersGenerator
                 md.ReturnType = ms.ReturnType.ToString();
                 md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it.Type);
 
-                ret.Add( md);
+                ret.Add(md);
             }
             return ret.ToArray();
         }
 
         public void Initialize(GeneratorInitializationContext context)
         {
-            
+
             context.RegisterForSyntaxNotifications(() => new SyntaxReceiverFields());
             //in development
-            Debugger.Launch();
+            //Debugger.Launch();
         }
     }
 }

@@ -2,15 +2,16 @@
 
 namespace SkinnyControllersCommon
 {
-    public enum TemplateIndicator
+    public enum TemplateIndicator:long
     {
-        Default = 0,
-        NoArgs_Get_Else_Post=1
+        None = 0,
+        AllPost=1
     }
-    [AttributeUsage(AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public class AutoActionsAttribute:Attribute 
     {
         public TemplateIndicator template { get; set; }
+        public string[] FieldsName { get; set; }
     }
 
 

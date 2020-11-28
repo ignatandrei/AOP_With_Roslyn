@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SkinnyControllerTest.Controllers
 {
+    [AutoActions(template = TemplateIndicator.AllPost,FieldsName =new[] { "repository" })]
     [ApiController]
     [Route("[controller]/[action]")]
     public partial class WeatherForecastController : ControllerBase
@@ -15,21 +16,22 @@ namespace SkinnyControllerTest.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        [AutoActions]
+       
         private readonly RepositoryWF repository;
         
         public WeatherForecastController(ILogger<WeatherForecastController> logger, RepositoryWF repository)
         {
             _logger = logger;
-            this.repository = repository;
-            //var x=this.id ();                             
+            this.repository = repository;            
+            //var x=this.id ();   
+            
         }
 
-        //[HttpGet]
-        //public string s()
-        //{
-        //    return "a";
-        //}
+        [HttpGet]
+        public string MyBlog()
+        {
+            return "http://msprogrammer.serviciipeweb.ro/";
+        }
 
 
     }

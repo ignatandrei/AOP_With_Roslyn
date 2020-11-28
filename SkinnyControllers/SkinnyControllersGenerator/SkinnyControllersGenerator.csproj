@@ -27,7 +27,7 @@
       private readonly RepositoryWF repository;
 
     </Description>
-    <Version>2020.11.27.824</Version>  
+    <Version>2020.11.28.1003</Version>  
   </PropertyGroup> 
   <ItemGroup>
     <None Remove="AllPost.txt" />
