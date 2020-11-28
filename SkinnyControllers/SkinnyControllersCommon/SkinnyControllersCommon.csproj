@@ -18,7 +18,7 @@
 
 
     </Description>
-    <Version>2020.11.28.1003</Version>
+    <Version>2020.11.28.1245</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />

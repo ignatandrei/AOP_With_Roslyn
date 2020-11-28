@@ -32,7 +32,7 @@
 
 
     </Description>
-    <Version>2020.11.28.1003</Version>  
+    <Version>2020.11.28.1245</Version>  
   </PropertyGroup> 
   <ItemGroup>
     <None Remove="AllPost.txt" />
