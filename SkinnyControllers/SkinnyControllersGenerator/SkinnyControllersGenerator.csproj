@@ -31,6 +31,7 @@
     <RepositoryUrl>https://github.com/ignatandrei/AOP_With_Roslyn</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <Copyright>MIT</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
   </PropertyGroup>
   <ItemGroup>

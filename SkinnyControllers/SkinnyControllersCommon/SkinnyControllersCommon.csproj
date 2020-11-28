@@ -23,7 +23,7 @@
     <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ignatandrei/AOP_With_Roslyn</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
-    
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>MIT</Copyright>
     
   </PropertyGroup>
