@@ -16,7 +16,7 @@ namespace SkinnyControllersGenerator
 
 
     [Generator]
-    public class AutoActionsGenerator : ISourceGenerator
+    public partial class AutoActionsGenerator : ISourceGenerator
     {
         GeneratorExecutionContext context;
         static Diagnostic DoDiagnostic(DiagnosticSeverity ds, string message)
@@ -78,8 +78,9 @@ namespace SkinnyControllersGenerator
                 {
                     context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
                             $"controller {myController.Name} do not have fields to generate"));
+                    continue;
                 }
-                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"starting class {myController.Name}"));
+                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"starting class {myController.Name} with template {templateId}"));
                 try
                 {
                     string classSource = ProcessClass(myController, memberFields, templateId);
@@ -124,7 +125,7 @@ namespace SkinnyControllersGenerator
 
 
 
-            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SkinnyControllersGenerator.AllPost.txt");
+            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"SkinnyControllersGenerator.{ti}.txt");
             using var reader = new StreamReader(stream);
             var post = reader.ReadToEnd();
             var template = Scriban.Template.Parse(post);
@@ -176,12 +177,6 @@ namespace SkinnyControllersGenerator
             return ret.ToArray();
         }
 
-        public void Initialize(GeneratorInitializationContext context)
-        {
-
-            context.RegisterForSyntaxNotifications(() => new SyntaxReceiverFields());
-            //in development
-            //Debugger.Launch();
-        }
+        
     }
 }

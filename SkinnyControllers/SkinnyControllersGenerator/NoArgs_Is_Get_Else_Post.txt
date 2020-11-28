@@ -26,10 +26,19 @@ namespace {{NamespaceName}} {
 
     {{~ for kvp in DictNameField_Methods ~}}
       {{~ for mi in kvp.Value ~}}
-    
-        [HttpPost]
+      {{    
+            method="[HttpGet]"
+            if mi.NrParameters > 0
+                method="[HttpPost]"
+            end
+
+      }}
+
+        {{method}} 
         public {{mi.ReturnType}} {{mi.Name}} ({{mi.parametersDefinitionCSharp }}){
+            //System.Diagnostics.Debugger.Break();
             {{
+            
                 if mi.ReturnsVoid == false
             }}
                 return 

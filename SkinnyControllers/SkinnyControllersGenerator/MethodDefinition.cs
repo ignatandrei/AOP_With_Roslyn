@@ -24,6 +24,13 @@ namespace SkinnyControllersGenerator
         public string parametersDefinitionCSharp => string.Join(",", Parameters.Select(it => it.Value.ContainingNamespace + "." + it.Value.Name + " " + it.Key).ToArray());
         public string parametersCallCSharp => string.Join(",", Parameters.Select(it => it.Key).ToArray());
 
+        public int NrParameters
+        {
+            get
+            {
+                return Parameters?.Count ?? 0;
+            }
+        }
 
     }
 }
