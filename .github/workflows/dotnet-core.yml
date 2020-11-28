@@ -14,17 +14,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup .NET Core
+    - name: Setup .NET Core 2
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.1.x
     
-    - name: Setup .NET Core
+    - name: Setup .NET Core 3
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
     
-    - name: Setup .NET Core
+    - name: Setup .NET Core 5
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
@@ -33,14 +33,16 @@ jobs:
       run: |
           cd SkinnyControllers
           dotnet restore
-          dotnet build
+          
     - name: Build
       run: |
         cd SkinnyControllers
         cd SkinnyControllersCommon
+        dotnet build
         dotnet pack  --include-symbols --include-source -o ../Pack
         cd ..
         cd SkinnyControllersGenerator
+        dotnet build
         dotnet pack  --include-symbols --include-source -o ../Pack
         
     - name: upload nuget
