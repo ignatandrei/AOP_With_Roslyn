@@ -1,0 +1,38 @@
+name: SkinnyControllers
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Install dependencies
+      run: |
+          cd SkinnyControllers
+          dotnet restore
+    - name: Build
+      run: |
+        cd SkinnyControllers
+        cd SkinnyControllersCommon
+        dotnet pack  --include-symbols --include-source --no-restore -o ../Pack
+        cd ..
+        cd SkinnyControllersGenerator
+        dotnet pack  --include-symbols --include-source --no-restore -o ../Pack
+        
+    - name: upload nuget
+      uses: actions/upload-artifact@v2.2.1
+      with:
+        name: NugetPackages
+        path: SkinnyControllers/Pack
+        retention-days: 1
