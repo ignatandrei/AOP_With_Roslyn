@@ -8,15 +8,15 @@
     <Description>
       ** C# 9.0 ONLY **
       Autogenerates actions from a class . Add also as reference SkinnyControllersGenerator 
-      exammple:
+      example:
+      
       [AutoActions(template = TemplateIndicator.AllPost,FieldsName =new[] { "repository" })]
       [ApiController]
       [Route("[controller]/[action]")]
       public partial class WeatherForecastController : ControllerBase{
       // it will generate for this field
       private readonly RepositoryWF repository;
-
-
+      
     </Description>
     <Version>2020.11.28.1245</Version>
   </PropertyGroup>
