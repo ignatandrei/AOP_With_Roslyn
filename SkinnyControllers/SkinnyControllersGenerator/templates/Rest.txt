@@ -28,21 +28,28 @@ namespace {{NamespaceName}} {
       {{~ for mi in kvp.Value ~}}
       {{    
             method="[Http"+mi.Name 
-            if mi.NrParameters > 0 
+            if mi.NrParameters > 0 //not for post
                 method = method + "(\"{"+ mi.FirstParameter.Key  +"}\")"
             end
             method = method+"]"
 
             attr =""
+            parametersMethod=  mi.parametersDefinitionCSharp 
             case mi.Name
-                when "Post","Post"
+                when "Put"
                     attr = "[FromBody]"
+                    parametersMethod=mi.FirstParameter.Value + " " + mi.FirstParameter.Key
+                    parametersMethod = parametersMethod + ","+ attr +mi.LastParameter.Value + " " + mi.LastParameter.Key
+                when "Post"
+                    attr = "[FromBody]"
+                    parametersMethod= attr +  mi.FirstParameter.Value + " " + mi.FirstParameter.Key
             end
+            
       }}
 
         {{method}} 
-        public {{mi.ReturnType}} {{mi.Name}} ({{mi.parametersDefinitionCSharp }}){
-            //System.Diagnostics.Debugger.Break();
+        public {{mi.ReturnType}} {{mi.Name}} ({{parametersMethod}}){
+            System.Diagnostics.Debugger.Break();
             {{
             
                 if mi.ReturnsVoid == false

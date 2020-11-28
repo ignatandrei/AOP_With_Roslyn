@@ -25,6 +25,17 @@ namespace SkinnyControllersGenerator
                 return default;
             }
         }
+        public KeyValuePair<string, ITypeSymbol>? LastParameter
+        {
+            get
+            {
+                if (Parameters?.Count() > 0)
+                {
+                    return Parameters.Last();
+                }
+                return default;
+            }
+        }
         public string parametersDefinitionCSharp => string.Join(",", Parameters.Select(it => it.Value.ContainingNamespace + "." + it.Value.Name + " " + it.Key).ToArray());
         public string parametersCallCSharp => string.Join(",", Parameters.Select(it => it.Key).ToArray());
 
