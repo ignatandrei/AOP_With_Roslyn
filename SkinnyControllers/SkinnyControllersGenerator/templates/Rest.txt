@@ -28,7 +28,7 @@ namespace {{NamespaceName}} {
       {{~ for mi in kvp.Value ~}}
       {{    
             method="[Http"+mi.Name 
-            if mi.NrParameters > 0 //not for post
+            if mi.NrParameters > 0 && mi.Name != "Post"
                 method = method + "(\"{"+ mi.FirstParameter.Key  +"}\")"
             end
             method = method+"]"
@@ -49,7 +49,7 @@ namespace {{NamespaceName}} {
 
         {{method}} 
         public {{mi.ReturnType}} {{mi.Name}} ({{parametersMethod}}){
-            System.Diagnostics.Debugger.Break();
+            //System.Diagnostics.Debugger.Break();
             {{
             
                 if mi.ReturnsVoid == false
