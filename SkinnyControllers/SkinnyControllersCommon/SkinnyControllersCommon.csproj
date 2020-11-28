@@ -17,7 +17,7 @@
       private readonly RepositoryWF repository;
       
 </Description>
-    <Version>2020.11.28.2108</Version>
+    <Version>2020.11.29.12</Version>
     <Authors>Andrei Ignat</Authors>
     <PackageTags>RoslynCodeGenerators C# CSharp SkinnyControllers</PackageTags>
     <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn</PackageProjectUrl>
@@ -25,7 +25,6 @@
     <RepositoryType>GIT</RepositoryType>
     
     <Copyright>MIT</Copyright>
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     
   </PropertyGroup>
   <ItemGroup>

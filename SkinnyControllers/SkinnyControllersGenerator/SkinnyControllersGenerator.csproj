@@ -21,10 +21,10 @@
     <Description>
       ** C# 9.0 ONLY **
       Autogenerates actions from a class . Add also as reference SkinnyControllersCommon
-      example: See SkinnyControllerCommon
+      See readme when installing
 
     </Description>
-    <Version>2020.11.28.2108</Version>
+    <Version>2020.11.29.12</Version>
     <Authors>Andrei Ignat</Authors>
     <PackageTags>RoslynCodeGenerators C# CSharp SkinnyControllers</PackageTags>
     <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn</PackageProjectUrl>
