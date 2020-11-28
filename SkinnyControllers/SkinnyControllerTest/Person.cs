@@ -22,13 +22,13 @@ namespace SkinnyControllerTest
         }
         public void Post(Person value)
         {
-            //TODO: save person
+            //save person
             Console.WriteLine("POST"+value?.id);
             return;
         }
         public void Put(int id, Person value)
         {
-            //TODO: update person
+            //update person
             Console.WriteLine("PUT" + value?.id);
             return;
 
@@ -36,7 +36,7 @@ namespace SkinnyControllerTest
         
         public void Delete(int id)
         {
-            //TODO: delete
+            //delete
             Console.WriteLine("Delete " + id);
             return;
 
