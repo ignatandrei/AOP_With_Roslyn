@@ -21,14 +21,15 @@ jobs:
       run: |
           cd SkinnyControllers
           dotnet restore
+          dotnet build
     - name: Build
       run: |
         cd SkinnyControllers
         cd SkinnyControllersCommon
-        dotnet pack  --include-symbols --include-source --no-restore -o ../Pack
+        dotnet pack  --include-symbols --include-source -o ../Pack
         cd ..
         cd SkinnyControllersGenerator
-        dotnet pack  --include-symbols --include-source --no-restore -o ../Pack
+        dotnet pack  --include-symbols --include-source -o ../Pack
         
     - name: upload nuget
       uses: actions/upload-artifact@v2.2.1
