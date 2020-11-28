@@ -25,7 +25,7 @@
       example: See readme
 
     </Description>
-    <Version>2020.11.28.1245</Version>  
+    <Version>2020.11.28.2108</Version>  
   </PropertyGroup> 
   <ItemGroup>
     <None Remove="AllPost.txt" />

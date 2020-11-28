@@ -18,7 +18,7 @@
       private readonly RepositoryWF repository;
       
     </Description>
-    <Version>2020.11.28.1245</Version>
+    <Version>2020.11.28.2108</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
