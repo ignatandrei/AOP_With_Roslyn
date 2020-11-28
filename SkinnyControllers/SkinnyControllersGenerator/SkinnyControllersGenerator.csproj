@@ -8,6 +8,7 @@
     <!-- Generates a package at build -->
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <!-- Do not include the generator as a lib dependency -->
+    
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\SkinnyControllersCommon\AutoActionsAttribute.cs" Link="AutoActionsAttribute.cs" />
@@ -25,7 +26,14 @@
       example: See readme
 
     </Description>
-    <Version>2020.11.28.2108</Version>  
+    <Version>2020.11.28.2108</Version>
+    <Authors>Andrei Ignat</Authors>
+    <PackageTags>RoslynCodeGenerators C# CSharp SkinnyControllers</PackageTags>
+    <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ignatandrei/AOP_With_Roslyn</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <Copyright>MIT</Copyright>
+
   </PropertyGroup> 
   <ItemGroup>
     <None Remove="AllPost.txt" />
