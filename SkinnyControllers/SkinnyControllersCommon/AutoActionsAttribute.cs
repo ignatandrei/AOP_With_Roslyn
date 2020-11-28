@@ -6,7 +6,8 @@ namespace SkinnyControllersCommon
     {
         None = 0,
         AllPost=1,
-        NoArgs_Is_Get_Else_Post=2
+        NoArgs_Is_Get_Else_Post=2,
+        Rest=3
     }
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public class AutoActionsAttribute:Attribute 

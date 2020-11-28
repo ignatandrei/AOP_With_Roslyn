@@ -125,7 +125,7 @@ namespace SkinnyControllersGenerator
 
 
 
-            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"SkinnyControllersGenerator.{ti}.txt");
+            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"SkinnyControllersGenerator.templates.{ti}.txt");
             using var reader = new StreamReader(stream);
             var post = reader.ReadToEnd();
             var template = Scriban.Template.Parse(post);

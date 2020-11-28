@@ -5,13 +5,6 @@ using System.Linq;
 
 namespace SkinnyControllersGenerator
 {
-    class ClassDefinition
-    {
-        public string ClassName;
-        public string NamespaceName;
-        public Dictionary<string,MethodDefinition[]> DictNameField_Methods;
-        public string version = ThisAssembly.Info.Version;    
-    }
     class MethodDefinition
     {
         public string Name { get; set; }
@@ -21,6 +14,17 @@ namespace SkinnyControllersGenerator
         //name, type
         public Dictionary<string, ITypeSymbol> Parameters;
 
+        public KeyValuePair<string, ITypeSymbol> FirstParameter
+        {
+            get
+            {
+                if(Parameters?.Count() > 0)
+                {
+                    return Parameters.First();
+                }
+                return default;
+            }
+        }
         public string parametersDefinitionCSharp => string.Join(",", Parameters.Select(it => it.Value.ContainingNamespace + "." + it.Value.Name + " " + it.Key).ToArray());
         public string parametersCallCSharp => string.Join(",", Parameters.Select(it => it.Key).ToArray());
 

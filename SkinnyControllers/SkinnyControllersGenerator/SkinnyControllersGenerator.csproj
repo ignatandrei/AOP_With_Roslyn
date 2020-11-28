@@ -30,10 +30,12 @@
   <ItemGroup>
     <None Remove="AllPost.txt" />
     <None Remove="NoArgs_Is_Get_Else_Post.txt" />
+    <None Remove="Rest.txt" />
   </ItemGroup> 
   <ItemGroup>
-    <EmbeddedResource Include="NoArgs_Is_Get_Else_Post.txt" />
-    <EmbeddedResource Include="AllPost.txt" />
+    <EmbeddedResource Include="templates\Rest.txt" />
+    <EmbeddedResource Include="templates\NoArgs_Is_Get_Else_Post.txt" />
+    <EmbeddedResource Include="templates\AllPost.txt" />
   </ItemGroup>
 
   <ItemGroup>
