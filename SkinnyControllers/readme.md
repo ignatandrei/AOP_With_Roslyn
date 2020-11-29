@@ -1,4 +1,4 @@
-﻿What it does SkinnyControllersCommon/SkinnyControllersGenerator
+What it does SkinnyControllersCommon/SkinnyControllersGenerator
 
 Read this better at https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/SkinnyControllers
 
@@ -38,7 +38,7 @@ Add a field to your action either via DI, either directly
 
 Step 4:
 
-	Add partial declaration and decorate your controller with 
+	Add partial to your controller and decorate your controller with 
 
 	[AutoActions(template = TemplateIndicator.AllPost,FieldsName =new[] { "repository" })]
     [ApiController]
@@ -53,3 +53,25 @@ You can choose your template from
 You can add your template by making a PR to https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/SkinnyControllers
 
 That's all!
+
+Problems:
+
+1. When compile , it gives
+
+error CS0260: Missing partial modifier on declaration of type '....'; another partial declaration of this type exists
+ 
+ 
+Solution
+Add partial to your controller declaration
+public partial class 
+
+2. Swagger refuses to load json
+
+Failed to load API definition.
+Fetch errorundefined /swagger/v1/swagger.json
+ 
+ Solution:
+ Run the project as console and look to the error in the console
+ Usually is a " Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination"
+ Try to give different names to your methods and/or use TemplateIndicator.AllPost
+ 

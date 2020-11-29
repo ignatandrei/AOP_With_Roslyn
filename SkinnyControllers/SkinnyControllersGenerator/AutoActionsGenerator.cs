@@ -49,7 +49,7 @@ namespace SkinnyControllersGenerator
             var fieldSymbols = new List<IFieldSymbol>();
             foreach (var classDec in receiver.CandidatesControllers)
             {
-                SemanticModel model = compilation.GetSemanticModel(classDec.SyntaxTree);
+                var model = compilation.GetSemanticModel(classDec.SyntaxTree);
                 var attrArray = classDec.AttributeLists;
                 var myController = model.GetDeclaredSymbol(classDec);
                 var att = myController.GetAttributes()
@@ -69,9 +69,11 @@ namespace SkinnyControllersGenerator
                     .Select(it => it.Value)
                     .ToArray()
                     ;
+                bool All = fields.Contains("*");
+
                 var memberFields = myController
                         .GetMembers()
-                        .Where(it => fields.Contains(it.Name))
+                        .Where(it => All || fields.Contains(it.Name))
                         .Select(it => it as IFieldSymbol)
                         .Where(it => it != null)
                         .ToArray();
