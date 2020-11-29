@@ -14,13 +14,11 @@ namespace SkinnyControllerTest.Controllers
     [ApiController]
     public partial class AllController : ControllerBase
     {
-        //private PersonRepository personRepository;
         private readonly RepositoryWF repository;
 
         public AllController()
         {
             //do via DI
-            //personRepository = new PersonRepository();
             repository = new RepositoryWF();
         }
     }
