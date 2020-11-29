@@ -73,5 +73,7 @@ Fetch errorundefined /swagger/v1/swagger.json
  Solution:
  Run the project as console and look to the error in the console
  Usually is a " Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination"
- Try to give different names to your methods and/or use TemplateIndicator.AllPost
- 
+ Try to 
+ 1. give different names to your methods 
+ 2. use TemplateIndicator.AllPost
+3. Make the route with [action] [Route("api/[controller]/[action]")]  

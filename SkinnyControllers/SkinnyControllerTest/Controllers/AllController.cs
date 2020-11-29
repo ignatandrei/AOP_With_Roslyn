@@ -10,17 +10,17 @@ namespace SkinnyControllerTest.Controllers
 {
     [AutoActions(template = TemplateIndicator.AllPost, FieldsName = new[] { "*" })]
 
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public partial class AllController : ControllerBase
     {
-        private PersonRepository personRepository;
+        //private PersonRepository personRepository;
         private readonly RepositoryWF repository;
 
         public AllController()
         {
             //do via DI
-            personRepository = new PersonRepository();
+            //personRepository = new PersonRepository();
             repository = new RepositoryWF();
         }
     }
