@@ -18,6 +18,7 @@ namespace SkinnyControllersGenerator
     [Generator]
     public partial class AutoActionsGenerator : ISourceGenerator
     {
+        Assembly executing;
         GeneratorExecutionContext context;
         static Diagnostic DoDiagnostic(DiagnosticSeverity ds, string message)
         {
@@ -31,6 +32,7 @@ namespace SkinnyControllersGenerator
         public void Execute(GeneratorExecutionContext context)
         {
             this.context = context;
+
             string name = $"{ThisAssembly.Project.AssemblyName} {ThisAssembly.Info.Version}";
             context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, name));
 
@@ -38,6 +40,11 @@ namespace SkinnyControllersGenerator
                 return;
 
             context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, "starting data"));
+
+            if ((receiver.CandidatesControllers?.Count ?? 0) == 0)
+                return;
+
+            this.executing = Assembly.GetExecutingAssembly();
             var compilation = context.Compilation;
             var fieldSymbols = new List<IFieldSymbol>();
             foreach (var classDec in receiver.CandidatesControllers)
@@ -125,7 +132,7 @@ namespace SkinnyControllersGenerator
 
 
 
-            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"SkinnyControllersGenerator.templates.{ti}.txt");
+            using var stream = executing.GetManifestResourceStream($"SkinnyControllersGenerator.templates.{ti}.txt");
             using var reader = new StreamReader(stream);
             var post = reader.ReadToEnd();
             var template = Scriban.Template.Parse(post);
