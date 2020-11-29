@@ -27,7 +27,7 @@
     <Version>2020.11.29.12</Version>
     <Authors>Andrei Ignat</Authors>
     <PackageTags>RoslynCodeGenerators;C#;CSharp;SkinnyControllers</PackageTags>
-    <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/SkinnyControllers</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ignatandrei/AOP_With_Roslyn</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <Copyright>MIT</Copyright>
