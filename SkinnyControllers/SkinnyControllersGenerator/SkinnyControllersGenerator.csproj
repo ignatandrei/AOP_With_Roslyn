@@ -20,11 +20,20 @@
   <PropertyGroup>
     <Description>
       ** C# 9.0 ONLY **
-      Autogenerates actions from a class . Add also as reference SkinnyControllersCommon
-      See readme when installing
+      Autogenerates actions to a controller from a class .
+      ( replace below single quotes with double quotes)
+      [AutoActions(template = TemplateIndicator.AllPost,FieldsName =new[] { 'repository' })]
+      [ApiController]
+      [Route('[controller]/[action]')]
+      public partial class WeatherForecastController : ControllerBase{
+      // it will generate for this field
+      private readonly RepositoryWF repository;
+
+      Add also Nuget package SkinnyControllersCommon
+      For creating new templates, please PR to https://github.com/ignatandrei/AOP_With_Roslyn
 
     </Description>
-    <Version>2020.11.29.12</Version>
+    <Version>2020.11.30.939</Version>
     <Authors>Andrei Ignat</Authors>
     <PackageTags>RoslynCodeGenerators;C#;CSharp;SkinnyControllers</PackageTags>
     <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/SkinnyControllers</PackageProjectUrl>
