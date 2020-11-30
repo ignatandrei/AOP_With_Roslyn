@@ -2,6 +2,7 @@ What it does SkinnyControllersCommon/SkinnyControllersGenerator
 
 Read this better at https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/SkinnyControllers
 
+Video at https://youtu.be/eNvt4Vq2PuY
 
 SkinnyControllers generates controller action for each field of your controller 
 
