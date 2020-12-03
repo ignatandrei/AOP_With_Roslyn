@@ -20,7 +20,7 @@
       Add also Nuget package SkinnyControllersGenerator
       For creating new templates, please PR to https://github.com/ignatandrei/AOP_With_Roslyn
     </Description>
-    <Version>2020.11.30.939</Version>
+    <Version>2020.12.03.2000</Version>
     <Authors>Andrei Ignat</Authors>
     <PackageTags>RoslynCodeGenerators;C#;CSharp;SkinnyControllers</PackageTags>
     <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/SkinnyControllers</PackageProjectUrl>

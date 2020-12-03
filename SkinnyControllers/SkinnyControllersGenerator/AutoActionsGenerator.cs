@@ -149,14 +149,14 @@ namespace SkinnyControllersGenerator
             var code = new StringBuilder();
             string fieldName = fieldSymbol.Name;
             var fieldType = fieldSymbol.Type;
-            var members = fieldType.GetMembers();
+            var members = fieldType.GetMembers().OfType<IMethodSymbol>();
             foreach (var m in members)
             {
                 if (m.IsStatic)
                     continue;
                 if (m.IsAbstract)
                     continue;
-
+                
                 if (m.Kind != SymbolKind.Method)
                 {
                     context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{m.Name} is not a method ? "));
@@ -171,6 +171,11 @@ namespace SkinnyControllersGenerator
                     continue;
 
                 }
+                if (ms.DeclaredAccessibility != Accessibility.Public)
+                    continue;
+                if (ms.MethodKind != MethodKind.Ordinary)
+                    continue;
+
                 if ((ms.Name == fieldName || ms.Name == ".ctor") && ms.ReturnsVoid)
                     continue;
 

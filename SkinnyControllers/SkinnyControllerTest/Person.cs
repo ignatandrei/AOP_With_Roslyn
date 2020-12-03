@@ -9,7 +9,8 @@ namespace SkinnyControllerTest
 
     public class PersonRepository
     {
-                
+        public string X { get; set; }
+        
         public IEnumerable<Person> Get()
         {
             yield return new Person(1, "Andrei Ignat 1");

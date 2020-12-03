@@ -11,6 +11,10 @@ namespace SkinnyControllerTest
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
+        private string Test()
+        {
+            return "test";
+        }
         public WeatherForecast[] GetData()
         {
             return DataToDo(5);
