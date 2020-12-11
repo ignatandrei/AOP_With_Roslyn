@@ -4,6 +4,7 @@ namespace SkinnyControllersCommon
 {
     public enum TemplateIndicator:long
     {
+        CustomTemplateFile =-1,
         None = 0,
         AllPost=1,
         NoArgs_Is_Get_Else_Post=2,
@@ -14,6 +15,9 @@ namespace SkinnyControllersCommon
     {
         public TemplateIndicator template { get; set; }
         public string[] FieldsName { get; set; }
+
+        public string CustomTemplateFileName { get; set; }
+
     }
 
 
