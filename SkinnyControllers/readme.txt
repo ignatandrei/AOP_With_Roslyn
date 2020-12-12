@@ -53,3 +53,14 @@ You can choose your template from
 You can add your template by making a PR to https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/SkinnyControllers
 
 That's all!
+
+
+Usual problems:
+
+1.  error CS0260: Missing partial modifier on declaration of type 
+
+Answer:
+
+Did you put partial on the controller declaration ? 
+
+public partial class 

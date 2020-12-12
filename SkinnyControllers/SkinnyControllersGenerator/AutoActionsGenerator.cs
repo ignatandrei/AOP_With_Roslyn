@@ -32,7 +32,7 @@ namespace SkinnyControllersGenerator
         public void Execute(GeneratorExecutionContext context)
         {
             this.context = context;
-
+            
             string name = $"{ThisAssembly.Project.AssemblyName} {ThisAssembly.Info.Version}";
             context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, name));
 
@@ -69,6 +69,16 @@ namespace SkinnyControllersGenerator
                     .Select(it => it.Value)
                     .ToArray()
                     ;
+                string templateCustom = "";
+                if (att.NamedArguments.Any(it => it.Key == "CustomTemplateFileName"))
+                {
+
+                    templateCustom = att.NamedArguments.First(it => it.Key == "CustomTemplateFileName")
+                    .Value
+                    .Value                    
+                    .ToString()
+                    ;
+                }
                 bool All = fields.Contains("*");
 
                 var memberFields = myController
@@ -90,9 +100,36 @@ namespace SkinnyControllersGenerator
                     continue;
                 }
                 context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"starting class {myController.Name} with template {templateId}"));
+                string post = "";
                 try
                 {
-                    string classSource = ProcessClass(myController, memberFields, templateId);
+                    switch (templateId)
+                    {
+
+                        case TemplateIndicator.None:
+                            context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"class {myController.Name} has no template "));
+                            continue;
+                        case TemplateIndicator.CustomTemplateFile:
+
+                            var file = context.AdditionalFiles.FirstOrDefault(it => it.Path.EndsWith(templateCustom));
+                            if (file == null)
+                            {
+                                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error, $"cannot find {templateCustom} for  {myController.Name} . Did you put in AdditionalFiles in csproj ?"));
+                                continue;
+                            }
+                            post = file.GetText().ToString();
+                            break;
+
+                        default:
+                            using (var stream = executing.GetManifestResourceStream($"SkinnyControllersGenerator.templates.{templateId}.txt"))
+                            {
+                                using var reader = new StreamReader(stream);
+                                post = reader.ReadToEnd();
+
+                            }
+                            break;
+                    }
+                    string classSource = ProcessClass(myController, memberFields, post);
                     if (string.IsNullOrWhiteSpace(classSource))
                         continue;
 
@@ -108,14 +145,10 @@ namespace SkinnyControllersGenerator
             }
         }
 
-        private string ProcessClass(INamedTypeSymbol classSymbol, IFieldSymbol[] fields, TemplateIndicator ti)
+        private string ProcessClass(INamedTypeSymbol classSymbol, IFieldSymbol[] fields, string post)
         {
-            if (ti == TemplateIndicator.None)
-            {
-                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"class {classSymbol.Name} has no template "));
-                return null;
-            }
-            
+           
+
             if (!classSymbol.ContainingSymbol.Equals(classSymbol.ContainingNamespace, SymbolEqualityComparer.Default))
             {
                 context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {classSymbol.Name} is in other namespace; please put directly "));
@@ -134,9 +167,7 @@ namespace SkinnyControllersGenerator
 
 
 
-            using var stream = executing.GetManifestResourceStream($"SkinnyControllersGenerator.templates.{ti}.txt");
-            using var reader = new StreamReader(stream);
-            var post = reader.ReadToEnd();
+            
             var template = Scriban.Template.Parse(post);
             var output = template.Render(cd, member => member.Name);
             return output;

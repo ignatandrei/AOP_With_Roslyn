@@ -4,11 +4,12 @@ namespace SkinnyControllersCommon
 {
     public enum TemplateIndicator:long
     {
-        CustomTemplateFile =-1,
+        
         None = 0,
         AllPost=1,
         NoArgs_Is_Get_Else_Post=2,
-        Rest=3
+        Rest=3,
+        CustomTemplateFile = 10000,
     }
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public class AutoActionsAttribute:Attribute 
