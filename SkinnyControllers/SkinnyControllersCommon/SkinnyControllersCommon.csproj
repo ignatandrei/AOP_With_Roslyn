@@ -18,9 +18,9 @@
       private readonly RepositoryWF repository;
 
       Add also Nuget package SkinnyControllersGenerator
-      For creating new templates, please PR to https://github.com/ignatandrei/AOP_With_Roslyn
+      You can have your own template - read the readme.txt
     </Description>
-    <Version>2020.12.03.2000</Version>
+    <Version>2020.12.12.1133</Version>
     <Authors>Andrei Ignat</Authors>
     <PackageTags>RoslynCodeGenerators;C#;CSharp;SkinnyControllers</PackageTags>
     <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/SkinnyControllers</PackageProjectUrl>
