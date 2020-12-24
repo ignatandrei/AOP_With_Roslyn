@@ -36,7 +36,7 @@ namespace SkinnyControllersGenerator
                 return default;
             }
         }
-        public string parametersDefinitionCSharp => string.Join(",", Parameters.Select(it => it.Value.ContainingNamespace + "." + it.Value.Name + " " + it.Key).ToArray());
+        public string parametersDefinitionCSharp => string.Join(",", Parameters.Select(it =>  it.Value.ToDisplayString() + " " + it.Key).ToArray());
         public string parametersCallCSharp => string.Join(",", Parameters.Select(it => it.Key).ToArray());
 
         public int NrParameters

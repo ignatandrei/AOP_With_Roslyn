@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,10 @@ namespace SkinnyControllerTest
         private string Test()
         {
             return "test";
+        }
+        public string MethodTestDictionary(Dictionary<string, string> data)
+        {
+            return "you have posted " + data.Count;
         }
         public WeatherForecast[] GetData()
         {
