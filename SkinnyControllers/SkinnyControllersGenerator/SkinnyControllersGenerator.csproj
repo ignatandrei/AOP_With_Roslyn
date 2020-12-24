@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    
   </PropertyGroup>
   <PropertyGroup>
     <!-- Do not include the generator as a lib dependency -->
@@ -32,7 +33,7 @@
       Add also Nuget package SkinnyControllersCommon
       For creating new generic templates, see readme.txt
     </Description>
-    <Version>2020.12.12.1133</Version>
+    <Version>2020.12.24.338</Version>
     <Authors>Andrei Ignat</Authors>
     <PackageTags>RoslynCodeGenerators;C#;CSharp;SkinnyControllers</PackageTags>
     <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/SkinnyControllers</PackageProjectUrl>

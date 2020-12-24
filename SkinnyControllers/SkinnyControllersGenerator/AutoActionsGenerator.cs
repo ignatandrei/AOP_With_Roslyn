@@ -87,6 +87,7 @@ namespace SkinnyControllersGenerator
                         .Select(it => it as IFieldSymbol)
                         .Where(it => it != null)
                         .ToArray();
+
                 if (memberFields.Length < fields.Length)
                 {
                     //report also the mismatched names
@@ -95,7 +96,7 @@ namespace SkinnyControllersGenerator
                 }
                 if (memberFields.Length == 0)
                 {
-                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error,
                             $"controller {myController.Name} do not have fields to generate"));
                     continue;
                 }
@@ -129,6 +130,7 @@ namespace SkinnyControllersGenerator
                             }
                             break;
                     }
+
                     string classSource = ProcessClass(myController, memberFields, post);
                     if (string.IsNullOrWhiteSpace(classSource))
                         continue;
@@ -159,35 +161,45 @@ namespace SkinnyControllersGenerator
             var cd = new ClassDefinition();
             cd.NamespaceName = namespaceName;
             cd.ClassName = classSymbol.Name;
+            if (fields.Length== 0)
+            {
+                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {cd.ClassName} has {fields.Length} fields to process"));
+            }
             cd.DictNameField_Methods = fields
                 .SelectMany(it => ProcessField(it))
                 .GroupBy(it => it.FieldName)
                 .ToDictionary(it => it.Key, it => it.ToArray());
 
 
-
-
-            
+            if (cd.DictNameField_Methods.Count == 0)
+            {
+                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {cd.ClassName} has 0 fields to process"));
+            }
             var template = Scriban.Template.Parse(post);
             var output = template.Render(cd, member => member.Name);
             return output;
             
         }
+        static MethodKind[] allowed = new[] {
+            MethodKind.ExplicitInterfaceImplementation,
+            MethodKind.Ordinary
 
+        };
         private MethodDefinition[] ProcessField(IFieldSymbol fieldSymbol)
         {
+           
             var ret = new List<MethodDefinition>();
             var code = new StringBuilder();
             string fieldName = fieldSymbol.Name;
             var fieldType = fieldSymbol.Type;
             var members = fieldType.GetMembers().OfType<IMethodSymbol>();
+
+
             foreach (var m in members)
             {
                 if (m.IsStatic)
                     continue;
-                if (m.IsAbstract)
-                    continue;
-                
+
                 if (m.Kind != SymbolKind.Method)
                 {
                     context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{m.Name} is not a method ? "));
@@ -218,6 +230,11 @@ namespace SkinnyControllersGenerator
                 md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it.Type);
 
                 ret.Add(md);
+            }
+            if (ret.Count== 0)
+            {
+                context.ReportDiagnostic( DoDiagnostic(DiagnosticSeverity.Warning,
+                    $"could not find methods on {fieldName} from {fieldSymbol.ContainingType?.Name}"));
             }
             return ret.ToArray();
         }

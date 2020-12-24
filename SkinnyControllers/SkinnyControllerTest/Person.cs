@@ -7,10 +7,10 @@ namespace SkinnyControllerTest
 {
     public record Person(int id, string Name);
 
-    public class PersonRepository
+    public class PersonRepository : IPersonRepository
     {
         public string X { get; set; }
-        
+
         public IEnumerable<Person> Get()
         {
             yield return new Person(1, "Andrei Ignat 1");
@@ -24,7 +24,7 @@ namespace SkinnyControllerTest
         public void Post(Person value)
         {
             //save person
-            Console.WriteLine("POST"+value?.id);
+            Console.WriteLine("POST" + value?.id);
             return;
         }
         public void Put(int id, Person value)
@@ -34,7 +34,7 @@ namespace SkinnyControllerTest
             return;
 
         }
-        
+
         public void Delete(int id)
         {
             //delete

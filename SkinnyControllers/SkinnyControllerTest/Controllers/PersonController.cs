@@ -14,7 +14,7 @@ namespace SkinnyControllerTest.Controllers
     [AutoActions(template = TemplateIndicator.Rest,FieldsName = new[] { "personRepository"})]
     public partial class PersonController : ControllerBase
     {
-        private PersonRepository personRepository;
+        private IPersonRepository personRepository;
         public PersonController()
         {
             //make via DI
