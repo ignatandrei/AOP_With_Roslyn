@@ -23,7 +23,7 @@
       ** C# 9.0 ONLY **
       Autogenerates actions to a controller from a class .
       ( replace below single quotes with double quotes)
-      [AutoActions(template = TemplateIndicator.AllPost,FieldsName =new[] { 'repository' })]
+      [AutoActions(template = TemplateIndicator.AllPost,FieldsName =new[] { 'repository' }, ExcludeFields =new[]{'_logger'})]
       [ApiController]
       [Route('[controller]/[action]')]
       public partial class WeatherForecastController : ControllerBase{

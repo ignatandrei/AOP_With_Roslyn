@@ -40,7 +40,7 @@ Step 4:
 
 	Add partial declaration and decorate your controller with 
 
-	[AutoActions(template = TemplateIndicator.AllPost,FieldsName =new[] { "repository" })]
+	[AutoActions(template = TemplateIndicator.AllPost,FieldsName =new[] { "*" }, ExcludeFields =new[]{"_logger"})]
     [ApiController]
     [Route("[controller]/[action]")]
     public partial class WeatherForecastController : ControllerBase

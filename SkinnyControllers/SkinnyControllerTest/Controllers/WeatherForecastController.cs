@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SkinnyControllerTest.Controllers
 {
-    [AutoActions(template = TemplateIndicator.AllPost,FieldsName =new[] { "repository" })]
+    [AutoActions(template = TemplateIndicator.AllPost,FieldsName =new[] { "*" }, ExcludeFields =new[]{"_logger"})]
     [ApiController]
     [Route("[controller]/[action]")]
     public partial class WeatherForecastController : ControllerBase

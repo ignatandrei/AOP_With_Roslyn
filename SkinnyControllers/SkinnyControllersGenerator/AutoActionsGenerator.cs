@@ -66,9 +66,24 @@ namespace SkinnyControllersGenerator
                 var fields = att.NamedArguments.First(it => it.Key == "FieldsName")
                     .Value
                     .Values
-                    .Select(it => it.Value)
+                    .Select(it => it.Value?.ToString())
                     .ToArray()
                     ;
+                string[] excludeFields = null;
+                try
+                {
+                    excludeFields = att.NamedArguments.FirstOrDefault(it => it.Key == "ExcludeFields")
+                        .Value
+                        .Values
+                        .Select(it => it.Value?.ToString())
+                        .ToArray()
+                        ;
+                }
+                catch (Exception)
+                {
+                    //it is not mandatory to define ExcludeFields
+                    //do nothing, 
+                }
                 string templateCustom = "";
                 if (att.NamedArguments.Any(it => it.Key == "CustomTemplateFileName"))
                 {
@@ -85,9 +100,16 @@ namespace SkinnyControllersGenerator
                         .GetMembers()
                         .Where(it => All || fields.Contains(it.Name))
                         .Select(it => it as IFieldSymbol)
-                        .Where(it => it != null)
+                        .Where(it => it != null)                        
                         .ToArray();
 
+                if (excludeFields?.Length > 0)
+                {
+                    var q = memberFields.ToList();
+                    q.RemoveAll(it => excludeFields.Contains(it.Name));
+                    memberFields = q.ToArray();
+
+                }
                 if (memberFields.Length < fields.Length)
                 {
                     //report also the mismatched names
