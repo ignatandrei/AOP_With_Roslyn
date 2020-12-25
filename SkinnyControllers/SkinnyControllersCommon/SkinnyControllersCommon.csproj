@@ -1,12 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    
   </PropertyGroup>
   <PropertyGroup>
     <Description>
-      ** C# 9.0 ONLY **
       ** C# 9.0 ONLY **
       Autogenerates actions to a controller from a class .
       ( replace below single quotes with double quotes)
