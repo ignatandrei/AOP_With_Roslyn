@@ -54,8 +54,10 @@
     <None Remove="AllPost.txt" />
     <None Remove="NoArgs_Is_Get_Else_Post.txt" />
     <None Remove="Rest.txt" />
+    <None Remove="templates\AllPostWithRecord.txt" />
   </ItemGroup> 
   <ItemGroup>
+    <EmbeddedResource Include="templates\AllPostWithRecord.txt" />
     <EmbeddedResource Include="templates\Rest.txt" />
     <EmbeddedResource Include="templates\NoArgs_Is_Get_Else_Post.txt" />
     <EmbeddedResource Include="templates\AllPost.txt" />

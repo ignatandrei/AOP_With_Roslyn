@@ -9,6 +9,7 @@ namespace SkinnyControllersCommon
         AllPost=1,
         NoArgs_Is_Get_Else_Post=2,
         Rest=3,
+        AllPostWithRecord =4,
         CustomTemplateFile = 10000,
     }
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]

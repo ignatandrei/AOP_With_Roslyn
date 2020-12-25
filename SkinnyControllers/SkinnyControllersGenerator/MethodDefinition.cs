@@ -36,9 +36,19 @@ namespace SkinnyControllersGenerator
                 return default;
             }
         }
+        public int HashCodeParams => parametersDefinitionCSharp.GetHashCode();
         public string parametersDefinitionCSharp => string.Join(",", Parameters.Select(it =>  it.Value.ToDisplayString() + " " + it.Key).ToArray());
         public string parametersCallCSharp => string.Join(",", Parameters.Select(it => it.Key).ToArray());
 
+        public string parametersCallWithRecord
+        {
+            get
+            {
+                if (NrParameters == 0)
+                    return "";
+                return "data." + string.Join(",data.", Parameters.Select(it => it.Key).ToArray());
+            }
+        }
         public int NrParameters
         {
             get
