@@ -36,7 +36,7 @@ namespace SkinnyControllersGenerator
                 return default;
             }
         }
-        public int HashCodeParams => parametersDefinitionCSharp.GetHashCode();
+        public int HashCodeParams => Math.Abs( parametersDefinitionCSharp.GetHashCode());
         public string parametersDefinitionCSharp => string.Join(",", Parameters.Select(it =>  it.Value.ToDisplayString() + " " + it.Key).ToArray());
         public string parametersCallCSharp => string.Join(",", Parameters.Select(it => it.Key).ToArray());
 
