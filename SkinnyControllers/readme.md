@@ -55,6 +55,15 @@ You can add your template by making a PR to https://github.com/ignatandrei/AOP_W
 
 That's all!
 
+Step 5: Advanced - BYT - bring your template
+
+Create  a Template like <a href='TemplateIdentity.txt'>Template Identity</a>
+
+Add to your controleer
+[AutoActions(template = TemplateIndicator.CustomTemplateFile, CustomTemplateFileName = "TemplateIdentity.txt", ExcludeFields = new[] { "_logger" }, FieldsName = new[] { "*" })]
+    
+And this will be compiled
+
 Problems:
 
 1. When compile , it gives
