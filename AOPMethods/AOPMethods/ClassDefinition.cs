@@ -9,6 +9,6 @@ namespace AOPMethodsGenerator
         public string NamespaceName;
         public MethodDefinition[] Methods;
         public string version = ThisAssembly.Info.Version;
-        internal INamedTypeSymbol Original;
+        public INamedTypeSymbol Original;
     }
 }

@@ -13,8 +13,8 @@
     <AdditionalFiles Include="Controllers\CustomTemplate1.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SkinnyControllersCommon\SkinnyControllersCommon.csproj" />
-    <ProjectReference Include="..\SkinnyControllersGenerator\SkinnyControllersGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <!--<ProjectReference Include="..\SkinnyControllersCommon\SkinnyControllersCommon.csproj" />-->
+    <ProjectReference Include="..\SkinnyControllersGenerator\SkinnyControllersGenerator.csproj" OutputItemType="Analyzer"  />
   </ItemGroup>
 <Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile">
     <ItemGroup>

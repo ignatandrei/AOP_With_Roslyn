@@ -44,11 +44,6 @@
 
   </PropertyGroup> 
   <ItemGroup>
-    <Compile Remove="bin\**" />
-    <EmbeddedResource Remove="bin\**" />
-    <None Remove="bin\**" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="../readme.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -73,8 +68,8 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="Scriban" Version="3.0.2" GeneratePathProperty="true" />
-    <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.0" />
-    <PackageReference Include="ThisAssembly.Project" Version="1.0.0" />
+    <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.0" ReferenceOutputAssembly="false" />
+    <PackageReference Include="ThisAssembly.Project" Version="1.0.0" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>

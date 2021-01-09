@@ -1,5 +1,5 @@
-cd SkinnyControllersGenerator
+cd AOPMethodsCommon
 dotnet pack -o ../../bin/ --include-source --include-symbols 
 cd ..
-cd SkinnyControllersCommon
+cd AOPMethods
 dotnet pack -o ../../bin/ --include-source --include-symbols 
