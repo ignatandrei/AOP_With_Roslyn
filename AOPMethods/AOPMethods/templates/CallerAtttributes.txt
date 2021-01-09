@@ -37,7 +37,7 @@ namespace {{NamespaceName}} {
         [CallerFilePath] string sourceFilePath = "",
         [CallerLineNumber] int sourceLineNumber = 0){
             try{
-                Console.WriteLine("before calling method {{mi.Name}}");
+                Console.WriteLine("--{{mi.Name}} start ");
                 Console.WriteLine("called class :"+memberName );
                 Console.WriteLine("called file :"+sourceFilePath );
                 Console.WriteLine("called line :"+sourceLineNumber );                
@@ -55,7 +55,7 @@ namespace {{NamespaceName}} {
                 throw;
             }
             finally{
-                Console.WriteLine("after calling {{mi.Name}}");
+                Console.WriteLine("--{{mi.Name}} end");
             }
 
 
