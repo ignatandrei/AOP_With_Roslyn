@@ -25,10 +25,22 @@ namespace {{NamespaceName}} {
     } 
     */
     {{~ for mi in Methods ~}}
+        {{ 
+            separator = "" 
+            if(mi.NrParameters > 0)
+                separator = "," 
+            end
         
-        public {{mi.ReturnType}} {{mi.NewName}} ({{mi.parametersDefinitionCSharp }}){
+        }}
+        public {{mi.ReturnType}} {{mi.NewName}} ({{mi.parametersDefinitionCSharp }} {{separator}}  
+        [CallerMemberName] string memberName = "",
+        [CallerFilePath] string sourceFilePath = "",
+        [CallerLineNumber] int sourceLineNumber = 0){
             try{
                 Console.WriteLine("before calling method {{mi.Name}}");
+                Console.WriteLine("called class :"+memberName );
+                Console.WriteLine("called file :"+sourceFilePath );
+                Console.WriteLine("called line :"+sourceLineNumber );                
             {{
                 if mi.ReturnsVoid == false
             }}

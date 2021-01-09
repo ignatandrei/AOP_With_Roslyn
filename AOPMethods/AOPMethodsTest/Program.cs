@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace AOPMethodsTest
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task<int> Main(string[] args)
         {
             
             Person p = new();
             p.FirstName = "Andrei";
             p.LastName = "Ignat";
-            Console.WriteLine(p.id());
+            Console.WriteLine(await p.MyTest());
+            return 0;
 
         }
     }

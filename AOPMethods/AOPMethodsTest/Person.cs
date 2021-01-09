@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace AOPMethodsTest
 {
-    [AutoMethods(template = TemplateMethod.TryCatchConsole, MethodPrefix ="pub", MethodSuffix ="bup")]
+    [AutoMethods(template = TemplateMethod.CallerAtttributes, MethodPrefix ="pub", MethodSuffix ="bup")]
     partial class Person
     {
         public string LastName { get; set; }
@@ -17,7 +17,7 @@ namespace AOPMethodsTest
         private async Task<string> MyTestbup()
         {
             await Task.Delay(1000);
-            return FirstName + " " + LastName;
+            return FullName();
         }
 
 

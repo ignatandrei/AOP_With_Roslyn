@@ -7,6 +7,7 @@ namespace AOPMethodsCommon
 
         None = 0,
         TryCatchConsole = 1,
+        CallerAtttributes=2,
         CustomTemplateFile = 10000,
     }
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
