@@ -33,7 +33,7 @@
       Add also Nuget package SkinnyControllersCommon
       For creating new generic templates, see readme.txt
     </Description>
-    <Version>2020.12.28.1226</Version>
+    <Version>2021.1.9.2000</Version>
     <Authors>Andrei Ignat</Authors>
     <PackageTags>RoslynCodeGenerators;C#;CSharp;SkinnyControllers</PackageTags>
     <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/SkinnyControllers</PackageProjectUrl>

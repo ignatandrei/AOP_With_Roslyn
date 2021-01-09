@@ -14,6 +14,9 @@ namespace SkinnyControllersGenerator
         //name, type
         public Dictionary<string, ITypeSymbol> Parameters;
 
+        public IMethodSymbol Original;
+        public bool IsAsync { get; set; }
+
         public KeyValuePair<string, ITypeSymbol> FirstParameter
         {
             get

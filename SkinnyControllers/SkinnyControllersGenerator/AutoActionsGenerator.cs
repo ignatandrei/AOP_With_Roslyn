@@ -183,6 +183,7 @@ namespace SkinnyControllersGenerator
             var cd = new ClassDefinition();
             cd.NamespaceName = namespaceName;
             cd.ClassName = classSymbol.Name;
+            cd.Original = classSymbol;
             if (fields.Length== 0)
             {
                 context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {cd.ClassName} has {fields.Length} fields to process"));
@@ -248,6 +249,8 @@ namespace SkinnyControllersGenerator
                 md.Name = ms.Name;
                 md.FieldName = fieldName;
                 md.ReturnsVoid = ms.ReturnsVoid;
+                md.Original = ms;
+                md.IsAsync = ms.IsAsync;
                 md.ReturnType = ms.ReturnType.ToString();
                 md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it.Type);
 

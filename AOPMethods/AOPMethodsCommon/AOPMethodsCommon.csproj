@@ -3,5 +3,44 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
+  <PropertyGroup>
+    <Description>
+      ** C# 9.0 ONLY **
+      Autogenerates public methods from a class .
+      ( replace below single quotes with double quotes)
+      [AutoMethods(template = TemplateMethod.CallerAtttributes, MethodPrefix ='pub', MethodSuffix ='bup')]
+      partial class Person
+      {
+      public string LastName { get; set; }
+      public string FirstName { get; set; }
+      private string pubFullName()
+      {
+
+      return FirstName + ' ' + LastName;
+      }
+
+      private void pubWriteToConsoleFullName()
+      {
+      Console.WriteLine(this.FullName());
+      }
+
+
+      }
+      // it will generate for this class the public methods
+      public string FullName
+      public string WriteToConsoleFullName
+      Add also Nuget package SkinnyControllersGenerator
+      You can have your own template - read the readme.txt
+    </Description>
+    <Version>2021.1.9.2000</Version>
+    <Authors>Andrei Ignat</Authors>
+    <PackageTags>RoslynCodeGenerators;C#;CSharp;SkinnyControllers</PackageTags>
+    <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/AOPMethods</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ignatandrei/AOP_With_Roslyn</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>MIT</Copyright>
+
+  </PropertyGroup>
 
 </Project>

@@ -170,6 +170,7 @@ namespace AOPMethodsGenerator
 
             string namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
             var cd = new ClassDefinition();
+            cd.Original = classSymbol;
             cd.NamespaceName = namespaceName;
             cd.ClassName = classSymbol.Name;
             var fields = FindMethods(classSymbol);
@@ -212,15 +213,10 @@ namespace AOPMethodsGenerator
         };
         private MethodDefinition[] FindMethods(INamedTypeSymbol fieldSymbol)
         {
-            //var fieldSymbol = classWithProps as IFieldSymbol;
-
             var ret = new List<MethodDefinition>();
             var code = new StringBuilder();
             string fieldName = fieldSymbol.Name;
-            //var fieldType = fieldSymbol.;
             var members = fieldSymbol.GetMembers().OfType<IMethodSymbol>();
-
-
             foreach (var m in members)
             {
                 if (m.IsStatic)
@@ -249,9 +245,8 @@ namespace AOPMethodsGenerator
                 if ((ms.Name == fieldName || ms.Name == ".ctor") && ms.ReturnsVoid)
                     continue;
 
-                var md = new MethodDefinition();
-                md.Original = ms;
-                
+                MethodDefinition md = new ();
+                md.Original = ms;                
                 md.Name = ms.Name;               
                 md.ReturnsVoid = ms.ReturnsVoid;
                 md.ReturnType = ms.ReturnType.ToString();

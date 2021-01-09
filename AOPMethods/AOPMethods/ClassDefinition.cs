@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.CodeAnalysis;
+using System.Collections.Generic;
 
 namespace AOPMethodsGenerator
 {
@@ -7,6 +8,7 @@ namespace AOPMethodsGenerator
         public string ClassName;
         public string NamespaceName;
         public MethodDefinition[] Methods;
-        public string version = ThisAssembly.Info.Version;    
+        public string version = ThisAssembly.Info.Version;
+        internal INamedTypeSymbol Original;
     }
 }
