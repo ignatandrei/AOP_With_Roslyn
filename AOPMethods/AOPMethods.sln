@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOPMethodsGenerator", "AOPM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOPMethodsCommon", "AOPMethodsCommon\AOPMethodsCommon.csproj", "{C518CD65-F5EE-4BEA-AB40-B764DBC7A728}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOPMethodsTest", "AOPMethodsTest\AOPMethodsTest.csproj", "{04BF68DA-147C-45AC-A407-A977F2448E8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C518CD65-F5EE-4BEA-AB40-B764DBC7A728}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C518CD65-F5EE-4BEA-AB40-B764DBC7A728}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C518CD65-F5EE-4BEA-AB40-B764DBC7A728}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04BF68DA-147C-45AC-A407-A977F2448E8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04BF68DA-147C-45AC-A407-A977F2448E8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04BF68DA-147C-45AC-A407-A977F2448E8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04BF68DA-147C-45AC-A407-A977F2448E8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

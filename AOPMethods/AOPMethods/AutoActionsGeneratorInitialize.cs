@@ -13,7 +13,7 @@ namespace AOPMethodsGenerator
 
             context.RegisterForSyntaxNotifications(() => new SyntaxReceiverClass());
             //in development
-            //Debugger.Launch();
+           // Debugger.Launch();
         }
     }
 }

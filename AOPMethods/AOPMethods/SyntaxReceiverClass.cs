@@ -15,7 +15,7 @@ namespace AOPMethodsGenerator
         {
 
         }
-        public List<ClassDeclarationSyntax> CandidatesControllers { get; } = new List<ClassDeclarationSyntax>();
+        public List<ClassDeclarationSyntax> CandidatesClasses { get; } = new List<ClassDeclarationSyntax>();
 
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
@@ -32,7 +32,7 @@ namespace AOPMethodsGenerator
                             continue;
                         if (autoActions.Contains(x.Identifier.Text))
                         {
-                            CandidatesControllers.Add(classDeclarationSyntax);
+                            CandidatesClasses.Add(classDeclarationSyntax);
                             return;
                         }
                     }

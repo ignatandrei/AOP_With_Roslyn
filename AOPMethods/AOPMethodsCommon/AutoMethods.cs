@@ -2,7 +2,7 @@
 
 namespace AOPMethodsCommon
 {
-    public enum TemplateIndicator : long
+    public enum TemplateMethod: long
     {
 
         None = 0,
@@ -12,7 +12,7 @@ namespace AOPMethodsCommon
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public class AutoMethodsAttribute : Attribute
     {
-        public TemplateIndicator template { get; set; }
+        public TemplateMethod template { get; set; }
         public string[] MethodSuffix { get; set; }
         public string[] MethodPrefix { get; set; }
         public string CustomTemplateFileName { get; set; }

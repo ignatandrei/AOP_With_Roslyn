@@ -28,7 +28,7 @@ namespace AOPMethodsGenerator
             var d = Diagnostic.Create(dd, Location.None, "andrei.txt");
             return d;
         }
-        string autoActions = typeof(AutoMethodsAttribute).Name;
+        string autoMethods = typeof(AutoMethodsAttribute).Name;
         public void Execute(GeneratorExecutionContext context)
         {
             this.context = context;
@@ -41,49 +41,56 @@ namespace AOPMethodsGenerator
 
             context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, "starting data"));
 
-            if ((receiver.CandidatesControllers?.Count ?? 0) == 0)
+            if ((receiver.CandidatesClasses?.Count ?? 0) == 0)
                 return;
 
             this.executing = Assembly.GetExecutingAssembly();
             var compilation = context.Compilation;
             var fieldSymbols = new List<IFieldSymbol>();
-            foreach (var classDec in receiver.CandidatesControllers)
+            foreach (var classDec in receiver.CandidatesClasses)
             {
                 var model = compilation.GetSemanticModel(classDec.SyntaxTree);
                 var attrArray = classDec.AttributeLists;
                 var myController = model.GetDeclaredSymbol(classDec);
                 var att = myController.GetAttributes()
-                    .FirstOrDefault(it => it.AttributeClass.Name == autoActions);
+                    .FirstOrDefault(it => it.AttributeClass.Name == autoMethods);
                 if (att == null)
                     continue;
 
                 //verify for null
-                var template = att.NamedArguments.First(it => it.Key == "template")
+                var template = att.NamedArguments.FirstOrDefault(it => it.Key == "template")
                     .Value
                     .Value
-                    .ToString();
-                var templateId = (TemplateIndicator)long.Parse(template);
-                var fields = att.NamedArguments.First(it => it.Key == "FieldsName")
+                    ?.ToString();
+                if (string.IsNullOrEmpty(template))
+                {
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
+                                $"class {myController.Name} do not have a template for {nameof(AutoMethodsAttribute)}. At least put [AutoMethods(template = TemplateMethod.None)]"));
+                    continue;
+                }
+            
+                var templateId = (TemplateMethod)long.Parse(template);
+                var fields = att.NamedArguments.FirstOrDefault(it => it.Key == "FieldsName")
                     .Value
                     .Values
                     .Select(it => it.Value?.ToString())
-                    .ToArray()
+                    ?.ToArray()
                     ;
                 string[] excludeFields = null;
-                try
-                {
-                    excludeFields = att.NamedArguments.FirstOrDefault(it => it.Key == "ExcludeFields")
-                        .Value
-                        .Values
-                        .Select(it => it.Value?.ToString())
-                        .ToArray()
-                        ;
-                }
-                catch (Exception)
-                {
-                    //it is not mandatory to define ExcludeFields
-                    //do nothing, 
-                }
+                //try
+                //{
+                //    excludeFields = att.NamedArguments.FirstOrDefault(it => it.Key == "ExcludeFields")
+                //        .Value
+                //        .Values
+                //        .Select(it => it.Value?.ToString())
+                //        .ToArray()
+                //        ;
+                //}
+                //catch (Exception)
+                //{
+                //    //it is not mandatory to define ExcludeFields
+                //    //do nothing, 
+                //}
                 string templateCustom = "";
                 if (att.NamedArguments.Any(it => it.Key == "CustomTemplateFileName"))
                 {
@@ -129,10 +136,10 @@ namespace AOPMethodsGenerator
                     switch (templateId)
                     {
 
-                        case TemplateIndicator.None:
+                        case TemplateMethod.None:
                             context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"class {myController.Name} has no template "));
                             continue;
-                        case TemplateIndicator.CustomTemplateFile:
+                        case TemplateMethod.CustomTemplateFile:
 
                             var file = context.AdditionalFiles.FirstOrDefault(it => it.Path.EndsWith(templateCustom));
                             if (file == null)
