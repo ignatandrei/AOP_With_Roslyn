@@ -30,17 +30,26 @@ namespace {{NamespaceName}} {
             if(mi.NrParameters > 0)
                 separator = "," 
             end
-        
+            strAwait = ""
+            strAsync =""
+            if mi.IsAsync == true
+                strAwait = " await "
+                strAsync  = " async "
+            end
         }}
-        public {{mi.ReturnType}} {{mi.NewName}} ({{mi.parametersDefinitionCSharp }} {{separator}}  
+        public {{strAsync}} {{mi.ReturnType}} {{mi.NewName}} ({{mi.parametersDefinitionCSharp }} {{separator}}  
         [CallerMemberName] string memberName = "",
         [CallerFilePath] string sourceFilePath = "",
         [CallerLineNumber] int sourceLineNumber = 0){
+            var _cc=ColorFromHash("{{mi.NewName}}".GetHashCode());
             try{
-                Console.WriteLine("--{{mi.Name}} start ");
+                var cc= Console.ForegroundColor;
+                Console.ForegroundColor= _cc;
+                Console.WriteLine("--{{mi.Name}} start "+ _cc);
                 Console.WriteLine("called class :"+memberName );
                 Console.WriteLine("called file :"+sourceFilePath );
-                Console.WriteLine("called line :"+sourceLineNumber );                
+                Console.WriteLine("called line :"+sourceLineNumber );
+               // Console.ForegroundColor = cc;
             {{
                 if mi.ReturnsVoid == false
             }}
@@ -48,14 +57,23 @@ namespace {{NamespaceName}} {
             {{
                 end
             }}
+            {{  strAwait }}
+
             {{mi.Name}}({{ mi.parametersCallCSharp }});
             }
             catch(Exception ex){
+                var cc= Console.ForegroundColor;
+                Console.ForegroundColor= ConsoleColor.Red;
                 Console.WriteLine("error in {{mi.Name}}:" + ex.Message);
+                Console.ForegroundColor = cc;
                 throw;
             }
             finally{
-                Console.WriteLine("--{{mi.Name}} end");
+                var cc= Console.ForegroundColor;
+                Console.ForegroundColor= _cc;            
+                Console.WriteLine("--------{{mi.Name}} end");
+                Console.ForegroundColor = cc;
+
             }
 
 
@@ -63,6 +81,12 @@ namespace {{NamespaceName}} {
 
       
     {{~ end ~}}
+    private static ConsoleColor ColorFromHash(int srcHash)
+        {
+            var nr = Math.Abs(srcHash) %15+1;
+            return Enum.Parse<ConsoleColor>(nr.ToString());
+            
+        }
     
   }
 }              

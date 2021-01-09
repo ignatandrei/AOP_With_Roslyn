@@ -14,11 +14,15 @@ namespace AOPMethodsGenerator
         public bool ReturnsVoid;
         //name, type
         public Dictionary<string, ITypeSymbol> Parameters;
+        public IMethodSymbol Original;
 
+        public bool IsAsync { get; set; }
+        
         public KeyValuePair<string, ITypeSymbol> FirstParameter
         {
             get
             {
+                
                 if(Parameters?.Count() > 0)
                 {
                     return Parameters.First();

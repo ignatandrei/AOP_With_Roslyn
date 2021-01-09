@@ -172,7 +172,7 @@ namespace AOPMethodsGenerator
             var cd = new ClassDefinition();
             cd.NamespaceName = namespaceName;
             cd.ClassName = classSymbol.Name;
-            var fields = ProcessField(classSymbol);
+            var fields = FindMethods(classSymbol);
 
             cd.Methods = fields
                     .Where(it =>
@@ -195,6 +195,10 @@ namespace AOPMethodsGenerator
 
                 if(suffix is not null && m.Name.EndsWith(suffix))
                     m.NewName = m.Name.Substring(0,m.Name.Length-suffix.Length);
+                var q = m.Original;
+                m.IsAsync = q.IsAsync;
+                
+                string x = "";
             }
             var template = Scriban.Template.Parse(post);
             var output = template.Render(cd, member => member.Name);
@@ -206,7 +210,7 @@ namespace AOPMethodsGenerator
             MethodKind.Ordinary
 
         };
-        private MethodDefinition[] ProcessField(INamedTypeSymbol fieldSymbol)
+        private MethodDefinition[] FindMethods(INamedTypeSymbol fieldSymbol)
         {
             //var fieldSymbol = classWithProps as IFieldSymbol;
 
@@ -246,6 +250,8 @@ namespace AOPMethodsGenerator
                     continue;
 
                 var md = new MethodDefinition();
+                md.Original = ms;
+                
                 md.Name = ms.Name;               
                 md.ReturnsVoid = ms.ReturnsVoid;
                 md.ReturnType = ms.ReturnType.ToString();

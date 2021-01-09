@@ -1,4 +1,5 @@
 ﻿using AOPMethodsCommon;
+using System;
 using System.Threading.Tasks;
 
 namespace AOPMethodsTest
@@ -13,11 +14,17 @@ namespace AOPMethodsTest
             
             return FirstName + " " + LastName;
         }
+
+        private void pubWriteToConsoleFullName()
+        {
+            Console.WriteLine(this.FullName());
+        }
         private async Task<string> MyTestbup()
         {
             await Task.Delay(1000);
             return FullName();
         }
+
         private async Task<string> pubTestWithParam(int s)
         {
             await Task.Delay(1000);
