@@ -49,7 +49,7 @@ namespace {{NamespaceName}} {
                 Console.WriteLine("called class :"+memberName );
                 Console.WriteLine("called file :"+sourceFilePath );
                 Console.WriteLine("called line :"+sourceLineNumber );
-               // Console.ForegroundColor = cc;
+                Console.ForegroundColor = cc;
             {{
                 if mi.ReturnsVoid == false
             }}
