@@ -9,7 +9,7 @@ namespace AOPMethodsGenerator
     {
         public string NewName { get; set; }
         public string Name { get; set; }
-        public string FieldName { get; set; }
+        
         public string ReturnType;
         public bool ReturnsVoid;
         //name, type

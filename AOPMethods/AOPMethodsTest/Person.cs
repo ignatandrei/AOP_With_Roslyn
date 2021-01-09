@@ -1,8 +1,9 @@
 ﻿using AOPMethodsCommon;
+using System.Threading.Tasks;
 
 namespace AOPMethodsTest
 {
-    [AutoMethods(template = TemplateMethod.TryCatchConsole, MethodPrefix ="pub")]
+    [AutoMethods(template = TemplateMethod.TryCatchConsole, MethodPrefix ="pub", MethodSuffix ="bup")]
     partial class Person
     {
         public string LastName { get; set; }
@@ -12,8 +13,12 @@ namespace AOPMethodsTest
             
             return FirstName + " " + LastName;
         }
+        private async Task<string> MyTestbup()
+        {
+            await Task.Delay(1000);
+            return FirstName + " " + LastName;
+        }
 
 
-     
     }
 }

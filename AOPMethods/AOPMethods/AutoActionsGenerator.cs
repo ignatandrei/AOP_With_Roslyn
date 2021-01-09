@@ -175,8 +175,11 @@ namespace AOPMethodsGenerator
             var fields = ProcessField(classSymbol);
 
             cd.Methods = fields
-                    .Where(it => (string.IsNullOrWhiteSpace(prefix) || it.Name.StartsWith(prefix)))
-                    .Where(it => (string.IsNullOrWhiteSpace(suffix) || it.Name.StartsWith(suffix)))                    
+                    .Where(it =>
+                    (!string.IsNullOrWhiteSpace(prefix) && it.Name.StartsWith(prefix))
+                    ||
+                    (!string.IsNullOrWhiteSpace(suffix) && it.Name.EndsWith(suffix))
+                    )                    
                     .ToArray();
             
 
@@ -184,13 +187,14 @@ namespace AOPMethodsGenerator
             {
                 context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {cd.ClassName} has 0 fields to process"));
             }
+            
             foreach (var m in cd.Methods)
             {
                 if (prefix is not null && m.Name.StartsWith(prefix))
                     m.NewName = m.Name.Substring(prefix.Length);
 
-                if(suffix is not null && m.FieldName.EndsWith(suffix))
-                    m.NewName = m.Name.Substring(0,m.FieldName.Length-prefix.Length);
+                if(suffix is not null && m.Name.EndsWith(suffix))
+                    m.NewName = m.Name.Substring(0,m.Name.Length-suffix.Length);
             }
             var template = Scriban.Template.Parse(post);
             var output = template.Render(cd, member => member.Name);
@@ -242,8 +246,7 @@ namespace AOPMethodsGenerator
                     continue;
 
                 var md = new MethodDefinition();
-                md.Name = ms.Name;
-                md.FieldName = fieldName;
+                md.Name = ms.Name;               
                 md.ReturnsVoid = ms.ReturnsVoid;
                 md.ReturnType = ms.ReturnType.ToString();
                 md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it.Type);
