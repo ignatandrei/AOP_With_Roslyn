@@ -29,22 +29,41 @@ namespace AOPMethodsGenerator
             return d;
         }
         string autoMethods = typeof(AutoMethodsAttribute).Name;
+        public void GenerateFromEnums(GeneratorExecutionContext context, SyntaxReceiverClass receiver)
+        {
+            var compilation = context.Compilation;
+            var fieldSymbols = new List<IFieldSymbol>();
+
+            foreach (var enums in receiver.CandidateEnums)
+            {
+                //var model = compilation.GetSemanticModel(enums.SyntaxTree);
+                //var classWithMethods = model.GetDeclaredSymbol(enums);
+                //var type = model.GetTypeInfo(enums);
+                //enums.Members;
+                //enums.Identifier.Text;
+                Debugger.Launch();
+            }
+
+        }
         public void Execute(GeneratorExecutionContext context)
         {
             this.context = context;
-            
             string name = $"{ThisAssembly.Project.AssemblyName} {ThisAssembly.Info.Version}";
             context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, name));
-
+            this.executing = Assembly.GetExecutingAssembly();
             if (!(context.SyntaxReceiver is SyntaxReceiverClass receiver))
                 return;
 
             context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, "starting data"));
+            GenerateFromEnums(context, receiver);
+            GeneratePublicMethods(context, receiver);
+        }
+        public void GeneratePublicMethods(GeneratorExecutionContext context, SyntaxReceiverClass receiver)
+        {
 
             if ((receiver.CandidatesClasses?.Count ?? 0) == 0)
                 return;
 
-            this.executing = Assembly.GetExecutingAssembly();
             var compilation = context.Compilation;
             var fieldSymbols = new List<IFieldSymbol>();
             foreach (var classDec in receiver.CandidatesClasses)
@@ -68,7 +87,7 @@ namespace AOPMethodsGenerator
                                 $"class {classWithMethods.Name} do not have a template for {nameof(AutoMethodsAttribute)}. At least put [AutoMethods(template = TemplateMethod.None)]"));
                     continue;
                 }
-            
+
                 var templateId = (TemplateMethod)long.Parse(template);
                 var suffix = att.NamedArguments.FirstOrDefault(it => it.Key == "MethodSuffix")
                     .Value
@@ -77,7 +96,7 @@ namespace AOPMethodsGenerator
                 ;
 
                 var prefix = att.NamedArguments.FirstOrDefault(it => it.Key == "MethodPrefix")
-                    .Value                   
+                    .Value
                     .Value
                     ?.ToString();
                 ;
@@ -103,11 +122,11 @@ namespace AOPMethodsGenerator
 
                     templateCustom = att.NamedArguments.First(it => it.Key == "CustomTemplateFileName")
                     .Value
-                    .Value                    
+                    .Value
                     .ToString()
                     ;
                 }
-                                             
+
                 context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"starting class {classWithMethods.Name} with template {templateId}"));
                 string post = "";
                 try
@@ -120,7 +139,7 @@ namespace AOPMethodsGenerator
                             continue;
                         case TemplateMethod.CustomTemplateFile:
 
-                            
+
                             var file = context.AdditionalFiles.FirstOrDefault(it => it.Path.EndsWith(templateCustom));
                             if (file == null)
                             {
@@ -131,7 +150,7 @@ namespace AOPMethodsGenerator
                             break;
 
                         default:
-                           
+
                             using (var stream = executing.GetManifestResourceStream($"AOPMethodsGenerator.templates.{templateId}.txt"))
                             {
                                 using var reader = new StreamReader(stream);
@@ -141,7 +160,7 @@ namespace AOPMethodsGenerator
                             break;
                     }
 
-                    
+
                     string classSource = ProcessClass(classWithMethods, prefix, suffix, post);
                     if (string.IsNullOrWhiteSpace(classSource))
                         continue;
@@ -158,7 +177,7 @@ namespace AOPMethodsGenerator
             }
         }
 
-        private string ProcessClass(INamedTypeSymbol classSymbol,string prefix,string suffix, string post)
+        private string ProcessClass(INamedTypeSymbol classSymbol, string prefix, string suffix, string post)
         {
 
 
@@ -180,25 +199,25 @@ namespace AOPMethodsGenerator
                     (!string.IsNullOrWhiteSpace(prefix) && it.Name.StartsWith(prefix))
                     ||
                     (!string.IsNullOrWhiteSpace(suffix) && it.Name.EndsWith(suffix))
-                    )                    
+                    )
                     .ToArray();
-            
+
 
             if (cd.Methods.Length == 0)
             {
                 context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {cd.ClassName} has 0 fields to process"));
             }
-            
+
             foreach (var m in cd.Methods)
             {
                 if (prefix is not null && m.Name.StartsWith(prefix))
                     m.NewName = m.Name.Substring(prefix.Length);
 
-                if(suffix is not null && m.Name.EndsWith(suffix))
-                    m.NewName = m.Name.Substring(0,m.Name.Length-suffix.Length);
+                if (suffix is not null && m.Name.EndsWith(suffix))
+                    m.NewName = m.Name.Substring(0, m.Name.Length - suffix.Length);
                 var q = m.Original;
                 m.IsAsync = q.IsAsync;
-                
+
                 string x = "";
             }
             var template = Scriban.Template.Parse(post);
@@ -238,29 +257,29 @@ namespace AOPMethodsGenerator
                 }
                 if (ms.DeclaredAccessibility == Accessibility.Public)
                     continue;
-                
+
                 if (ms.MethodKind != MethodKind.Ordinary)
                     continue;
 
                 if ((ms.Name == fieldName || ms.Name == ".ctor") && ms.ReturnsVoid)
                     continue;
 
-                MethodDefinition md = new ();
-                md.Original = ms;                
-                md.Name = ms.Name;               
+                MethodDefinition md = new();
+                md.Original = ms;
+                md.Name = ms.Name;
                 md.ReturnsVoid = ms.ReturnsVoid;
                 md.ReturnType = ms.ReturnType.ToString();
                 md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it.Type);
                 ret.Add(md);
             }
-            if (ret.Count== 0)
+            if (ret.Count == 0)
             {
-                context.ReportDiagnostic( DoDiagnostic(DiagnosticSeverity.Warning,
+                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
                     $"could not find methods on {fieldName} from {fieldSymbol.ContainingType?.Name}"));
             }
             return ret.ToArray();
         }
 
-        
+
     }
 }
