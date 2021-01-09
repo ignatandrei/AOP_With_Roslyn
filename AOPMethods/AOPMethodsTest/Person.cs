@@ -13,6 +13,7 @@ namespace AOPMethodsTest
             
             return FirstName + " " + LastName;
         }
+        //[System.Runtime.CompilerServices.CallerMemberName] string memberName = ""
         private async Task<string> MyTestbup()
         {
             await Task.Delay(1000);

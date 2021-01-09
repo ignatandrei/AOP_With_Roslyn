@@ -15,17 +15,17 @@ namespace {{NamespaceName}} {
     /// <summary>
     /// Generates code from  {{ClassName}}
     /// </summary>
-  [GeneratedCode("SkinnyControllersGenerator", "{{version}}")]
+  [GeneratedCode("AOPMethods", "{{version}}")]
   [CompilerGenerated]
   partial class {{ClassName}}{ 
-   
+   /*
     public int id(){
     System.Diagnostics.Debugger.Break();
     return 1;
     } 
-    
+    */
     {{~ for mi in Methods ~}}
-        /*
+        
         public {{mi.ReturnType}} {{mi.NewName}} ({{mi.parametersDefinitionCSharp }}){
             try{
                 Console.WriteLine("enter method {{mi.Name}}");
@@ -49,7 +49,7 @@ namespace {{NamespaceName}} {
 
         }
 
-      */
+      
     {{~ end ~}}
     
   }
