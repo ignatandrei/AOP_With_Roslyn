@@ -6,7 +6,7 @@ namespace AOPMethodsGenerator
     {
         public string ClassName;
         public string NamespaceName;
-        public Dictionary<string,MethodDefinition[]> DictNameField_Methods;
+        public MethodDefinition[] Methods;
         public string version = ThisAssembly.Info.Version;    
     }
 }

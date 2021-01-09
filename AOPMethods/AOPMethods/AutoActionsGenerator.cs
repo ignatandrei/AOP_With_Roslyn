@@ -51,8 +51,8 @@ namespace AOPMethodsGenerator
             {
                 var model = compilation.GetSemanticModel(classDec.SyntaxTree);
                 var attrArray = classDec.AttributeLists;
-                var myController = model.GetDeclaredSymbol(classDec);
-                var att = myController.GetAttributes()
+                var classWithMethods = model.GetDeclaredSymbol(classDec);
+                var att = classWithMethods.GetAttributes()
                     .FirstOrDefault(it => it.AttributeClass.Name == autoMethods);
                 if (att == null)
                     continue;
@@ -65,32 +65,38 @@ namespace AOPMethodsGenerator
                 if (string.IsNullOrEmpty(template))
                 {
                     context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
-                                $"class {myController.Name} do not have a template for {nameof(AutoMethodsAttribute)}. At least put [AutoMethods(template = TemplateMethod.None)]"));
+                                $"class {classWithMethods.Name} do not have a template for {nameof(AutoMethodsAttribute)}. At least put [AutoMethods(template = TemplateMethod.None)]"));
                     continue;
                 }
             
                 var templateId = (TemplateMethod)long.Parse(template);
-                var fields = att.NamedArguments.FirstOrDefault(it => it.Key == "FieldsName")
+                var suffix = att.NamedArguments.FirstOrDefault(it => it.Key == "MethodSuffix")
                     .Value
-                    .Values
-                    .Select(it => it.Value?.ToString())
-                    ?.ToArray()
-                    ;
+                    .Value
+                    ?.ToString();
+                ;
+
+                var prefix = att.NamedArguments.FirstOrDefault(it => it.Key == "MethodPrefix")
+                    .Value                   
+                    .Value
+                    ?.ToString();
+                ;
+
                 string[] excludeFields = null;
-                //try
-                //{
-                //    excludeFields = att.NamedArguments.FirstOrDefault(it => it.Key == "ExcludeFields")
-                //        .Value
-                //        .Values
-                //        .Select(it => it.Value?.ToString())
-                //        .ToArray()
-                //        ;
-                //}
-                //catch (Exception)
-                //{
-                //    //it is not mandatory to define ExcludeFields
-                //    //do nothing, 
-                //}
+                try
+                {
+                    excludeFields = att.NamedArguments.FirstOrDefault(it => it.Key == "ExcludeFields")
+                        .Value
+                        .Values
+                        .Select(it => it.Value?.ToString())
+                        .ToArray()
+                        ;
+                }
+                catch (Exception)
+                {
+                    //it is not mandatory to define ExcludeFields
+                    //do nothing, 
+                }
                 string templateCustom = "";
                 if (att.NamedArguments.Any(it => it.Key == "CustomTemplateFileName"))
                 {
@@ -101,35 +107,8 @@ namespace AOPMethodsGenerator
                     .ToString()
                     ;
                 }
-                bool All = fields.Contains("*");
-
-                var memberFields = myController
-                        .GetMembers()
-                        .Where(it => All || fields.Contains(it.Name))
-                        .Select(it => it as IFieldSymbol)
-                        .Where(it => it != null)                        
-                        .ToArray();
-
-                if (excludeFields?.Length > 0)
-                {
-                    var q = memberFields.ToList();
-                    q.RemoveAll(it => excludeFields.Contains(it.Name));
-                    memberFields = q.ToArray();
-
-                }
-                if (memberFields.Length < fields.Length)
-                {
-                    //report also the mismatched names
-                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
-                                $"controller {myController.Name} have some fields to generate that were not found"));
-                }
-                if (memberFields.Length == 0)
-                {
-                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error,
-                            $"controller {myController.Name} do not have fields to generate"));
-                    continue;
-                }
-                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"starting class {myController.Name} with template {templateId}"));
+                                             
+                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"starting class {classWithMethods.Name} with template {templateId}"));
                 string post = "";
                 try
                 {
@@ -137,20 +116,22 @@ namespace AOPMethodsGenerator
                     {
 
                         case TemplateMethod.None:
-                            context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"class {myController.Name} has no template "));
+                            context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"class {classWithMethods.Name} has no template "));
                             continue;
                         case TemplateMethod.CustomTemplateFile:
 
+                            
                             var file = context.AdditionalFiles.FirstOrDefault(it => it.Path.EndsWith(templateCustom));
                             if (file == null)
                             {
-                                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error, $"cannot find {templateCustom} for  {myController.Name} . Did you put in AdditionalFiles in csproj ?"));
+                                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error, $"cannot find {templateCustom} for  {classWithMethods.Name} . Did you put in AdditionalFiles in csproj ?"));
                                 continue;
                             }
                             post = file.GetText().ToString();
                             break;
 
                         default:
+                           
                             using (var stream = executing.GetManifestResourceStream($"AOPMethodsGenerator.templates.{templateId}.txt"))
                             {
                                 using var reader = new StreamReader(stream);
@@ -160,25 +141,26 @@ namespace AOPMethodsGenerator
                             break;
                     }
 
-                    string classSource = ProcessClass(myController, memberFields, post);
+                    
+                    string classSource = ProcessClass(classWithMethods, prefix, suffix, post);
                     if (string.IsNullOrWhiteSpace(classSource))
                         continue;
 
 
-                    context.AddSource($"{myController.Name}.autogenerate.cs", SourceText.From(classSource, Encoding.UTF8));
+                    context.AddSource($"{classWithMethods.Name}.autogenerate.cs", SourceText.From(classSource, Encoding.UTF8));
 
                 }
                 catch (Exception ex)
                 {
-                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error, $"{myController.Name} error {ex.Message}"));
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error, $"{classWithMethods.Name} error {ex.Message}"));
                 }
 
             }
         }
 
-        private string ProcessClass(INamedTypeSymbol classSymbol, IFieldSymbol[] fields, string post)
+        private string ProcessClass(INamedTypeSymbol classSymbol,string prefix,string suffix, string post)
         {
-           
+
 
             if (!classSymbol.ContainingSymbol.Equals(classSymbol.ContainingNamespace, SymbolEqualityComparer.Default))
             {
@@ -190,38 +172,45 @@ namespace AOPMethodsGenerator
             var cd = new ClassDefinition();
             cd.NamespaceName = namespaceName;
             cd.ClassName = classSymbol.Name;
-            if (fields.Length== 0)
-            {
-                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {cd.ClassName} has {fields.Length} fields to process"));
-            }
-            cd.DictNameField_Methods = fields
-                .SelectMany(it => ProcessField(it))
-                .GroupBy(it => it.FieldName)
-                .ToDictionary(it => it.Key, it => it.ToArray());
+            var fields = ProcessField(classSymbol);
 
+            cd.Methods = fields
+                    .Where(it => (string.IsNullOrWhiteSpace(prefix) || it.Name.StartsWith(prefix)))
+                    .Where(it => (string.IsNullOrWhiteSpace(suffix) || it.Name.StartsWith(suffix)))                    
+                    .ToArray();
+            
 
-            if (cd.DictNameField_Methods.Count == 0)
+            if (cd.Methods.Length == 0)
             {
                 context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {cd.ClassName} has 0 fields to process"));
+            }
+            foreach (var m in cd.Methods)
+            {
+                if (prefix is not null && m.Name.StartsWith(prefix))
+                    m.NewName = m.Name.Substring(prefix.Length);
+
+                if(suffix is not null && m.FieldName.EndsWith(suffix))
+                    m.NewName = m.Name.Substring(0,m.FieldName.Length-prefix.Length);
             }
             var template = Scriban.Template.Parse(post);
             var output = template.Render(cd, member => member.Name);
             return output;
-            
+
         }
         static MethodKind[] allowed = new[] {
             MethodKind.ExplicitInterfaceImplementation,
             MethodKind.Ordinary
 
         };
-        private MethodDefinition[] ProcessField(IFieldSymbol fieldSymbol)
+        private MethodDefinition[] ProcessField(INamedTypeSymbol fieldSymbol)
         {
-           
+            //var fieldSymbol = classWithProps as IFieldSymbol;
+
             var ret = new List<MethodDefinition>();
             var code = new StringBuilder();
             string fieldName = fieldSymbol.Name;
-            var fieldType = fieldSymbol.Type;
-            var members = fieldType.GetMembers().OfType<IMethodSymbol>();
+            //var fieldType = fieldSymbol.;
+            var members = fieldSymbol.GetMembers().OfType<IMethodSymbol>();
 
 
             foreach (var m in members)
@@ -243,8 +232,9 @@ namespace AOPMethodsGenerator
                     continue;
 
                 }
-                if (ms.DeclaredAccessibility != Accessibility.Public)
+                if (ms.DeclaredAccessibility == Accessibility.Public)
                     continue;
+                
                 if (ms.MethodKind != MethodKind.Ordinary)
                     continue;
 
@@ -257,7 +247,6 @@ namespace AOPMethodsGenerator
                 md.ReturnsVoid = ms.ReturnsVoid;
                 md.ReturnType = ms.ReturnType.ToString();
                 md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it.Type);
-
                 ret.Add(md);
             }
             if (ret.Count== 0)
