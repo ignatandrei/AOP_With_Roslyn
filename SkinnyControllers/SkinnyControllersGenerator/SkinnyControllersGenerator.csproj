@@ -42,7 +42,12 @@
     <Copyright>MIT</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
-  </PropertyGroup>
+  </PropertyGroup> 
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <None Remove="bin\**" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="../readme.txt">
       <Pack>True</Pack>
