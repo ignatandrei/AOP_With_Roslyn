@@ -9,12 +9,12 @@ namespace AOPMethodsGenerator
     {
         public EnumDefinition(int nr)
         {
-            Values = new KeyValuePair<long, string>[nr];
+            Values = new KeyValuePair<string, long>[nr];
         }
         public string NamespaceName;
         public string FullName;
         public string Name;
-        public KeyValuePair<long, string>[] Values;
+        public KeyValuePair<string, long>[] Values;
         public string Type;//int or long
         public EnumDeclarationSyntax Original;
         public string Version;

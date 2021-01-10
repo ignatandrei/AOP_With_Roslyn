@@ -8,7 +8,7 @@ namespace AOPMethodsTest
         
         static async Task<int> Main(string[] args)
         {
-            //var x = EnumTest2.id();
+            var x = enumTest2.id();
             
             Person p = new();
             p.FirstName = "Andrei";

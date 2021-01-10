@@ -123,7 +123,7 @@ namespace AOPMethodsGenerator
                         lastValue = long.Parse(m.EqualsValue.Value.GetText().ToString());
                         
                     }
-                    ed.Values[i] = new KeyValuePair<long, string>(lastValue, m.Identifier.Text);
+                    ed.Values[i] = new KeyValuePair<string, long>(m.Identifier.Text, lastValue);
                     lastValue++;
 
                 }
