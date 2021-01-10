@@ -49,7 +49,7 @@
       // it will generate for this class the public methods
       public string FullName
       public string WriteToConsoleFullName
-      Add also Nuget package SkinnyControllersGenerator
+      Add also Nuget package AOPMethodsCommon
       You can have your own template - read the readme.txt
     </Description>
     <Version>2021.1.10.1800</Version>
