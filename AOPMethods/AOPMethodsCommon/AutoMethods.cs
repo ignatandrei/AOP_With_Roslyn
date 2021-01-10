@@ -11,6 +11,13 @@ namespace AOPMethodsCommon
         CallerAtttributesWithConsole=3,
         CustomTemplateFile = 10000,
     }
+    public enum EnumMethod : long
+    {
+
+        None = 0,
+        GenerateExtensionCode = 1,
+        CustomTemplateFile = 10000,
+    }
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public class AutoMethodsAttribute : Attribute
     {
@@ -22,5 +29,13 @@ namespace AOPMethodsCommon
         public string CustomTemplateFileName { get; set; }
 
     }
+    [AttributeUsage(AttributeTargets.Enum, Inherited = false, AllowMultiple = false)]
+    public class AutoEnumAttribute : Attribute
+    {
+        public EnumMethod  template { get; set; }
+        public string CustomTemplateFileName { get; set; }
+
+    }
+
 
 }

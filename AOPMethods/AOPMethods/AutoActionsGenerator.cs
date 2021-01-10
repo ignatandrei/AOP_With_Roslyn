@@ -29,6 +29,7 @@ namespace AOPMethodsGenerator
             return d;
         }
         string autoMethods = typeof(AutoMethodsAttribute).Name;
+        string autoEnums = typeof(AutoEnumAttribute).Name;
         public void GenerateFromEnums(GeneratorExecutionContext context, SyntaxReceiverClass receiver)
         {
             var compilation = context.Compilation;
@@ -36,12 +37,111 @@ namespace AOPMethodsGenerator
 
             foreach (var enums in receiver.CandidateEnums)
             {
-                //var model = compilation.GetSemanticModel(enums.SyntaxTree);
-                //var classWithMethods = model.GetDeclaredSymbol(enums);
-                //var type = model.GetTypeInfo(enums);
+                var model = compilation.GetSemanticModel(enums.SyntaxTree);
+                var classWithMethods = model.GetDeclaredSymbol(enums);
+                var type = model.GetTypeInfo(enums);
                 //enums.Members;
                 //enums.Identifier.Text;
                 //Debugger.Launch();
+                var att = classWithMethods.GetAttributes()
+                    .FirstOrDefault(it => it.AttributeClass.Name == autoEnums);
+                if (att == null)
+                    continue;
+
+                //verify for null
+                var template = att.NamedArguments.FirstOrDefault(it => it.Key == "template")
+                    .Value
+                    .Value
+                    ?.ToString();
+                if (string.IsNullOrEmpty(template))
+                {
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
+                                $"enum {classWithMethods.Name} do not have a template for {nameof(AutoEnumAttribute)}. At least put [AutoMethods(template = TemplateMethod.None)]"));
+                    continue;
+                }
+                var templateId = (EnumMethod)long.Parse(template);
+                string templateCustom = "";
+                if (att.NamedArguments.Any(it => it.Key == "CustomTemplateFileName"))
+                {
+
+                    templateCustom = att.NamedArguments.First(it => it.Key == "CustomTemplateFileName")
+                    .Value
+                    .Value
+                    .ToString()
+                    ;
+                }
+                string post = "";
+                switch (templateId)
+                {
+
+                    case EnumMethod.None:
+                        context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"class {classWithMethods.Name} has no template "));
+                        continue;
+                    case EnumMethod.CustomTemplateFile:
+
+
+                        var file = context.AdditionalFiles.FirstOrDefault(it => it.Path.EndsWith(templateCustom));
+                        if (file == null)
+                        {
+                            context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error, $"cannot find {templateCustom} for  {classWithMethods.Name} . Did you put in AdditionalFiles in csproj ?"));
+                            continue;
+                        }
+                        post = file.GetText().ToString();
+                        break;
+
+                    default:
+
+                        using (var stream = executing.GetManifestResourceStream($"AOPMethodsGenerator.templates.{templateId}.txt"))
+                        {
+                            using var reader = new StreamReader(stream);
+                            post = reader.ReadToEnd();
+
+                        }
+                        break;
+                }
+
+
+                var members = enums.Members;
+                var ed = new EnumDefinition(enums.Members.Count);
+                ed.Original = enums;
+                ed.Version = ThisAssembly.Info.Version;
+                ed.Name = enums.Identifier.Text;
+                ed.FullName = ed.Name;
+                ed.NamespaceName = "EnumGenerator";
+                if (!string.IsNullOrWhiteSpace(classWithMethods.ContainingNamespace.Name))
+                {
+                    ed.FullName = classWithMethods.ContainingNamespace.Name + "." + ed.Name;
+                    ed.NamespaceName = classWithMethods.ContainingNamespace.Name;
+                }
+                long lastValue = 0;
+                
+                for (int i = 0; i < members.Count; i++)
+                {
+                    var m = members[i];
+                    if(m.EqualsValue != null)
+                    {
+                        lastValue = long.Parse(m.EqualsValue.Value.GetText().ToString());
+                        
+                    }
+                    ed.Values[i] = new KeyValuePair<long, string>(lastValue, m.Identifier.Text);
+                    lastValue++;
+
+                }
+                
+                //                Debugger.Launch();
+                string typeEnum = "int";
+                
+                var bs = enums.BaseList;
+                if(bs != null)
+                {
+                    typeEnum = bs.Types.FirstOrDefault().GetText().ToString();
+                }
+                ed.Type = typeEnum;
+                var templateScriban = Scriban.Template.Parse(post);
+                var output = templateScriban.Render(ed, member => member.Name);
+                //Debugger.Launch();
+                context.AddSource($"{ed.FullName}.autogenerate.cs", SourceText.From(output, Encoding.UTF8));
+
             }
 
         }

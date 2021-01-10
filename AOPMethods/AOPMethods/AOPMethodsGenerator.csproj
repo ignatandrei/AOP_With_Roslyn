@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="templates\CallerAtttributes.txt" />
     <None Remove="templates\CallerAtttributesWithConsole.txt" />
+    <None Remove="templates\GenerateExtensionCode.txt" />
     <None Remove="templates\TryCatchConsole.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +71,7 @@
     <Compile Include="..\AOPMethodsCommon\AutoMethods.cs" Link="AutoMethods.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="templates\GenerateExtensionCode.txt" />
     <EmbeddedResource Include="templates\CallerAtttributesWithConsole.txt" />
     <EmbeddedResource Include="templates\CallerAtttributes.txt" />
     <EmbeddedResource Include="templates\TryCatchConsole.txt" />

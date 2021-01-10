@@ -11,24 +11,44 @@ namespace AOPMethodsGenerator
     public class SyntaxReceiverClass : ISyntaxReceiver
     {
         string autoActions = typeof(AutoMethodsAttribute).Name;
+        string autoEnums = typeof(AutoEnumAttribute).Name;
 
-        public SyntaxReceiverClass()
-        {
-
-        }
         public List<ClassDeclarationSyntax> CandidatesClasses { get; } = new List<ClassDeclarationSyntax>();
         public List<EnumDeclarationSyntax> CandidateEnums { get; } = new List<EnumDeclarationSyntax>();
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
-            if(syntaxNode is EnumDeclarationSyntax enums)
+            if(syntaxNode is EnumDeclarationSyntax enums && enums.AttributeLists.Count > 0)
             {
-                CandidateEnums.Add(enums);
+                bool found = false;
+                foreach (var al in enums.AttributeLists)
+                {
+                    var att = al.Attributes;
+                    foreach (var at in att)
+                    {
+                        var x = at.Name as IdentifierNameSyntax;
+                        if (x == null)
+                            continue;
+                        if (autoEnums.Contains(x.Identifier.Text))
+                        {
+                            CandidateEnums.Add(enums);
+                            found = true;                            
+                        }
+                        if (found)
+                            break;
+
+                    }
+                    if (found)
+                        break;
+
+                }              
             }
             if (syntaxNode is ClassDeclarationSyntax classDeclarationSyntax
                         && classDeclarationSyntax.AttributeLists.Count > 0)
             {
-                foreach(var al in classDeclarationSyntax.AttributeLists)
+                bool found = false;
+                foreach (var al in classDeclarationSyntax.AttributeLists)
                 {
+                    
                     var att = al.Attributes;
                     foreach(var at in att)
                     {
@@ -38,11 +58,16 @@ namespace AOPMethodsGenerator
                         if (autoActions.Contains(x.Identifier.Text))
                         {
                             CandidatesClasses.Add(classDeclarationSyntax);
-                            return;
+                            found = true;
                         }
+                        if (found)
+                            break;
                     }
+                    if (found)
+                        break;
+
                 }
-                
+
             }
 
         }
