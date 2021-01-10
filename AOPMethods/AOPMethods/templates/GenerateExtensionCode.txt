@@ -17,19 +17,34 @@ namespace {{NamespaceName}} {
     /// </summary>
   [GeneratedCode("AOPMethods", "{{version}}")]
   [CompilerGenerated]
-  public static class enum{{Name}}{ 
+  public  static partial class enum{{Name}}{ 
    
-    public static int id(){
+    public static int id{{Name}}(){
     System.Diagnostics.Debugger.Break();
     return 1;
     }
-    public static {{FullName}} ParseExact(this long value){
+    public static {{FullName}} ParseExact{{Name}}(this long value){
         {{~ for mi in Values ~}}
             if({{mi.Value}} == value)
                 return {{FullName}}.{{mi.Key}};
         {{ end }}
         throw new ArgumentException("cannot find " + value +" for {{FullName}}  ");
     }
+    /*
+    public static {{FullName}} ParseExact{{Name}}(this string value){
+        //trying to see if it is a value inside
+        //if(!string.IsNullOrWhiteSpace)
+        if(long.TryParse(value, out long valueParsed)){
+            return ParseExact(valueParsed);
+        }
+
+        {{~ for mi in Values ~}}
+            if(0==string.Compare("{{mi.Key}}" , value, StringComparison.InvariantCultureIgnoreCase))
+                return {{FullName}}.{{mi.Value}};
+        {{ end }}
+        throw new ArgumentException("cannot find " + value +" for {{FullName}}  ");
+    }
+    */
     /*
     
     */

@@ -8,8 +8,9 @@ namespace AOPMethodsTest
         
         static async Task<int> Main(string[] args)
         {
-            var x = enumTest2.id();
-            
+            var x = enumTest2.idTest2();
+            long y = 7;
+            var s = y.ParseExactTest2();
             Person p = new();
             p.FirstName = "Andrei";
             p.LastName = "Ignat";
