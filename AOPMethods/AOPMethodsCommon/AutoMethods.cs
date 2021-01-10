@@ -9,6 +9,7 @@ namespace AOPMethodsCommon
         TryCatchConsole = 1,
         CallerAtttributes=2,
         CallerAtttributesWithConsole=3,
+        MethodWithPartial=4,
         CustomTemplateFile = 10000,
     }
     public enum EnumMethod : long

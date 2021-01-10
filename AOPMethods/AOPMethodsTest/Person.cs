@@ -4,9 +4,17 @@ using System.Threading.Tasks;
 
 namespace AOPMethodsTest
 {
-    [AutoMethods(template = TemplateMethod.CallerAtttributes, MethodPrefix ="pub", MethodSuffix ="bup")]
+    [AutoMethods(template = TemplateMethod.MethodWithPartial, MethodPrefix ="pub", MethodSuffix ="bup")]
     partial class Person
     {
+        partial void Method_Start(string methodName)
+        {
+            Console.WriteLine($"start {methodName}");
+        }
+        partial void Method_End(string methodName)
+        {
+            Console.WriteLine($"end {methodName}");
+        }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         private string pubFullName()
