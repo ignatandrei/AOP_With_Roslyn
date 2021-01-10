@@ -41,7 +41,7 @@ namespace AOPMethodsGenerator
                 //var type = model.GetTypeInfo(enums);
                 //enums.Members;
                 //enums.Identifier.Text;
-                Debugger.Launch();
+                //Debugger.Launch();
             }
 
         }
@@ -218,7 +218,7 @@ namespace AOPMethodsGenerator
                 var q = m.Original;
                 m.IsAsync = q.IsAsync;
 
-                string x = "";
+                
             }
             var template = Scriban.Template.Parse(post);
             var output = template.Render(cd, member => member.Name);

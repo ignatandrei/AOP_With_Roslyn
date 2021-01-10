@@ -41,11 +41,15 @@ namespace {{NamespaceName}} {
         [CallerMemberName] string memberName = "",
         [CallerFilePath] string sourceFilePath = "",
         [CallerLineNumber] int sourceLineNumber = 0){
+            var _cc=ColorFromHash("{{mi.NewName}}".GetHashCode());
             try{
-                Console.WriteLine("--{{mi.Name}} start ");
+                var cc= Console.ForegroundColor;
+                Console.ForegroundColor= _cc;
+                Console.WriteLine("--{{mi.Name}} start "+ _cc);
                 Console.WriteLine("called class :"+memberName );
                 Console.WriteLine("called file :"+sourceFilePath );
                 Console.WriteLine("called line :"+sourceLineNumber );
+                Console.ForegroundColor = cc;
             {{
                 if mi.ReturnsVoid == false
             }}
@@ -58,18 +62,31 @@ namespace {{NamespaceName}} {
             {{mi.Name}}({{ mi.parametersCallCSharp }});
             }
             catch(Exception ex){
+                var cc= Console.ForegroundColor;
+                Console.ForegroundColor= ConsoleColor.Red;
                 Console.WriteLine("error in {{mi.Name}}:" + ex.Message);
+                Console.ForegroundColor = cc;
                 throw;
             }
             finally{
+                var cc= Console.ForegroundColor;
+                Console.ForegroundColor= _cc;            
                 Console.WriteLine("--------{{mi.Name}} end");
+                Console.ForegroundColor = cc;
+
             }
 
 
         }
 
       
-    {{~ end ~}}    
+    {{~ end ~}}
+    private static ConsoleColor ColorFromHash(int srcHash)
+        {
+            var nr = Math.Abs(srcHash) %15+1;
+            return Enum.Parse<ConsoleColor>(nr.ToString());
+            
+        }
     
   }
 }              
