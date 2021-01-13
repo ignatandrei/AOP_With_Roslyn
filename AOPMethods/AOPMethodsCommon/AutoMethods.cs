@@ -19,14 +19,14 @@ namespace AOPMethodsCommon
         GenerateExtensionCode = 1,
         CustomTemplateFile = 10000,
     }
-    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     public class AutoMethodsAttribute : Attribute
     {
         public TemplateMethod template { get; set; }
         public string MethodSuffix { get; set; }
         public string MethodPrefix { get; set; }
 
-        public string[] ExcludeFields { get; set; }
+        //public string[] ExcludeFields { get; set; }
         public string CustomTemplateFileName { get; set; }
 
     }

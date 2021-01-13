@@ -6,7 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AOPMethods\AOPMethodsGenerator.csproj" OutputItemType="Analyzer"/>
+    <None Remove="privateTryCatch.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="privateTryCatch.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AOPMethods\AOPMethodsGenerator.csproj" OutputItemType="Analyzer" />
+    <AdditionalFiles Include="privateTryCatch.txt" />
   </ItemGroup>
 
 </Project>

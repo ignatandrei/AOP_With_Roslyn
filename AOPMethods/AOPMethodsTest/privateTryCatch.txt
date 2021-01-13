@@ -15,8 +15,6 @@ namespace {{NamespaceName}} {
     /// <summary>
     /// Generates code from  {{ClassName}}
     /// </summary>
-  [GeneratedCode("AOPMethods", "{{version}}")]
-  [CompilerGenerated]
   partial class {{ClassName}}{ 
    /*
     public int id(){
@@ -24,13 +22,8 @@ namespace {{NamespaceName}} {
     return 1;
     } 
     */
-
-    partial void Method_Start(string methodName);
-    partial void Method_Error(string methodName, Exception ex);
-    partial void Method_End(string methodName);
-
     {{~ for mi in Methods ~}}
-        {{ 
+      {{ 
             separator = "" 
             if(mi.NrParameters > 0)
                 separator = "," 
@@ -41,12 +34,10 @@ namespace {{NamespaceName}} {
                 strAwait = " await "
                 strAsync  = " async "
             end
-        }}
-
-
-        public {{strAsync}} {{mi.ReturnType}} {{mi.NewName}} ({{mi.parametersDefinitionCSharp }} ){
+        }}  
+        private {{strAsync}} {{mi.ReturnType}} {{mi.NewName}} ({{mi.parametersDefinitionCSharp }}){
             try{
-                Method_Start("{{mi.Name}}");
+                Console.WriteLine("before calling method {{mi.Name}}");
             {{
                 if mi.ReturnsVoid == false
             }}
@@ -54,23 +45,21 @@ namespace {{NamespaceName}} {
             {{
                 end
             }}
-            {{  strAwait }}
-
-            {{mi.Name}}({{ mi.parametersCallCSharp }});
+            {{strAwait}} {{mi.Name}}({{ mi.parametersCallCSharp }});
             }
             catch(Exception ex){
-                Method_Error("{{mi.Name}}", ex);
+                Console.WriteLine("error in {{mi.Name}}:" + ex.Message);
                 throw;
             }
             finally{
-                Method_End("{{mi.Name}}");
+                Console.WriteLine("after calling {{mi.Name}}");
             }
 
 
         }
 
       
-    {{~ end ~}}    
+    {{~ end ~}}
     
   }
 }              

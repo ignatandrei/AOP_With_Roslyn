@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 
 namespace AOPMethodsTest
 {
-    [AutoMethods(template = TemplateMethod.MethodWithPartial, MethodPrefix ="pub", MethodSuffix ="bup")]
+    [AutoMethods(template = TemplateMethod.MethodWithPartial, MethodPrefix ="pub")]
+    [AutoMethods(template = TemplateMethod.CustomTemplateFile,CustomTemplateFileName ="privateTryCatch.txt",  MethodSuffix = "bup")]
     partial class Person
     {
         partial void Method_Start(string methodName)
@@ -15,6 +16,7 @@ namespace AOPMethodsTest
         {
             Console.WriteLine($"end {methodName}");
         }
+
         public string LastName { get; set; }
         public string FirstName { get; set; }
         private string pubFullName()

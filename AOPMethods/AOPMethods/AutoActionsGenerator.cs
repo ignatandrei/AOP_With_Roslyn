@@ -171,107 +171,113 @@ namespace AOPMethodsGenerator
                 var model = compilation.GetSemanticModel(classDec.SyntaxTree);
                 var attrArray = classDec.AttributeLists;
                 var classWithMethods = model.GetDeclaredSymbol(classDec);
-                var att = classWithMethods.GetAttributes()
-                    .FirstOrDefault(it => it.AttributeClass.Name == autoMethods);
-                if (att == null)
+                var attAll = classWithMethods.GetAttributes()
+                    .Where(it => it.AttributeClass.Name == autoMethods).ToArray();
+
+
+                if (attAll.Length == 0)
                     continue;
-
-                //verify for null
-                var template = att.NamedArguments.FirstOrDefault(it => it.Key == "template")
-                    .Value
-                    .Value
-                    ?.ToString();
-                if (string.IsNullOrEmpty(template))
+                for (int i = 0; i < attAll.Length; i++)
                 {
-                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
-                                $"class {classWithMethods.Name} do not have a template for {nameof(AutoMethodsAttribute)}. At least put [AutoMethods(template = TemplateMethod.None)]"));
-                    continue;
-                }
 
-                var templateId = (TemplateMethod)long.Parse(template);
-                var suffix = att.NamedArguments.FirstOrDefault(it => it.Key == "MethodSuffix")
-                    .Value
-                    .Value
-                    ?.ToString();
-                ;
-
-                var prefix = att.NamedArguments.FirstOrDefault(it => it.Key == "MethodPrefix")
-                    .Value
-                    .Value
-                    ?.ToString();
-                ;
-
-                string[] excludeFields = null;
-                try
-                {
-                    excludeFields = att.NamedArguments.FirstOrDefault(it => it.Key == "ExcludeFields")
+                    var att = attAll[i];
+                    //verify for null
+                    var template = att.NamedArguments.FirstOrDefault(it => it.Key == "template")
                         .Value
-                        .Values
-                        .Select(it => it.Value?.ToString())
-                        .ToArray()
-                        ;
-                }
-                catch (Exception)
-                {
-                    //it is not mandatory to define ExcludeFields
-                    //do nothing, 
-                }
-                string templateCustom = "";
-                if (att.NamedArguments.Any(it => it.Key == "CustomTemplateFileName"))
-                {
-
-                    templateCustom = att.NamedArguments.First(it => it.Key == "CustomTemplateFileName")
-                    .Value
-                    .Value
-                    .ToString()
-                    ;
-                }
-
-                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"starting class {classWithMethods.Name} with template {templateId}"));
-                string post = "";
-                try
-                {
-                    switch (templateId)
+                        .Value
+                        ?.ToString();
+                    if (string.IsNullOrEmpty(template))
                     {
-
-                        case TemplateMethod.None:
-                            context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"class {classWithMethods.Name} has no template "));
-                            continue;
-                        case TemplateMethod.CustomTemplateFile:
-
-
-                            var file = context.AdditionalFiles.FirstOrDefault(it => it.Path.EndsWith(templateCustom));
-                            if (file == null)
-                            {
-                                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error, $"cannot find {templateCustom} for  {classWithMethods.Name} . Did you put in AdditionalFiles in csproj ?"));
-                                continue;
-                            }
-                            post = file.GetText().ToString();
-                            break;
-
-                        default:
-
-                            using (var stream = executing.GetManifestResourceStream($"AOPMethodsGenerator.templates.{templateId}.txt"))
-                            {
-                                using var reader = new StreamReader(stream);
-                                post = reader.ReadToEnd();
-
-                            }
-                            break;
+                        context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
+                                    $"class {classWithMethods.Name} do not have a template for {nameof(AutoMethodsAttribute)}. At least put [AutoMethods(template = TemplateMethod.None)]"));
+                        continue;
                     }
 
+                    var templateId = (TemplateMethod)long.Parse(template);
+                    var suffix = att.NamedArguments.FirstOrDefault(it => it.Key == "MethodSuffix")
+                        .Value
+                        .Value
+                        ?.ToString();
+                    ;
 
-                    string classSource = ProcessClass(classWithMethods, prefix, suffix, post);
-                    if (string.IsNullOrWhiteSpace(classSource))
-                        continue;
+                    var prefix = att.NamedArguments.FirstOrDefault(it => it.Key == "MethodPrefix")
+                        .Value
+                        .Value
+                        ?.ToString();
+                    ;
+
+                    string[] excludeFields = null;
+                    try
+                    {
+                        excludeFields = att.NamedArguments.FirstOrDefault(it => it.Key == "ExcludeFields")
+                            .Value
+                            .Values
+                            .Select(it => it.Value?.ToString())
+                            .ToArray()
+                            ;
+                    }
+                    catch (Exception)
+                    {
+                        //it is not mandatory to define ExcludeFields
+                        //do nothing, 
+                    }
+                    string templateCustom = "";
+                    if (att.NamedArguments.Any(it => it.Key == "CustomTemplateFileName"))
+                    {
+
+                        templateCustom = att.NamedArguments.First(it => it.Key == "CustomTemplateFileName")
+                        .Value
+                        .Value
+                        .ToString()
+                        ;
+                    }
+
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"starting class {classWithMethods.Name} with template {templateId}"));
+                    string post = "";
+                    try
+                    {
+                        switch (templateId)
+                        {
+
+                            case TemplateMethod.None:
+                                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"class {classWithMethods.Name} has no template "));
+                                continue;
+                            case TemplateMethod.CustomTemplateFile:
 
 
-                    context.AddSource($"{classWithMethods.Name}.autogenerate.cs", SourceText.From(classSource, Encoding.UTF8));
+                                var file = context.AdditionalFiles.FirstOrDefault(it => it.Path.EndsWith(templateCustom));
+                                if (file == null)
+                                {
+                                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error, $"cannot find {templateCustom} for  {classWithMethods.Name} . Did you put in AdditionalFiles in csproj ?"));
+                                    continue;
+                                }
+                                post = file.GetText().ToString();
+                                break;
 
-                }
-                catch (Exception ex)
-                {
-                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error, $"{classWithMethods.Name} error {ex.Message}"));
+                            default:
+
+                                using (var stream = executing.GetManifestResourceStream($"AOPMethodsGenerator.templates.{templateId}.txt"))
+                                {
+                                    using var reader = new StreamReader(stream);
+                                    post = reader.ReadToEnd();
+
+                                }
+                                break;
+                        }
+
+
+                        string classSource = ProcessClass(classWithMethods, prefix, suffix, post);
+                        if (string.IsNullOrWhiteSpace(classSource))
+                            continue;
+
+
+                        context.AddSource($"{classWithMethods.Name}_{i}.autogenerate.cs", SourceText.From(classSource, Encoding.UTF8));
+
+                    }
+                    catch (Exception ex)
+                    {
+                        context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error, $"{classWithMethods.Name} error {ex.Message}"));
+                    }
                 }
 
             }
