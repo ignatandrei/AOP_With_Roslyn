@@ -16,7 +16,7 @@ namespace AOPEFCommon
         public TemplateRepositoryMethod template { get; set; }
         public string CustomTemplateFileName { get; set; }
 
-        public string POCOName { get; set; }
+        //public string POCOName { get; set; }
 
         public string PK1 { get; set; }
     }

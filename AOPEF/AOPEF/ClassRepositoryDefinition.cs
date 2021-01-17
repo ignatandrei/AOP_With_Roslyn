@@ -12,5 +12,8 @@ namespace AOPEFGenerator
         public string POCOFullName;
         public INamedTypeSymbol Original;
         public string PK1;
+        public string PK1Type;
+
+
     }
 }

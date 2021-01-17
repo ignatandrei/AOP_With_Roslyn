@@ -54,10 +54,11 @@ namespace AOPEFGenerator
                 var model = compilation.GetSemanticModel(classDec.SyntaxTree);
                 var attrArray = classDec.AttributeLists;
                 var classWithMethods = model.GetDeclaredSymbol(classDec);
+                
                 var attAll = classWithMethods.GetAttributes()
                     .Where(it => it.AttributeClass.Name == autoMethods).ToArray();
 
-
+                
                 if (attAll.Length == 0)
                     continue;
                 for (int i = 0; i < attAll.Length; i++)
@@ -77,17 +78,19 @@ namespace AOPEFGenerator
                     }
 
                     var templateId = (TemplateRepositoryMethod)long.Parse(template);
-                    var pocoName = att.NamedArguments.FirstOrDefault(it => it.Key == "POCOName")
-                        .Value
-                        .Value
-                        ?.ToString();
-                    ;
+                    //var pocoName = att.NamedArguments.FirstOrDefault(it => it.Key == "POCOName")
+                    //    .Value
+                    //    .Value
+                    //    ?.ToString();
+                    //;
 
                     var pk1 = att.NamedArguments.FirstOrDefault(it => it.Key == "PK1")
                         .Value
                         .Value
                         ?.ToString();
                     ;
+                    //var poco = context.Compilation.GetSymbolsWithName(pocoName).FirstOrDefault();
+                    
 
                     string templateCustom = "";
                     if (att.NamedArguments.Any(it => it.Key == "CustomTemplateFileName"))
@@ -134,7 +137,7 @@ namespace AOPEFGenerator
                         }
 
 
-                        string classSource = ProcessClass(classWithMethods, pocoName,pk1, post);
+                        string classSource = ProcessClass(classWithMethods, pk1, post);
                         if (string.IsNullOrWhiteSpace(classSource))
                             continue;
 
@@ -151,7 +154,7 @@ namespace AOPEFGenerator
             }
         }
 
-        private string ProcessClass(INamedTypeSymbol classSymbol, string pocoName, string PK1, string post)
+        private string ProcessClass(INamedTypeSymbol classSymbol,  string PK1, string post)
         {
 
 
@@ -160,15 +163,32 @@ namespace AOPEFGenerator
                 context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {classSymbol.Name} is in other namespace; please put directly "));
                 return null;
             }
-
+            var interfaces = classSymbol.Interfaces;
+            
             string namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
             var cd = new ClassRepositoryDefinition();
-            cd.POCOName = pocoName;
-            cd.POCOFullName = pocoName;
-            if (pocoName.Contains("."))
+            //cd.POCOName = pocoName;
+            foreach (var item in interfaces)
             {
-                cd.POCOName = cd.POCOName.Split('.').Last();
+                if (!item.IsGenericType)
+                    continue;
+
+                //very particular IRepository<dboDepartment,Int64>
+                var ta = item.TypeArguments;
+                var poco = ta.First();
+                cd.POCOFullName = poco.Name;
+                cd.POCOName = poco.Name;
+                if (!string.IsNullOrWhiteSpace(poco.ContainingNamespace?.Name))
+                    cd.POCOFullName = poco.ContainingNamespace.Name+ "." + poco.Name;
+                //work here for 0 or 2 PK
+                var firstPKType = ta.Last();
+                cd.PK1Type = firstPKType.Name;
             }
+            //cd.POCOFullName = pocoName;
+            //if (pocoName.Contains("."))
+            //{
+            //    cd.POCOName = cd.POCOName.Split('.').Last();
+            //}
             cd.PK1 = PK1;
             cd.Original = classSymbol;
             cd.NamespaceName = namespaceName;

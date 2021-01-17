@@ -35,6 +35,7 @@ namespace {{NamespaceName}} {
     {
         return databaseContext.{{POCOName}}.LongCountAsync();
     }
+    //very particular TestWebAPI_Searches
     public async Task<TestWebAPI_Searches.PaginatedRecords<{{POCOFullName}}>> SearchPaginated(TestWebAPI_Searches.SearchModel<{{POCOFullName}}> search)
     {
         var query = search.GetSearch(databaseContext.{{POCOName}}, paginated:false);
@@ -45,11 +46,49 @@ namespace {{NamespaceName}} {
          
     }
 
-    public Task<dboDepartment> FindSingle(Func<{{POCOFullName}} ,bool> f)
+    public Task<{{POCOFullName}}> FindSingle(Func<{{POCOFullName}} ,bool> f)
     {
-        var data = databaseContext.dboDepartment.FirstOrDefaultAsync(it=>f(it));
+        var data = databaseContext.{{POCOName}}.FirstOrDefaultAsync(it=>f(it));
         return data;
     }
+    public Task<{{POCOFullName}}[]> FindMultiple(Func<{{POCOFullName}}, bool> f)
+    {
+        var data = databaseContext.{{POCOName}}.Where(it=>f(it));
+        return data.ToArrayAsync();
+    }
+
+    public async Task<{{POCOFullName}}> Insert({{POCOFullName}} p)
+    {
+        databaseContext.{{POCOName}}.Add(p);
+        await databaseContext.SaveChangesAsync();
+        return p;
+    }
+
+    public async Task<{{POCOFullName}}> Update({{POCOFullName}} p)
+        {
+            var original = await FindAfterId(p.{{PK1}});
+            if(original == null)
+            {
+                throw new ArgumentException($"cannot found {{POCOName}}  with id = {p.{{PK1}}} ", nameof(p.{{PK1}}));
+            }
+            original.CopyPropertiesFrom(other: p, withID: true);                        
+            await databaseContext.SaveChangesAsync();
+            return p;
+        }
+    public async Task<{{POCOFullName}}> Delete({{POCOFullName}} p)
+        {
+            var original = await FindAfterId(p.{{PK1}});
+            databaseContext.{{POCOName}}.Remove(original);
+            await databaseContext.SaveChangesAsync();
+            return p;
+        }
+
+        public Task<{{POCOFullName}}> FindAfterId({{PK1Type}} id)
+        {
+            var data = databaseContext.{{POCOName}}.FirstOrDefaultAsync(it => it.{{PK1}} == id);
+            return data;
+        }
+
 
   }
 }              
