@@ -1,5 +1,5 @@
-cd AOPMethodsCommon
+cd AOPEFCommon
 dotnet pack -o ../../bin/ --include-source --include-symbols 
 cd ..
-cd AOPMethods
+cd AOPEF
 dotnet pack -o ../../bin/ --include-source --include-symbols 
