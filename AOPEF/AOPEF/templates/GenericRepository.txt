@@ -51,9 +51,9 @@ namespace {{NamespaceName}} {
         var data = databaseContext.{{POCOName}}.FirstOrDefaultAsync(it=>f(it));
         return data;
     }
-    public Task<{{POCOFullName}}[]> FindMultiple(Func<{{POCOFullName}}, bool> f)
+    public Task<{{POCOFullName}}[]> FindMultiple(System.Linq.Expressions.Expression<Func<{{POCOFullName}}, bool>> f)
     {
-        var data = databaseContext.{{POCOName}}.Where(it=>f(it));
+        var data = databaseContext.{{POCOName}}.Where(f);
         return data.ToArrayAsync();
     }
 
@@ -88,7 +88,15 @@ namespace {{NamespaceName}} {
             var data = databaseContext.{{POCOName}}.FirstOrDefaultAsync(it => it.{{PK1}} == id);
             return data;
         }
-
+        public Task<{{POCOFullName}}[]> FindAfterIds(params {{PK1Type}}[] id)
+        {
+            if(id == null)
+                return Task.FromResult(null);
+            if((id?.Length??0) == 0)
+                return new {{POCOFullName}}[0];
+            var data = databaseContext.{{POCOName}}.Where(it => it.{{PK1}} == id);
+            return data;
+        }
 
   }
 }              
