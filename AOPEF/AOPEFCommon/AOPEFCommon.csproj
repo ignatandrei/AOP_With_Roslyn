@@ -10,7 +10,7 @@
       Add also Nuget package AOPEFGenerator
       You can have your own template - read the readme.txt
     </Description>
-    <Version>2021.1.17.1330</Version>
+    <Version>2021.1.19.2054</Version>
     <Authors>Andrei Ignat</Authors>
     <PackageTags>RoslynCodeGenerators;C#;CSharp;SkinnyControllers</PackageTags>
     <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/AOPMethods</PackageProjectUrl>
