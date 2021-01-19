@@ -28,7 +28,7 @@
     </Description>
     <Version>2021.1.19.2054</Version>
     <Authors>Andrei Ignat</Authors>
-    <PackageTags>RoslynCodeGenerators;C#;CSharp;SkinnyControllers</PackageTags>
+    <PackageTags>RoslynCodeGenerators;C#;CSharp;</PackageTags>
     <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/AOPEF</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ignatandrei/AOP_With_Roslyn</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
