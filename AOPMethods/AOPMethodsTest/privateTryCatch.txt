@@ -10,8 +10,37 @@ using System;
 using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 
+{{
+    nrProps=0
+    for mi in Properties 
+        nrProps = nrProps+1
+    end    
+
+}}
 namespace {{NamespaceName}} {
 
+    {{ if nrProps > 0}}
+     [GeneratedCode("AOPMethods", "{{version}}")]
+    [CompilerGenerated]
+    public enum {{ClassName}}_EnumProps{
+        None
+        {{~ for mi in Properties ~}}
+        ,{{mi.Name}} // {{mi.Accesibility}} 
+        {{~ end ~}}
+    }
+
+
+
+    [GeneratedCode("AOPMethods", "{{version}}")]
+    [CompilerGenerated]
+    partial class {{ClassName}}_Metadata{
+    {{~ for mi in Properties ~}}
+        public const string {{mi.Name}} = "{{mi.Name}}";
+    {{~ end ~}}
+    
+
+    }
+    {{ end }}
     /// <summary>
     /// Generates code from  {{ClassName}}
     /// </summary>

@@ -10,5 +10,7 @@ namespace AOPMethodsGenerator
         public MethodDefinition[] Methods;
         public string version = ThisAssembly.Info.Version;
         public INamedTypeSymbol Original;
+
+        public PropertyDefinition[] Properties { get; internal set; }
     }
 }

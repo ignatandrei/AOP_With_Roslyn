@@ -308,7 +308,8 @@ namespace AOPMethodsGenerator
                     )
                     .ToArray();
 
-
+            cd.Properties = FindProperties(classSymbol);
+            
             if (cd.Methods.Length == 0)
             {
                 context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {cd.ClassName} has 0 fields to process"));
@@ -336,12 +337,54 @@ namespace AOPMethodsGenerator
             MethodKind.Ordinary
 
         };
+        private PropertyDefinition[] FindProperties(INamedTypeSymbol fieldSymbol)
+        {
+            var ret = new List<PropertyDefinition>();
+            var code = new StringBuilder();
+            string fieldName = fieldSymbol.Name;
+            var members = fieldSymbol.GetMembers().OfType<IPropertySymbol>().ToArray();            
+            foreach (var m in members)
+            {
+                if (m.IsStatic)
+                    continue;
+
+                if (m.Kind != SymbolKind.Property)
+                {
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{m.Name} is not a method ? "));
+                    continue;
+
+                }
+
+                var ms = m as IPropertySymbol;
+                if (ms is null)
+                {
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{m.Name} is not a IMethodSymbol"));
+                    continue;
+
+                }
+                
+
+                PropertyDefinition pd = new();
+                pd.Original = ms;
+                pd.Name = ms.Name;
+                pd.ReturnType = ms.Type.ToString();
+                pd.Accesibility = ms.DeclaredAccessibility;
+                ret.Add(pd);
+            }
+            if (ret.Count == 0)
+            {
+                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
+                    $"could not find methods on {fieldName} from {fieldSymbol.ContainingType?.Name}"));
+            }
+            return ret.ToArray();
+        }
+
         private MethodDefinition[] FindMethods(INamedTypeSymbol fieldSymbol)
         {
             var ret = new List<MethodDefinition>();
             var code = new StringBuilder();
             string fieldName = fieldSymbol.Name;
-            var members = fieldSymbol.GetMembers().OfType<IMethodSymbol>();
+            var members = fieldSymbol.GetMembers().OfType<IMethodSymbol>().ToArray();
             foreach (var m in members)
             {
                 if (m.IsStatic)

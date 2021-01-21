@@ -3,11 +3,21 @@ using System.Threading.Tasks;
 
 namespace AOPMethodsTest
 {
+    enum x
+    {
+        a=0
+    }
     class Program
     {
+
+        public  const string a = "asda";
         
         static async Task<int> Main(string[] args)
         {
+            
+            
+            Console.WriteLine(Person_Metadata.LastName);
+            Console.WriteLine(Person_EnumProps.FirstName);
             //var x = enumTest2.idTest2();
             long y = 7;
             var s = y.ParseExactTest2();
