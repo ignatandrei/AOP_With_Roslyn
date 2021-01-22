@@ -90,12 +90,10 @@ namespace {{NamespaceName}} {
         }
         public Task<{{POCOFullName}}[]> FindAfterIds(params {{PK1Type}}[] id)
         {
-            if(id == null)
-                return Task.FromResult(null);
             if((id?.Length??0) == 0)
-                return new {{POCOFullName}}[0];
-            var data = databaseContext.{{POCOName}}.Where(it => it.{{PK1}} == id);
-            return data;
+                return Task.FromResult(new {{POCOFullName}}[0]);
+            var data = databaseContext.{{POCOName}}.Where(it => id.Contains(it.{{PK1}}));
+            return data.ToArrayAsync();
         }
 
   }
