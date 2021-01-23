@@ -71,7 +71,7 @@ namespace {{NamespaceName}} {
             {
                 throw new ArgumentException($"cannot found {{POCOName}}  with id = {p.{{PK1}}} ", nameof(p.{{PK1}}));
             }
-            original.CopyPropertiesFrom(other: p, withID: true);                        
+            original.CopyPropertiesFrom(other: p);                        
             await databaseContext.SaveChangesAsync();
             return p;
         }

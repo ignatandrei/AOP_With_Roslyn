@@ -310,10 +310,10 @@ namespace AOPMethodsGenerator
 
             cd.Properties = FindProperties(classSymbol);
             
-            if (cd.Methods.Length == 0)
-            {
-                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {cd.ClassName} has 0 fields to process"));
-            }
+            //if (cd.Properties.Length == 0)
+            //{
+            //    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"class {cd.ClassName} has 0 fields to process"));
+            //}
 
             foreach (var m in cd.Methods)
             {
