@@ -368,7 +368,7 @@ namespace AOPMethodsGenerator
                 pd.Original = ms;
                 pd.Name = ms.Name;
                 pd.ReturnType = ms.Type.ToString();
-                pd.Accesibility = ms.DeclaredAccessibility;
+                pd.Accesibility =(int) ms.DeclaredAccessibility;
                 ret.Add(pd);
             }
             if (ret.Count == 0)

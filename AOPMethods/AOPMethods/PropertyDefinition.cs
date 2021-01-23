@@ -7,6 +7,6 @@ namespace AOPMethodsGenerator
         public IPropertySymbol Original;
         public string Name { get; set; }
         public string ReturnType { get; set; }
-        public Accessibility Accesibility { get; set; }
+        public int Accesibility { get; set; }
     }
 }
