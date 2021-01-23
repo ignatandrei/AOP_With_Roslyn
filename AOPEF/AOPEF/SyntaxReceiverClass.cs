@@ -10,7 +10,7 @@ namespace AOPEFGenerator
 {
     public class SyntaxReceiverClass : ISyntaxReceiver
     {
-        string AutoEF = typeof(RepositoryAttribute).Name;
+        string AutoEF = typeof(TemplateAttribute).Name;
 
         public List<ClassDeclarationSyntax> CandidatesClasses { get; } = new List<ClassDeclarationSyntax>();
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)

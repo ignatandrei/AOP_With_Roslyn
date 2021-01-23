@@ -28,7 +28,7 @@ namespace AOPEFGenerator
             var d = Diagnostic.Create(dd, Location.None, "andrei.txt");
             return d;
         }
-        string autoMethods = typeof(RepositoryAttribute).Name;
+        string autoMethods = typeof(TemplateAttribute).Name;
         public void Execute(GeneratorExecutionContext context)
         {
             this.context = context;
@@ -73,11 +73,11 @@ namespace AOPEFGenerator
                     if (string.IsNullOrEmpty(template))
                     {
                         context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
-                                    $"class {classWithMethods.Name} do not have a template for {nameof(RepositoryAttribute)}. At least put [AutoMethods(template = TemplateMethod.None)]"));
+                                    $"class {classWithMethods.Name} do not have a template for {nameof(TemplateAttribute)}. At least put [AutoMethods(template = TemplateMethod.None)]"));
                         continue;
                     }
 
-                    var templateId = (TemplateRepositoryMethod)long.Parse(template);
+                    var templateId = (TemplateMethod)long.Parse(template);
                     //var pocoName = att.NamedArguments.FirstOrDefault(it => it.Key == "POCOName")
                     //    .Value
                     //    .Value
@@ -110,10 +110,10 @@ namespace AOPEFGenerator
                         switch (templateId)
                         {
 
-                            case TemplateRepositoryMethod.None:
+                            case TemplateMethod.None:
                                 context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, $"class {classWithMethods.Name} has no template "));
                                 continue;
-                            case TemplateRepositoryMethod.CustomTemplateFile:
+                            case TemplateMethod.CustomTemplateFile:
 
 
                                 var file = context.AdditionalFiles.FirstOrDefault(it => it.Path.EndsWith(templateCustom));

@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="templates\GenericRepository.txt" />
+    <None Remove="templates\GenericSearch.txt" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.1" PrivateAssets="all" />
@@ -46,6 +47,7 @@
     <Compile Include="..\AOPEFCommon\AutoMethods.cs" Link="AutoMethods.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="templates\GenericSearch.txt" />
     <EmbeddedResource Include="templates\GenericRepository.txt" />
   </ItemGroup>
 

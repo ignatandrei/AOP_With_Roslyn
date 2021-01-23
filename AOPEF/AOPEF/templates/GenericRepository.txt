@@ -22,11 +22,12 @@ namespace {{NamespaceName}} {
 
   [CompilerGenerated]
   partial class {{ClassName}}{ 
-   
+   /*
     public int id(){
     System.Diagnostics.Debugger.Break();
     return 1;
-    } 
+    }
+    */
     public Task<{{POCOFullName}}[]> GetAll()
     {
         return databaseContext.{{POCOName}}.ToArrayAsync();
