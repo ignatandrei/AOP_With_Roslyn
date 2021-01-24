@@ -29,7 +29,7 @@ namespace {{NamespaceName}} {
     return 1;
     } 
 
-    public void ArrangeDefaults1()
+    public void ArrangeDefaults()
     {
         Pagination ??= Pagination.Default();
         if ((OrderBys?.Length ?? 0) == 0)
