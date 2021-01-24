@@ -18,5 +18,6 @@ namespace AOPEFGenerator
         public string PK2Type;
         public MethodDefinition[] Methods;
         public PropertyDefinition[] Properties;
+        public PropertyDefinition[] POCOProperties;
     }
 }

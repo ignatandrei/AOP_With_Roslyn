@@ -187,6 +187,8 @@ namespace AOPEFGenerator
                 cd.POCOName = poco.Name;
                 if (!string.IsNullOrWhiteSpace(poco.ContainingNamespace?.Name))
                     cd.POCOFullName = poco.ContainingNamespace.Name+ "." + poco.Name;
+                
+                cd.POCOProperties = FindProperties(poco);
                 //work here for 0 or 2 PK
                 if(!string.IsNullOrWhiteSpace(PK1) && argsLength>1)
                 {
@@ -226,7 +228,7 @@ namespace AOPEFGenerator
             MethodKind.Ordinary
 
         };
-        private PropertyDefinition[] FindProperties(INamedTypeSymbol fieldSymbol)
+        private PropertyDefinition[] FindProperties(INamespaceOrTypeSymbol fieldSymbol)
         {
             var ret = new List<PropertyDefinition>();
             var code = new StringBuilder();
