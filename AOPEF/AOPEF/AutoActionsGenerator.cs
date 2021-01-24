@@ -89,8 +89,14 @@ namespace AOPEFGenerator
                         .Value
                         ?.ToString();
                     ;
+
+                    var pk2 = att.NamedArguments.FirstOrDefault(it => it.Key == "PK2")
+                        .Value
+                        .Value
+                        ?.ToString();
+
                     //var poco = context.Compilation.GetSymbolsWithName(pocoName).FirstOrDefault();
-                    
+
 
                     string templateCustom = "";
                     if (att.NamedArguments.Any(it => it.Key == "CustomTemplateFileName"))
@@ -137,7 +143,7 @@ namespace AOPEFGenerator
                         }
 
 
-                        string classSource = ProcessClass(classWithMethods, pk1, post);
+                        string classSource = ProcessClass(classWithMethods, pk1, pk2, post);
                         if (string.IsNullOrWhiteSpace(classSource))
                             continue;
 
@@ -154,7 +160,7 @@ namespace AOPEFGenerator
             }
         }
 
-        private string ProcessClass(INamedTypeSymbol classSymbol,  string PK1, string post)
+        private string ProcessClass(INamedTypeSymbol classSymbol,  string PK1, string PK2, string post)
         {
 
 
@@ -175,14 +181,25 @@ namespace AOPEFGenerator
 
                 //very particular IRepository<dboDepartment,Int64>
                 var ta = item.TypeArguments;
+                var argsLength = ta.Length;
                 var poco = ta.First();
                 cd.POCOFullName = poco.Name;
                 cd.POCOName = poco.Name;
                 if (!string.IsNullOrWhiteSpace(poco.ContainingNamespace?.Name))
                     cd.POCOFullName = poco.ContainingNamespace.Name+ "." + poco.Name;
                 //work here for 0 or 2 PK
-                var firstPKType = ta.Last();
-                cd.PK1Type = firstPKType.Name;
+                if(!string.IsNullOrWhiteSpace(PK1) && argsLength>1)
+                {
+                    var PKType = ta[1];
+                    cd.PK1Type = PKType.Name;
+                    if (!string.IsNullOrWhiteSpace(PK2) && argsLength>2)
+                    {
+                        PKType = ta[2];
+                        cd.PK2Type = PKType.Name;
+
+                    }
+
+                }
             }
             //cd.POCOFullName = pocoName;
             //if (pocoName.Contains("."))
@@ -190,6 +207,7 @@ namespace AOPEFGenerator
             //    cd.POCOName = cd.POCOName.Split('.').Last();
             //}
             cd.PK1 = PK1;
+            cd.PK2 = PK2;
             cd.Original = classSymbol;
             cd.NamespaceName = namespaceName;
             cd.ClassName = classSymbol.Name;

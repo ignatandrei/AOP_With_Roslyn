@@ -14,6 +14,8 @@ namespace AOPEFGenerator
         public string PK1;
         public string PK1Type;
 
+        public string PK2;
+        public string PK2Type;
 
     }
 }

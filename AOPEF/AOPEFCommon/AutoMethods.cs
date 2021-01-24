@@ -20,6 +20,7 @@ namespace AOPEFCommon
         //public string POCOName { get; set; }
 
         public string PK1 { get; set; }
+        public string PK2 { get; set; }
     }
     
 
