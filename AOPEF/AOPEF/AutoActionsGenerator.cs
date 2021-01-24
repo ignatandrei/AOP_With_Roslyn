@@ -208,11 +208,14 @@ namespace AOPEFGenerator
             //}
             cd.PK1 = PK1;
             cd.PK2 = PK2;
+            
             cd.Original = classSymbol;
             cd.NamespaceName = namespaceName;
             cd.ClassName = classSymbol.Name;
-            //var fields = FindMethods(classSymbol);
-
+            var m = FindMethods(classSymbol);
+            cd.Methods = m;
+            var p = FindProperties(classSymbol);
+            cd.Properties = p;
             var template = Scriban.Template.Parse(post);
             var output = template.Render(cd, member => member.Name);
             return output;
@@ -223,6 +226,48 @@ namespace AOPEFGenerator
             MethodKind.Ordinary
 
         };
+        private PropertyDefinition[] FindProperties(INamedTypeSymbol fieldSymbol)
+        {
+            var ret = new List<PropertyDefinition>();
+            var code = new StringBuilder();
+            string fieldName = fieldSymbol.Name;
+            var members = fieldSymbol.GetMembers().OfType<IPropertySymbol>().ToArray();
+            foreach (var m in members)
+            {
+                if (m.IsStatic)
+                    continue;
+
+                if (m.Kind != SymbolKind.Property)
+                {
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{m.Name} is not a method ? "));
+                    continue;
+
+                }
+
+                var ms = m as IPropertySymbol;
+                if (ms is null)
+                {
+                    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning, $"{m.Name} is not a IMethodSymbol"));
+                    continue;
+
+                }
+
+
+                PropertyDefinition pd = new();
+                pd.Original = ms;
+                pd.Name = ms.Name;
+                pd.ReturnType = ms.Type.ToString();
+                pd.Accesibility = (int)ms.DeclaredAccessibility;
+                ret.Add(pd);
+            }
+            if (ret.Count == 0)
+            {
+                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
+                    $"could not find methods on {fieldName} from {fieldSymbol.ContainingType?.Name}"));
+            }
+            return ret.ToArray();
+        }
+
         private MethodDefinition[] FindMethods(INamedTypeSymbol fieldSymbol)
         {
             var ret = new List<MethodDefinition>();

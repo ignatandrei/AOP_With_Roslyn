@@ -16,6 +16,7 @@ namespace AOPEFGenerator
 
         public string PK2;
         public string PK2Type;
-
+        public MethodDefinition[] Methods;
+        public PropertyDefinition[] Properties;
     }
 }
