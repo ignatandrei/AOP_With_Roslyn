@@ -33,7 +33,7 @@
       Add also Nuget package SkinnyControllersCommon
       For creating new generic templates, see readme.txt
     </Description>
-    <Version>2021.1.9.2000</Version>
+    <Version>2021.2.9.1130</Version>
     <Authors>Andrei Ignat</Authors>
     <PackageTags>RoslynCodeGenerators;C#;CSharp;SkinnyControllers</PackageTags>
     <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/SkinnyControllers</PackageProjectUrl>
@@ -51,13 +51,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="AllPost.txt" />
-    <None Remove="NoArgs_Is_Get_Else_Post.txt" />
-    <None Remove="Rest.txt" />
+    <None Remove="templates\AllPost.txt" />
+    <None Remove="templates\NoArgs_Is_Get_Else_Post.txt" />
+    <None Remove="templates\Rest.txt" />
     <None Remove="templates\AllPostWithRecord.txt" />
+    <None Remove="templates\TryCatchLogging.txt" />
   </ItemGroup> 
   <ItemGroup>
     <EmbeddedResource Include="templates\AllPostWithRecord.txt" />
+    <EmbeddedResource Include="templates\TryCatchLogging.txt" />
     <EmbeddedResource Include="templates\Rest.txt" />
     <EmbeddedResource Include="templates\NoArgs_Is_Get_Else_Post.txt" />
     <EmbeddedResource Include="templates\AllPost.txt" />

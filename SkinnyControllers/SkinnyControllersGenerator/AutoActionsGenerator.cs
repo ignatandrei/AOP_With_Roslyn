@@ -251,6 +251,10 @@ namespace SkinnyControllersGenerator
                 md.ReturnsVoid = ms.ReturnsVoid;
                 md.Original = ms;
                 md.IsAsync = ms.IsAsync;
+                if (!md.IsAsync)
+                {
+                    md.IsAsync = (ms.ReturnType?.BaseType?.Name == "Task");
+                }
                 md.ReturnType = ms.ReturnType.ToString();
                 md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it.Type);
 

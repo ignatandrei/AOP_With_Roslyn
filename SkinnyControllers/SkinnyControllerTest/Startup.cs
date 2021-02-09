@@ -34,6 +34,7 @@ namespace SkinnyControllerTest
             });
             services.AddTransient<RepositoryWF>();
             services.AddSingleton<RepositoryWithMoreArgs>();
+            services.AddTransient<ITestAsyncLogging>((s) => new TestAsyncLogging());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
