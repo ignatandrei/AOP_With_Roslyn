@@ -327,7 +327,8 @@ namespace AOPMethodsGenerator
                 m.ShouldUseAsync = m.IsAsync;
                 if (!m.ShouldUseAsync)
                 {
-                    m.ShouldUseAsync = (q.ReturnType?.BaseType?.Name == "Task");
+                    //do it recursively
+                    m.ShouldUseAsync = (q.ReturnType?.Name == "Task" || q.ReturnType?.BaseType?.Name == "Task");
                 }
 
             }

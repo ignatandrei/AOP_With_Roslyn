@@ -29,6 +29,16 @@ namespace AOPMethodsTest
         {
             Console.WriteLine(this.FullName());
         }
+        private Task<int> pubTaskWithData(string s)
+        {
+            return Task.FromResult((s?.Length ?? 0));
+        }
+        private Task pubTaskWithDat()
+        {
+            
+            Console.Write("test");
+            return Task.CompletedTask;
+        }
         private async Task<string> MyTestbup()
         {
             await Task.Delay(1000);

@@ -30,6 +30,8 @@ namespace AOPMethodsTest
 
             Console.WriteLine("");
             Console.WriteLine(await p.TestWithParam(10));
+            Console.Write(await p.TaskWithData("andrei"));
+            //Console.Write(await p.TaskWithDat());
             return 0;
 
         }
