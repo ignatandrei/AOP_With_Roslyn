@@ -324,8 +324,12 @@ namespace AOPMethodsGenerator
                     m.NewName = m.Name.Substring(0, m.Name.Length - suffix.Length);
                 var q = m.Original;
                 m.IsAsync = q.IsAsync;
+                m.ShouldUseAsync = m.IsAsync;
+                if (!m.ShouldUseAsync)
+                {
+                    m.ShouldUseAsync = (q.ReturnType?.BaseType?.Name == "Task");
+                }
 
-                
             }
             var template = Scriban.Template.Parse(post);
             var output = template.Render(cd, member => member.Name);

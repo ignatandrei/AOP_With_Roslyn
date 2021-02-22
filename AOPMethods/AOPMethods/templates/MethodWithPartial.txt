@@ -37,7 +37,7 @@ namespace {{NamespaceName}} {
             end
             strAwait = ""
             strAsync =""
-            if mi.IsAsync == true
+            if mi.ShouldUseAsync == true
                 strAwait = " await "
                 strAsync  = " async "
             end
