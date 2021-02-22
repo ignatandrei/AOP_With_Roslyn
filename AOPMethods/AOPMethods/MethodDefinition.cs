@@ -17,7 +17,8 @@ namespace AOPMethodsGenerator
         public IMethodSymbol Original;
 
         public bool IsAsync { get; set; }
-        public bool ShouldUseAsync { get; set; }
+        public bool CouldUseAsync { get; set; }
+        public bool CouldReturnVoidFromAsync { get; set; }
         public KeyValuePair<string, ITypeSymbol> FirstParameter
         {
             get

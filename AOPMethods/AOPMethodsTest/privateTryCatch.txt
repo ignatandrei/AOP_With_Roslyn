@@ -59,7 +59,7 @@ namespace {{NamespaceName}} {
             end
             strAwait = ""
             strAsync =""
-            if mi.ShouldUseAsync == true
+            if mi.CouldUseAsync == true
                 strAwait = " await "
                 strAsync  = " async "
             end
@@ -70,7 +70,7 @@ namespace {{NamespaceName}} {
             {{
                 if mi.ReturnsVoid == false
             }}
-                return 
+                return //private try catch
             {{
                 end
             }}

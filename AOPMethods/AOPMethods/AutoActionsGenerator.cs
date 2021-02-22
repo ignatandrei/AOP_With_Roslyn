@@ -324,11 +324,25 @@ namespace AOPMethodsGenerator
                     m.NewName = m.Name.Substring(0, m.Name.Length - suffix.Length);
                 var q = m.Original;
                 m.IsAsync = q.IsAsync;
-                m.ShouldUseAsync = m.IsAsync;
-                if (!m.ShouldUseAsync)
+                m.CouldUseAsync = m.IsAsync;
+                m.CouldReturnVoidFromAsync = m.ReturnsVoid;
+
+                if (!m.CouldUseAsync)
                 {
+                    var retType = q.ReturnType;
+                    if (
+                        (!m.CouldReturnVoidFromAsync) 
+
+                        && (retType?.Name == "Task")
+
+                        && (!(retType?.MetadataName?.Contains("Task`")??false))
+
+                        )
+                    {
+                        m.CouldReturnVoidFromAsync = true;
+                    }
                     //do it recursively
-                    m.ShouldUseAsync = (q.ReturnType?.Name == "Task" || q.ReturnType?.BaseType?.Name == "Task");
+                    m.CouldUseAsync = (retType?.Name == "Task" || retType?.BaseType?.Name == "Task");
                 }
 
             }

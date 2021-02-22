@@ -32,7 +32,7 @@ namespace {{NamespaceName}} {
             end
             strAwait = ""
             strAsync =""
-            if mi.ShouldUseAsync == true
+            if mi.CouldUseAsync == true
                 strAwait = " await "
                 strAsync  = " async "
             end
@@ -51,7 +51,7 @@ namespace {{NamespaceName}} {
                 Console.WriteLine("called line :"+sourceLineNumber );
                 Console.ForegroundColor = cc;
             {{
-                if mi.ReturnsVoid == false
+                if mi.CouldReturnVoidFromAsync == false
             }}
                 return 
             {{

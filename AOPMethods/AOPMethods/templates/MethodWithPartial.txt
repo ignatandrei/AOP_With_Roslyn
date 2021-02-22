@@ -37,10 +37,11 @@ namespace {{NamespaceName}} {
             end
             strAwait = ""
             strAsync =""
-            if mi.ShouldUseAsync == true
+            if mi.CouldUseAsync == true
                 strAwait = " await "
                 strAsync  = " async "
             end
+
         }}
 
 
@@ -48,9 +49,9 @@ namespace {{NamespaceName}} {
             try{
                 Method_Start("{{mi.Name}}");
             {{
-                if mi.ReturnsVoid == false
+                if mi.CouldReturnVoidFromAsync == false
             }}
-                return 
+                return //partial
             {{
                 end
             }}
