@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -20,8 +20,16 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="Scriban" Version="3.0.2" GeneratePathProperty="true" />
-    <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.0" ReferenceOutputAssembly="false" />
-    <PackageReference Include="ThisAssembly.Project" Version="1.0.0" ReferenceOutputAssembly="false" />
+    <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.0" PrivateAssets="all"
+                      ReferenceOutputAssembly="false"
+                      OutputItemType="Analyzer" >
+
+    </PackageReference>
+    <PackageReference Include="ThisAssembly.Project" Version="1.0.0" PrivateAssets="all"
+                    ReferenceOutputAssembly="false"
+                    OutputItemType="Analyzer" >
+
+    </PackageReference>
   </ItemGroup>
   <PropertyGroup>
     <Description>
