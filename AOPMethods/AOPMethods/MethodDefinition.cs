@@ -9,7 +9,8 @@ namespace AOPMethodsGenerator
     {
         public string NewName { get; set; }
         public string Name { get; set; }
-        
+        public Microsoft.CodeAnalysis.Accessibility DeclaredAccessibility { get; set; }
+        public string Accessibility { get; set; }
         public string ReturnType;
         public bool ReturnsVoid;
         //name, type

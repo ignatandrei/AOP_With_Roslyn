@@ -423,8 +423,9 @@ namespace AOPMethodsGenerator
                     continue;
 
                 }
-                if (ms.DeclaredAccessibility == Accessibility.Public)
-                    continue;
+               
+                //if (ms.DeclaredAccessibility == Accessibility.Public)
+                //    continue;
 
                 if (ms.MethodKind != MethodKind.Ordinary)
                     continue;
@@ -433,7 +434,10 @@ namespace AOPMethodsGenerator
                     continue;
 
                 MethodDefinition md = new();
+                
                 md.Original = ms;
+                md.Accessibility = ms.DeclaredAccessibility.ToString();
+                md.DeclaredAccessibility = ms.DeclaredAccessibility;
                 md.Name = ms.Name;
                 md.ReturnsVoid = ms.ReturnsVoid;
                 md.ReturnType = ms.ReturnType.ToString();

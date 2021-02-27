@@ -32,7 +32,7 @@
       Add also Nuget package AOPMethodsGenerator
       You can have your own template - read the readme.txt
     </Description>
-    <Version>2021.2.22.1941</Version>
+    <Version>2021.2.27.640</Version>
     <Authors>Andrei Ignat</Authors>
     <PackageTags>RoslynCodeGenerators;C#;CSharp;SkinnyControllers</PackageTags>
     <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/AOPMethods</PackageProjectUrl>

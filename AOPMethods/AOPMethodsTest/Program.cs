@@ -27,7 +27,6 @@ namespace AOPMethodsTest
             p.FirstName = "Andrei";
             p.LastName = "Ignat";
             p.WriteToConsoleFullName();
-
             Console.WriteLine("");
             Console.WriteLine(await p.TestWithParam(10));
             Console.Write(await p.TaskWithData("andrei"));
