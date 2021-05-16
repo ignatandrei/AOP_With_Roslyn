@@ -12,6 +12,11 @@ namespace AOPMethodsCommon
         MethodWithPartial=4,
         CustomTemplateFile = 10000,
     }
+    [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = true)]
+    public class AOPMarkerMethodAttribute : Attribute
+    { 
+
+    }
     public enum EnumMethod : long
     {
 
