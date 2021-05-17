@@ -93,8 +93,8 @@ namespace AOPMethodsGenerator
 
                         using (var stream = executing.GetManifestResourceStream($"AOPMethodsGenerator.templates.{templateId}.txt"))
                         {
-                            using var reader = new StreamReader(stream);
-                            post = reader.ReadToEnd();
+                            using (var reader = new StreamReader(stream))
+                                post = reader.ReadToEnd();
 
                         }
                         break;
@@ -258,8 +258,8 @@ namespace AOPMethodsGenerator
 
                                 using (var stream = executing.GetManifestResourceStream($"AOPMethodsGenerator.templates.{templateId}.txt"))
                                 {
-                                    using var reader = new StreamReader(stream);
-                                    post = reader.ReadToEnd();
+                                    using (var reader = new StreamReader(stream))
+                                        post = reader.ReadToEnd();
 
                                 }
                                 break;
@@ -317,10 +317,10 @@ namespace AOPMethodsGenerator
 
             foreach (var m in cd.Methods)
             {
-                if (prefix is not null && m.Name.StartsWith(prefix))
+                if (prefix != null && m.Name.StartsWith(prefix))
                     m.NewName = m.Name.Substring(prefix.Length);
 
-                if (suffix is not null && m.Name.EndsWith(suffix))
+                if (suffix != null && m.Name.EndsWith(suffix))
                     m.NewName = m.Name.Substring(0, m.Name.Length - suffix.Length);
                 var q = m.Original;
                 m.IsAsync = q.IsAsync;
@@ -383,7 +383,7 @@ namespace AOPMethodsGenerator
                 }
                 
 
-                PropertyDefinition pd = new();
+                PropertyDefinition pd = new PropertyDefinition();
                 pd.Original = ms;
                 pd.Name = ms.Name;
                 pd.ReturnType = ms.Type.ToString();
@@ -433,7 +433,7 @@ namespace AOPMethodsGenerator
                 if ((ms.Name == fieldName || ms.Name == ".ctor") && ms.ReturnsVoid)
                     continue;
 
-                MethodDefinition md = new();
+                MethodDefinition md = new MethodDefinition();
                 
                 md.Original = ms;
                 md.Accessibility = ms.DeclaredAccessibility.ToString();
@@ -444,11 +444,11 @@ namespace AOPMethodsGenerator
                 md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it.Type);
                 ret.Add(md);
             }
-            if (ret.Count == 0)
-            {
-                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
-                    $"could not find methods on {fieldName} from {fieldSymbol.ContainingType?.Name}"));
-            }
+            //if (ret.Count == 0)
+            //{
+            //    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
+            //        $"could not find methods on {fieldName} from {fieldSymbol.ContainingType?.Name}"));
+            //}
             return ret.ToArray();
         }
 

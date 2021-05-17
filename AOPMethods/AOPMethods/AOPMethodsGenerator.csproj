@@ -60,7 +60,7 @@
       Add also Nuget package AOPMethodsCommon
       You can have your own template - read the readme.txt
     </Description>
-    <Version>2021.5.16.2240</Version>
+    <Version>2021.5.17.2230</Version>
     <Authors>Andrei Ignat</Authors>
     <PackageTags>RoslynCodeGenerators;C#;CSharp;SkinnyControllers</PackageTags>
     <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/AOPMethods</PackageProjectUrl>

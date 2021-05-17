@@ -11,11 +11,11 @@ namespace AOPMethodsGenerator
         public string Name { get; set; }
         public Microsoft.CodeAnalysis.Accessibility DeclaredAccessibility { get; set; }
         public string Accessibility { get; set; }
-        public string ReturnType;
-        public bool ReturnsVoid;
+        public string ReturnType { get; set; }
+        public bool ReturnsVoid { get; set; }
         //name, type
-        public Dictionary<string, ITypeSymbol> Parameters;
-        public IMethodSymbol Original;
+        public Dictionary<string, ITypeSymbol> Parameters { get; set; }
+        public IMethodSymbol Original { get; set; }
 
         public bool IsAsync { get; set; }
         public bool CouldUseAsync { get; set; }
