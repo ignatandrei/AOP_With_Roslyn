@@ -70,8 +70,8 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="Scriban" Version="3.0.2" GeneratePathProperty="true" />
-    <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.0" PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
-    <PackageReference Include="ThisAssembly.Project" Version="1.0.0" PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.8" PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <PackageReference Include="ThisAssembly.Project" Version="1.0.8" PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
   </ItemGroup>
 
 </Project>
