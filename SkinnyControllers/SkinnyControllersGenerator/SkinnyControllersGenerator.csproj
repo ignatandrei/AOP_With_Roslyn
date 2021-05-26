@@ -33,7 +33,7 @@
       Add also Nuget package SkinnyControllersCommon
       For creating new generic templates, see readme.txt
     </Description>
-    <Version>2021.2.9.1130</Version>
+    <Version>2021.25.5.1355</Version>
     <Authors>Andrei Ignat</Authors>
     <PackageTags>RoslynCodeGenerators;C#;CSharp;SkinnyControllers</PackageTags>
     <PackageProjectUrl>https://github.com/ignatandrei/AOP_With_Roslyn/tree/master/SkinnyControllers</PackageProjectUrl>
@@ -70,8 +70,8 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="Scriban" Version="3.0.2" GeneratePathProperty="true" />
-    <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.0" ReferenceOutputAssembly="false" />
-    <PackageReference Include="ThisAssembly.Project" Version="1.0.0" ReferenceOutputAssembly="false" />
+    <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.0" PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <PackageReference Include="ThisAssembly.Project" Version="1.0.0" PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
   </ItemGroup>
 
 </Project>
