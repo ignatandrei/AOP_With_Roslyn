@@ -44,16 +44,18 @@ namespace AOPMethodsGenerator
             }
         }
         public int HashCodeParams => Math.Abs( parametersDefinitionCSharp.GetHashCode());
-        public string parametersDefinitionCSharp => string.Join(",", Parameters.Select(it =>  it.Value.ToDisplayString() + " " + it.Key).ToArray());
-        public string parametersCallCSharp => string.Join(",", Parameters.Select(it =>
-
+        public string parametersDefinitionCSharp => string.Join(",", Parameters.Select(it =>
         {
+            var str = it.Value.ToDisplayString() + " " + it.Key;
             if (!it.Value.HasExplicitDefaultValue)
-                return it.Key;
+                return str;
 
-            return $"{it.Key}= {it.Value.ExplicitDefaultValue}"; 
-        }
-        ).ToArray());
+            return $"{str}= {it.Value.ExplicitDefaultValue?.ToString() ?? "null"}";
+
+        })
+        .ToArray());
+        public string parametersCallCSharp => string.Join(",", Parameters.Select(it => it.Key).ToArray());
+
 
         public string parametersCallWithRecord
         {
