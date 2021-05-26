@@ -441,7 +441,7 @@ namespace AOPMethodsGenerator
                 md.Name = ms.Name;
                 md.ReturnsVoid = ms.ReturnsVoid;
                 md.ReturnType = ms.ReturnType.ToString();
-                md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it.Type);
+                md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it);
                 ret.Add(md);
             }
             //if (ret.Count == 0)

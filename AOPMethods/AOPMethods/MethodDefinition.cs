@@ -14,13 +14,13 @@ namespace AOPMethodsGenerator
         public string ReturnType { get; set; }
         public bool ReturnsVoid { get; set; }
         //name, type
-        public Dictionary<string, ITypeSymbol> Parameters { get; set; }
+        public Dictionary<string, IParameterSymbol> Parameters { get; set; }
         public IMethodSymbol Original { get; set; }
 
         public bool IsAsync { get; set; }
         public bool CouldUseAsync { get; set; }
         public bool CouldReturnVoidFromAsync { get; set; }
-        public KeyValuePair<string, ITypeSymbol> FirstParameter
+        public KeyValuePair<string, IParameterSymbol> FirstParameter
         {
             get
             {
@@ -32,7 +32,7 @@ namespace AOPMethodsGenerator
                 return default;
             }
         }
-        public KeyValuePair<string, ITypeSymbol>? LastParameter
+        public KeyValuePair<string, IParameterSymbol>? LastParameter
         {
             get
             {
@@ -45,7 +45,15 @@ namespace AOPMethodsGenerator
         }
         public int HashCodeParams => Math.Abs( parametersDefinitionCSharp.GetHashCode());
         public string parametersDefinitionCSharp => string.Join(",", Parameters.Select(it =>  it.Value.ToDisplayString() + " " + it.Key).ToArray());
-        public string parametersCallCSharp => string.Join(",", Parameters.Select(it => it.Key).ToArray());
+        public string parametersCallCSharp => string.Join(",", Parameters.Select(it =>
+
+        {
+            if (!it.Value.HasExplicitDefaultValue)
+                return it.Key;
+
+            return $"{it.Key}= {it.Value.ExplicitDefaultValue}"; 
+        }
+        ).ToArray());
 
         public string parametersCallWithRecord
         {
