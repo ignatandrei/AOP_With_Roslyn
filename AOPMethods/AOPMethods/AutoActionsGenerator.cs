@@ -390,11 +390,11 @@ namespace AOPMethodsGenerator
                 pd.Accesibility =(int) ms.DeclaredAccessibility;
                 ret.Add(pd);
             }
-            if (ret.Count == 0)
-            {
-                context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
-                    $"could not find methods on {fieldName} from {fieldSymbol.ContainingType?.Name}"));
-            }
+            //if (ret.Count == 0)
+            //{
+            //    context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Warning,
+            //        $"could not find methods on {fieldName} from {fieldSymbol.ContainingType?.Name}"));
+            //}
             return ret.ToArray();
         }
 
