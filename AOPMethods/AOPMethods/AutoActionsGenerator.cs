@@ -155,6 +155,7 @@ namespace AOPMethodsGenerator
                 return;
 
             context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Info, "starting data"));
+            //Scriban.dll  to AOP_With_Roslyn\AOPMethods\AOPMethods\bin\Debug\netstandard2.0
             GenerateFromEnums(context, receiver);
             GeneratePublicMethods(context, receiver);
         }

@@ -42,5 +42,8 @@
     <Copyright>MIT</Copyright>
 
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Scriban" Version="4.0.1" />
+  </ItemGroup>
 
 </Project>

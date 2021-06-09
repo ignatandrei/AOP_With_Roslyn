@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <IsRoslynComponent>true</IsRoslynComponent>
   </PropertyGroup>
   <PropertyGroup>
     <!-- Do not include the generator as a lib dependency -->
@@ -16,10 +17,20 @@
     <None Remove="templates\TryCatchConsole.txt" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.1" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+      <PackageReference Include="System.CodeDom" PrivateAssets="all" GeneratePathProperty="true" Version="5.0.0" />
+      <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.9.0" />
+
+      <PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="3.10.0-3.final">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
-    <PackageReference Include="Scriban" Version="3.0.2" GeneratePathProperty="true" />
+    <PackageReference Include="Scriban" Version="4.0.1" GeneratePathProperty="true" />
     <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.8" PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer">
 
     </PackageReference>
