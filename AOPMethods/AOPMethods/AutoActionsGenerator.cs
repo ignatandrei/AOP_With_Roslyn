@@ -386,6 +386,8 @@ namespace AOPMethodsGenerator
 
                 PropertyDefinition pd = new PropertyDefinition();
                 pd.Original = ms;
+                pd.IsReadOnly = ms.IsReadOnly;
+                pd.IsWriteOnly = ms.IsWriteOnly;
                 pd.Name = ms.Name;
                 pd.ReturnType = ms.Type.ToString();
                 pd.Accesibility =(int) ms.DeclaredAccessibility;
