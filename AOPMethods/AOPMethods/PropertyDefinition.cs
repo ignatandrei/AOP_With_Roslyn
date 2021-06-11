@@ -11,5 +11,6 @@ namespace AOPMethodsGenerator
 
         public bool IsReadOnly{get;set;}
         public bool IsWriteOnly { get; set; }
+        public bool IsIndexer { get; internal set; }
     }
 }
