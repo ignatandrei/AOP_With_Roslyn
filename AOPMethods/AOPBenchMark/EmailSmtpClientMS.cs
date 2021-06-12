@@ -22,7 +22,7 @@ namespace AOPBenchMark
         [Benchmark]
         public string GetHostViaDictionary()
         {
-            return this.ReadMyProperties().First(it => it.Key == "Host").Value.ToString();
+            return this.ReadMyProperties()["Host"].ToString();
         }
         [Benchmark]
         public string GetHostViaSwitch()
