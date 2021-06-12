@@ -8,12 +8,12 @@ namespace AOPBenchMark
     {
         static void Main(string[] args)
         {
-            var email = new EmailSmtpClientMS();
+            var email = new EmailSmtpClientMSOneProperty();
             email.Setup();
             Console.WriteLine(email.GetHostReflection());
             Console.WriteLine(email.GetHostViaDictionary());
             Console.WriteLine(email.GetHostViaSwitch());
-            BenchmarkRunner.Run<EmailSmtpClientMS>(
+            BenchmarkRunner.Run<EmailSmtpClientMSOneProperty>(
                 ManualConfig
                     .Create(DefaultConfig.Instance)
                     .WithOption(ConfigOptions.DisableOptimizationsValidator,true)

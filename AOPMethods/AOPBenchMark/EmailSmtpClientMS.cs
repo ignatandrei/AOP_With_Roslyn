@@ -5,14 +5,7 @@ using System.Linq;
 
 namespace AOPBenchMark
 {
-    [SimpleJob(RuntimeMoniker.Net50)]
-    //[SimpleJob(RuntimeMoniker.NetCoreApp31)]
-    [RPlotExporter]
-    [HtmlExporter]
-    [MarkdownExporterAttribute.GitHub]
-    [AutoMethods(template = TemplateMethod.CustomTemplateFile, CustomTemplateFileName = "ClassToDictionary.txt")]
-
-    public partial class EmailSmtpClientMS 
+    public partial class EmailSmtpClientMSOneProperty: EmailSmtpClientMS
     {
         [Benchmark]
         public string GetHostReflection()
@@ -29,6 +22,17 @@ namespace AOPBenchMark
         {
             return this.GetValueProperty("Host").ToString();
         }
+    }
+    [SimpleJob(RuntimeMoniker.Net50)]
+    //[SimpleJob(RuntimeMoniker.NetCoreApp31)]
+    [RPlotExporter]
+    [HtmlExporter]
+    [MarkdownExporterAttribute.GitHub]
+    [AutoMethods(template = TemplateMethod.CustomTemplateFile, CustomTemplateFileName = "ClassToDictionary.txt")]
+
+    public partial class EmailSmtpClientMS 
+    {
+        
         [GlobalSetup]
         public void Setup()
         {
