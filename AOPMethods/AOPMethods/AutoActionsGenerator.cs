@@ -237,6 +237,7 @@ namespace AOPMethodsGenerator
                     string post = "";
                     try
                     {
+                        string nameTemplate = templateId.ToString();
                         switch (templateId)
                         {
 
@@ -245,13 +246,15 @@ namespace AOPMethodsGenerator
                                 continue;
                             case TemplateMethod.CustomTemplateFile:
 
-
+                                
                                 var file = context.AdditionalFiles.FirstOrDefault(it => it.Path.EndsWith(templateCustom));
+                                
                                 if (file == null)
                                 {
                                     context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error, $"cannot find {templateCustom} for  {classWithMethods.Name} . Did you put in AdditionalFiles in csproj ?"));
                                     continue;
                                 }
+                                nameTemplate = Path.GetFileNameWithoutExtension(file.Path);
                                 post = file.GetText().ToString();
                                 break;
 
@@ -272,7 +275,7 @@ namespace AOPMethodsGenerator
                             continue;
 
 
-                        context.AddSource($"{classWithMethods.Name}_{i}.autogenerate.cs", SourceText.From(classSource, Encoding.UTF8));
+                        context.AddSource($"{classWithMethods.Name}_{nameTemplate}_{i}.autogenerate.cs", SourceText.From(classSource, Encoding.UTF8));
 
                     }
                     catch (Exception ex)
