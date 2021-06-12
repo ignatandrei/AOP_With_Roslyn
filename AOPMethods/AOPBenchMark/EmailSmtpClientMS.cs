@@ -2,11 +2,16 @@
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Exporters.Csv;
 using BenchmarkDotNet.Jobs;
+using BenchmarkDotNet.Order;
 using System.Linq;
 
 namespace AOPBenchMark
 {
-    [SimpleJob(RuntimeMoniker.Net50)]
+ 
+    //[SimpleJob(RuntimeMoniker.Net50)]
+    [ShortRunJob(RuntimeMoniker.Net50)]
+    //[DryJob(RuntimeMoniker.Net50)]
+    [Orderer(SummaryOrderPolicy.FastestToSlowest, MethodOrderPolicy.Declared)]
     //[SimpleJob(RuntimeMoniker.NetCoreApp31)]
     [RPlotExporter]
     [CsvMeasurementsExporter]
