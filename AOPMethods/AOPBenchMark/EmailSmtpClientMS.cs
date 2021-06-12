@@ -8,8 +8,9 @@ using System.Linq;
 namespace AOPBenchMark
 {
  
+    
     //[SimpleJob(RuntimeMoniker.Net50)]
-    [ShortRunJob(RuntimeMoniker.Net50)]
+    //[ShortRunJob(RuntimeMoniker.Net50)]
     //[DryJob(RuntimeMoniker.Net50)]
     [Orderer(SummaryOrderPolicy.FastestToSlowest, MethodOrderPolicy.Declared)]
     //[SimpleJob(RuntimeMoniker.NetCoreApp31)]
