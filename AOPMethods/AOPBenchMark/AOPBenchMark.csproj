@@ -12,6 +12,9 @@
     <AdditionalFiles Include="ClassToDictionary.txt" />
     <PackageReference Include="AOPMethodsCommon" Version="2021.6.11.907" />
     <PackageReference Include="AOPMethodsGenerator" Version="2021.6.11.907" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.0" />
+    <PackageReference Include="BenchmarkDotNet.Annotations" Version="0.13.0" />
+    <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.13.0" />
 
   </ItemGroup>
 

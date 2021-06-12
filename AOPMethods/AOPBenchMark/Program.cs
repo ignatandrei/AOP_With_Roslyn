@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Running;
+using System;
 
 namespace AOPBenchMark
 {
@@ -7,10 +9,15 @@ namespace AOPBenchMark
         static void Main(string[] args)
         {
             var email = new EmailSmtpClientMS();
-            email.Host = "http://msprogrammer.serviciipeweb.ro/";
+            email.Setup();
             Console.WriteLine(email.GetHostReflection());
             Console.WriteLine(email.GetHostViaDictionary());
             Console.WriteLine(email.GetHostViaSwitch());
+            BenchmarkRunner.Run<EmailSmtpClientMS>(
+                ManualConfig
+                    .Create(DefaultConfig.Instance)
+                    .WithOption(ConfigOptions.DisableOptimizationsValidator,true)
+                    );
 
         }
     }
