@@ -1,31 +1,16 @@
 ﻿using AOPMethodsCommon;
 using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Exporters.Csv;
 using BenchmarkDotNet.Jobs;
 using System.Linq;
 
 namespace AOPBenchMark
 {
-    public partial class EmailSmtpClientMSOneProperty: EmailSmtpClientMS
-    {
-        [Benchmark]
-        public string GetHostReflection()
-        {
-            return this.GetType().GetProperty("Host").GetValue(this).ToString();
-        }
-        [Benchmark]
-        public string GetHostViaDictionary()
-        {
-            return this.ReadMyProperties()["Host"].ToString();
-        }
-        [Benchmark]
-        public string GetHostViaSwitch()
-        {
-            return this.GetValueProperty("Host").ToString();
-        }
-    }
     [SimpleJob(RuntimeMoniker.Net50)]
     //[SimpleJob(RuntimeMoniker.NetCoreApp31)]
     [RPlotExporter]
+    [CsvMeasurementsExporter]
+    [MemoryDiagnoser]
     [HtmlExporter]
     [MarkdownExporterAttribute.GitHub]
     [AutoMethods(template = TemplateMethod.CustomTemplateFile, CustomTemplateFileName = "ClassToDictionary.txt")]
