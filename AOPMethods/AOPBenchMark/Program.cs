@@ -6,7 +6,12 @@ namespace AOPBenchMark
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var email = new EmailSmtpClientMS();
+            email.Host = "http://msprogrammer.serviciipeweb.ro/";
+            Console.WriteLine(email.GetHostReflection());
+            Console.WriteLine(email.GetHostViaDictionary());
+            Console.WriteLine(email.GetHostViaSwitch());
+
         }
     }
 }

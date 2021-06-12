@@ -1,4 +1,5 @@
 ﻿using AOPMethodsCommon;
+using System.Linq;
 
 namespace AOPBenchMark
 {
@@ -6,6 +7,18 @@ namespace AOPBenchMark
 
     public partial class EmailSmtpClientMS 
     {
+        public string GetHostReflection()
+        {
+            return this.GetType().GetProperty("Host").GetValue(this).ToString();
+        }
+        public string GetHostViaDictionary()
+        {
+            return this.ReadMyProperties().First(it => it.Key == "Host").Value.ToString();
+        }
+        public string GetHostViaSwitch()
+        {
+            return this.GetValueProperty("Host").ToString();
+        }
         public EmailSmtpClientMS()
         {
 

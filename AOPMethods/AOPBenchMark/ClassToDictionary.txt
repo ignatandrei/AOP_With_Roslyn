@@ -59,6 +59,30 @@ namespace {{NamespaceName}} {
         
     
     }
+    private object GetValueProperty(string propName){
+        switch(propName){
+        {{~ for p in Properties ~}}
+            {{ if !p.IsWriteOnly }} //{{!p.IsWriteOnly}} {{!p.IsReadOnly}}
+                case "{{p.Name}}":
+                    return this.{{p.Name}};    
+            {{ end }}
+           
+        {{ end }}
+            default:
+                throw new ArgumentException("cannot find property "+propName);
+        }
+    }
+    private IDictionary<string,object> ReadMyProperties(){
+    var values= new Dictionary<string,object>() ;
+{{~ for p in Properties ~}}
+    {{ if !p.IsWriteOnly }} //{{!p.IsWriteOnly}} {{!p.IsReadOnly}}
+        values["{{p.Name}}"]=this.{{p.Name}} ;    
+    {{ end }}
+    
+{{ end }}
+        
+    return values;
+    }
     
   }
 }              
