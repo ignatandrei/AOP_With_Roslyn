@@ -2,6 +2,8 @@
 
 namespace AOPBenchMark
 {
+
+
     public partial class EmailSmtpClientMSOneProperty: EmailSmtpClientMS
     {
         [Benchmark]

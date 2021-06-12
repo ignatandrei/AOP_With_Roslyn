@@ -13,11 +13,18 @@ namespace AOPBenchMark
             Console.WriteLine(email.GetHostReflection());
             Console.WriteLine(email.GetHostViaDictionary());
             Console.WriteLine(email.GetHostViaSwitch());
-            BenchmarkRunner.Run<EmailSmtpClientMSOneProperty>(
+            //BenchmarkRunner.Run<EmailSmtpClientMSOneProperty>(
+            //    ManualConfig
+            //        .Create(DefaultConfig.Instance)
+            //        .WithOption(ConfigOptions.DisableOptimizationsValidator,true)
+            //        );
+
+            BenchmarkRunner.Run<EmailSmtpClientMSMultipleProperties>(
                 ManualConfig
                     .Create(DefaultConfig.Instance)
-                    .WithOption(ConfigOptions.DisableOptimizationsValidator,true)
+                    .WithOption(ConfigOptions.DisableOptimizationsValidator, true)
                     );
+
 
         }
     }
