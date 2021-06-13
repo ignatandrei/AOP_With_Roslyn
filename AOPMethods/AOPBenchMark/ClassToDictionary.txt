@@ -31,6 +31,16 @@ namespace {{NamespaceName}} {
     return 1;
     }
     */
+
+    internal string[] ReadProperties = new []{
+{{~ for p in Properties ~}}
+    {{ if !p.IsWriteOnly }} //{{!p.IsWriteOnly}} {{!p.IsReadOnly}}
+        "{{p.Name}}" {{ if !for.last }} , {{end}}    
+    {{ end }}
+    
+{{ end }}
+    
+    };
     private IDictionary<string,PropertyHelper> MyProperties(){
         var data=new Dictionary<string,PropertyHelper>();
         PropertyHelper ph;

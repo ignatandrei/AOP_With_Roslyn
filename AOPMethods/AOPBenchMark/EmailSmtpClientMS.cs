@@ -24,18 +24,11 @@ namespace AOPBenchMark
     public partial class EmailSmtpClientMS 
     {
 
-        internal string[] properties;
-        [GlobalSetup]
+        [GlobalSetup] 
         public void Setup()
         {
             Host = "http://msprogrammer.serviciipeweb.ro/";
-            properties = new[]
-            {
-                nameof(Host),
-                nameof(Port),
-                nameof(Type),
-                nameof(Description)
-            };
+            
         }
         public EmailSmtpClientMS()
         {

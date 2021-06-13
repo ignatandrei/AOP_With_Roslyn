@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AOPBenchMark
@@ -7,44 +8,30 @@ namespace AOPBenchMark
     {
         
         [Benchmark]
-        public string GetHostReflection()
+        public IDictionary<string,object> GetHostReflection()
         {
             var props = this.GetType()
                 .GetProperties()
-                .ToDictionary(it => it.Name, it=>it);
+                .Where(it=> it.CanWrite)
+                .ToDictionary(it => it.Name, it=>it.GetValue(this));
                 ;
-            var str = "";
-            foreach(var name in properties)
-            {
-                var val = props[name].GetValue(this).ToString();
-                str += val;
-            }
-            return str;
+            return props;
                 
         }
         [Benchmark]
-        public string GetHostViaDictionary()
+        public IDictionary<string, object> GetHostViaDictionary()
         {
             var props = this.ReadMyProperties();
-            var str = "";
-            foreach (var name in properties)
-            {
-                var val = props[name].ToString();
-                str += val;
-            }
-            return str;
+            return props;
             
         }
         [Benchmark]
-        public string GetHostViaSwitch()
+        public IDictionary<string, object> GetHostViaSwitch()
         {
-            var str = "";
-            foreach (var name in properties)
-            {
-                var val = GetValueProperty(name).ToString();
-                str += val;
-            }
-            return str;
+            var props = ReadProperties
+                .ToDictionary(it => it, it => GetValueProperty(it));
+            return props;
+            
             
         }
     }
