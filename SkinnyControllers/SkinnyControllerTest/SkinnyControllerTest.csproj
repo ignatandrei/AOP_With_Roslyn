@@ -7,14 +7,16 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.0" NoWarn="NU1605" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
-   
+    <PackageReference Include="System.IO.Abstractions" Version="14.0.13" />
+	  <PackageReference Include="Scriban" Version="3.0.2" GeneratePathProperty="true" />
+
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="Controllers\CustomTemplate1.txt" />
   </ItemGroup>
   <ItemGroup>
     <!--<ProjectReference Include="..\SkinnyControllersCommon\SkinnyControllersCommon.csproj" />-->
-    <ProjectReference Include="..\SkinnyControllersGenerator\SkinnyControllersGenerator.csproj" OutputItemType="Analyzer"  />
+    <ProjectReference Include="..\SkinnyControllersGenerator\SkinnyControllersGenerator.csproj" OutputItemType="Analyzer" />
   </ItemGroup>
 <Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile">
     <ItemGroup>

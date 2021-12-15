@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+	  <LangVersion>8.0</LangVersion>
     
   </PropertyGroup>
   <PropertyGroup>
@@ -73,5 +74,13 @@
     <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.8" PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
     <PackageReference Include="ThisAssembly.Project" Version="1.0.8" PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
   </ItemGroup>
+	<PropertyGroup>
+		<GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
+	</PropertyGroup>
 
+	<Target Name="GetDependencyTargetPaths">
+		<ItemGroup>
+			<TargetPathWithTargetPlatformMoniker Include="$(PKGScriban)\lib\netstandard2.0\Scriban.dll" IncludeRuntimeDependency="false" />
+		</ItemGroup>
+	</Target>
 </Project>

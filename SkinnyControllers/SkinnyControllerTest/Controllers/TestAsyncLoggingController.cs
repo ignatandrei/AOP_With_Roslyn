@@ -19,7 +19,7 @@ namespace SkinnyControllerTest.Controllers
         public TestAsyncLoggingController(ITestAsyncLogging data)
         {
             this.data = data;
-            this.OKData();
+            //this.OKData();
         }
     }
 }
