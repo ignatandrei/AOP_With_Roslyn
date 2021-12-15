@@ -17,7 +17,7 @@ namespace {{NamespaceName}} {
     {{~ for kvp in DictNameField_Methods ~}}
       {{~ for mi in kvp.Value ~}}
           {{ if mi.NrParameters > 0 }}
-    public record rec{{mi.Name}}_{{mi.HashCodeParams}} ({{mi.parametersDefinitionCSharp }});
+    public record rec{{ClassName}}_{{mi.Name}}_{{mi.HashCodeParams}} ({{mi.parametersDefinitionCSharp }});
           {{ end }}
       {{~ end ~}}
       
@@ -41,7 +41,7 @@ namespace {{NamespaceName}} {
          {{
             argumentFunction=""
             if mi.NrParameters > 0 
-                argumentFunction = "rec" +mi.Name+ "_"+mi.HashCodeParams + " data";
+                argumentFunction = "rec"+ ClassName +"_"+mi.Name+ "_"+mi.HashCodeParams + " data";
             end
          }}
         [HttpPost]

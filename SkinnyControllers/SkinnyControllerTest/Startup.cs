@@ -37,6 +37,7 @@ namespace SkinnyControllerTest
             services.AddSingleton<RepositoryWithMoreArgs>();
             services.AddTransient<ITestAsyncLogging>((s) => new TestAsyncLogging());
             services.AddTransient<IFile>(sp => new FileSystem().File);
+            services.AddTransient<IDirectory>(sp => new FileSystem().Directory);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
