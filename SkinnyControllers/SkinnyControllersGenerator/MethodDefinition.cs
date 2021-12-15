@@ -7,6 +7,7 @@ namespace SkinnyControllersGenerator
 {
     class MethodDefinition
     {
+        public string RegisteredName { get; set; }
         public string Name { get; set; }
         public string FieldName { get; set; }
         public string ReturnType;

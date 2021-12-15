@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace SkinnyControllerTest.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
-    //[AutoActions(template = TemplateIndicator., FieldsName = new[] { "personRepository" })]
-    public class FIleController
-    {
+    [AutoActions(template = TemplateIndicator.AllPostWithRecord, FieldsName = new[] { "*" })]
+    public partial class FIleController
+    { 
         private readonly IFile file;
 
         public FIleController(IFile file)

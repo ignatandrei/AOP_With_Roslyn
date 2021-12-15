@@ -53,7 +53,7 @@ namespace {{NamespaceName}} {
             {{
                 end
             }}
-            {{kvp.Key}}.{{mi.Name}}({{ mi.parametersCallWithRecord  }});
+            {{kvp.Key}}.{{mi.RegisteredName}}({{ mi.parametersCallWithRecord  }});
 
         }
       {{~ end ~}}

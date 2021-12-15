@@ -71,7 +71,7 @@ namespace {{NamespaceName}} {
         public {{strAsync}} {{mi.ReturnType}} {{mi.Name}}( {{argumentFunction}} ){
             try{
             System.Console.WriteLine(" enter  {{mi.Name}} ");
-            {{returnVerb}} {{strAwait}} {{kvp.Key}}.{{mi.Name}}({{ argumentCall  }});
+            {{returnVerb}} {{strAwait}} {{kvp.Key}}.{{mi.RegisteredName}}({{ argumentCall  }});
             
             }
             catch(System.Exception ex){

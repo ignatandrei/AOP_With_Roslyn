@@ -45,7 +45,7 @@ namespace {{NamespaceName}} {
             {{
                 end
             }}
-            {{kvp.Key}}.{{mi.Name}}({{ mi.parametersCallCSharp }});
+            {{kvp.Key}}.{{mi.RegisteredName}}({{ mi.parametersCallCSharp }});
 
         }
       {{~ end ~}}

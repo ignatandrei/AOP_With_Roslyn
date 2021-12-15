@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using SkinnyControllerTest.Controllers;
 using System;
 using System.Collections.Generic;
+using System.IO.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -35,6 +36,7 @@ namespace SkinnyControllerTest
             services.AddTransient<RepositoryWF>();
             services.AddSingleton<RepositoryWithMoreArgs>();
             services.AddTransient<ITestAsyncLogging>((s) => new TestAsyncLogging());
+            services.AddTransient<IFile>(sp => new FileSystem().File);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

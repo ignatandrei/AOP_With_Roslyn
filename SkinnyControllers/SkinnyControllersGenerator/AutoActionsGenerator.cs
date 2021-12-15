@@ -211,7 +211,7 @@ namespace SkinnyControllersGenerator
         private MethodDefinition[] ProcessField(IFieldSymbol fieldSymbol)
         {
            
-            var ret = new List<MethodDefinition>();
+            var ret = new Dictionary<string,MethodDefinition>();
             var code = new StringBuilder();
             string fieldName = fieldSymbol.Name;
             var fieldType = fieldSymbol.Type;
@@ -247,6 +247,7 @@ namespace SkinnyControllersGenerator
 
                 var md = new MethodDefinition();
                 md.Name = ms.Name;
+                md.RegisteredName = md.Name;
                 md.FieldName = fieldName;
                 md.ReturnsVoid = ms.ReturnsVoid;
                 md.Original = ms;
@@ -257,15 +258,31 @@ namespace SkinnyControllersGenerator
                 }
                 md.ReturnType = ms.ReturnType.ToString();
                 md.Parameters = ms.Parameters.ToDictionary(it => it.Name, it => it.Type);
+                //if 2 method have same names, generate different actions
+                int i = 0;
+                string name = md.RegisteredName;
+                //DoDiagnostic(DiagnosticSeverity.Error, "Andrei_" + name);
+                if (name.EndsWith("Async"))
+                {   
+                    md.Name = name.Substring(0, name.Length - "Async".Length);
+                    //DoDiasgnostic(DiagnosticSeverity.Error,"Andrei_" + name);
+                }
 
-                ret.Add(md);
+                while(ret.ContainsKey(md.Name))
+                {
+                    i++;
+                    //same name for the method ... let's modify the name
+                    md.Name = name + i; 
+                }
+                ret.Add(md.Name,md);
+                
             }
             if (ret.Count== 0)
             {
                 context.ReportDiagnostic( DoDiagnostic(DiagnosticSeverity.Warning,
                     $"could not find methods on {fieldName} from {fieldSymbol.ContainingType?.Name}"));
             }
-            return ret.ToArray();
+            return ret.Values.ToArray();
         }
 
         

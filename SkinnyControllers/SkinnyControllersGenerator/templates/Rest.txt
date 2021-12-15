@@ -27,7 +27,7 @@ namespace {{NamespaceName}} {
     {{~ for kvp in DictNameField_Methods ~}}
       {{~ for mi in kvp.Value ~}}
       {{    
-            method="[Http"+mi.Name 
+            method="[Http"+mi.RegisteredName
             if mi.NrParameters > 0 && mi.Name != "Post"
                 method = method + "(\"{"+ mi.FirstParameter.Key  +"}\")"
             end
@@ -58,7 +58,7 @@ namespace {{NamespaceName}} {
             {{
                 end
             }}
-            {{kvp.Key}}.{{mi.Name}}({{ mi.parametersCallCSharp }});
+            {{kvp.Key}}.{{mi.RegisteredName}}({{ mi.parametersCallCSharp }});
 
         }
       {{~ end ~}}
