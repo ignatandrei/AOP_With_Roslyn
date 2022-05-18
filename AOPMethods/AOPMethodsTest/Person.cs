@@ -44,7 +44,11 @@ namespace AOPMethodsTest
             await Task.Delay(1000);
             return FullName();
         }
-
+        private async Task<string> Secondbup(string s, int i, double? d,System.Type t,Person p)
+        {
+            await Task.Delay(1000);
+            return FullName();
+        }
         private async Task<string> pubTestWithParam(int s)
         {
             await Task.Delay(1000);

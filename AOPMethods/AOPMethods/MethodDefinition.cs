@@ -17,6 +17,28 @@ namespace AOPMethodsGenerator
         public Dictionary<string, IParameterSymbol> Parameters { get; set; }
         public IMethodSymbol Original { get; set; }
 
+        public dynamic this[string parameterName]
+        {
+            get {
+                var param = this.Parameters[parameterName];
+                return new { param.RefKind, IsValueType = param.Type.IsValueType,name=param.Type.Name  };
+            }
+        }
+        public KeyValuePair<string, IParameterSymbol>[] ParametersToBeSerialized
+        {
+            get
+            {
+                return this.Parameters
+                    .Where(it => 
+                    (it.Value?.Type?.IsValueType ?? false)
+                    ||
+                    it.Value?.Type?.Name?.ToLower() == "string"
+                    )
+
+                    .ToArray();
+            }
+        }
+
         public bool IsAsync { get; set; }
         public bool CouldUseAsync { get; set; }
         public bool CouldReturnVoidFromAsync { get; set; }

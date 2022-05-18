@@ -65,6 +65,14 @@ namespace {{NamespaceName}} {
             end
         }}  
         private {{strAsync}} {{mi.ReturnType}} {{mi.NewName}} ({{mi.parametersDefinitionCSharp }}){
+            //andrei
+            {{~ for t in mi.ParametersToBeSerialized ~}}
+                //{{t.Value}} => //{{mi[t.Key]}}
+            {{end }}
+            {{~ for t in mi.Parameters ~}}
+                //{{t.Value}} => //{{mi[t.Key]}}
+            {{end }}
+            
             try{
                 Console.WriteLine("before calling method {{mi.Name}}");
             {{
