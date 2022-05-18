@@ -31,7 +31,7 @@
       </PackageReference>
       
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
-    <PackageReference Include="Scriban" Version="4.0.1" GeneratePathProperty="true" />
+    <PackageReference Include="Scriban" Version="4.0.1" GeneratePathProperty="true" PrivateAssets="all" />
     <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.8" PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer">
 
     </PackageReference>
@@ -84,6 +84,19 @@
     <None Include="$(PkgScriban)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>
 
+	<PropertyGroup>
+		<GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
+	</PropertyGroup>
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="echo Configuration: $(Configuration)&#xD;&#xA;echo DevEnvDir: $(DevEnvDir)&#xD;&#xA;echo OutDir: $(OutDir)&#xD;&#xA;echo ProjectDir: $(ProjectDir)&#xD;&#xA;echo VisualStudioVersion: $(VisualStudioVersion)&#xD;&#xA;echo AssemblySearchPaths: $(AssemblySearchPaths)&#xD;&#xA;echo AssemblyName: $(AssemblyName)&#xD;&#xA;echo BaseIntermediateOutputPath: $(BaseIntermediateOutputPath)&#xD;&#xA;echo CscToolPath: $(CscToolPath)" />
+		<Exec Command="echo $(ProjectDir)..\AMS_Base\$(OutDir)\AMS_Base.dll" />
+	</Target>
+	<Target Name="GetDependencyTargetPaths">
+		<ItemGroup>
+			<TargetPathWithTargetPlatformMoniker Include="$(PKGScriban)\lib\netstandard2.0\Scriban.dll" IncludeRuntimeDependency="false" />
+		</ItemGroup>
+	</Target>
+	
   <ItemGroup>
     <Compile Include="..\AOPMethodsCommon\AutoMethods.cs" Link="AutoMethods.cs" />
   </ItemGroup>
