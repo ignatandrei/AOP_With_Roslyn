@@ -28,13 +28,18 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+
+    - name: Setup .NET Core 6
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
       
     - name: Install dependencies
       run: |
           cd SkinnyControllers
           dotnet restore
           
-    - name: Build
+    - name: Build Skinyy
       run: |
         cd SkinnyControllers
         cd SkinnyControllersCommon
@@ -50,4 +55,21 @@ jobs:
       with:
         name: NugetPackages
         path: SkinnyControllers/Pack
+        retention-days: 1
+
+    - name: Build Aop
+      run: |
+        cd AOPMethods
+        dotnet build
+        cd AOPMethodsCommon                
+        dotnet pack  --include-symbols --include-source -o ../Pack
+        cd ..
+        cd AOPMethods
+        dotnet pack  --include-symbols --include-source -o ../Pack
+        
+    - name: upload nuget
+      uses: actions/upload-artifact@v2.2.1
+      with:
+        name: NugetPackages
+        path: AOPMethods/Pack
         retention-days: 1
