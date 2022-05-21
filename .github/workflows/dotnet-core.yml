@@ -53,7 +53,7 @@ jobs:
     - name: upload nuget
       uses: actions/upload-artifact@v2.2.1
       with:
-        name: NugetPackages
+        name: SkinnyPackages
         path: SkinnyControllers/Pack
         retention-days: 1
 
@@ -70,6 +70,6 @@ jobs:
     - name: upload nuget
       uses: actions/upload-artifact@v2.2.1
       with:
-        name: NugetPackages
+        name: AOPPackages
         path: AOPMethods/Pack
         retention-days: 1
