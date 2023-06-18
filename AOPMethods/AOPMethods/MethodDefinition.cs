@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 
 namespace AOPMethodsGenerator
@@ -16,7 +17,20 @@ namespace AOPMethodsGenerator
         //name, type
         public Dictionary<string, IParameterSymbol> Parameters { get; set; }
         public IMethodSymbol Original { get; set; }
+        public ImmutableArray<ISymbol> ExplicitOrImplicitInterfaceImplementations(ISymbol symbol)
+        {
+            if (symbol.Kind is not SymbolKind.Method and not SymbolKind.Property and not SymbolKind.Event)
+                return ImmutableArray<ISymbol>.Empty;
 
+            var containingType = symbol.ContainingType;
+            var query = from iface in containingType.AllInterfaces
+                        from interfaceMember in iface.GetMembers()
+                        let impl = containingType.FindImplementationForInterfaceMember(interfaceMember)
+                        let v = SymbolEqualityComparer.Default.Equals(impl)
+                        where v
+                        select interfaceMember;
+            return query.ToImmutableArray();
+        }
         public dynamic this[string parameterName]
         {
             get {
