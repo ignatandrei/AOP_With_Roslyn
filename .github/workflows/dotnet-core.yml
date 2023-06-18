@@ -34,42 +34,42 @@ jobs:
       with:
         dotnet-version: 6.0.x
       
-    - name: Install dependencies
-      run: |
-          cd SkinnyControllers
-          dotnet restore
+    # - name: Install dependencies
+    #   run: |
+    #       cd SkinnyControllers
+    #       dotnet restore
           
-    - name: Build Skinyy
-      run: |
-        cd SkinnyControllers
-        cd SkinnyControllersCommon
-        dotnet build
-        dotnet pack  --include-symbols --include-source -o ../Pack
-        cd ..
-        cd SkinnyControllersGenerator
-        dotnet build
-        dotnet pack  --include-symbols --include-source -o ../Pack
+    # - name: Build Skinyy
+    #   run: |
+    #     cd SkinnyControllers
+    #     cd SkinnyControllersCommon
+    #     dotnet build
+    #     dotnet pack  --include-symbols --include-source -o ../Pack
+    #     cd ..
+    #     cd SkinnyControllersGenerator
+    #     dotnet build
+    #     dotnet pack  --include-symbols --include-source -o ../Pack
         
-    - name: upload nuget
-      uses: actions/upload-artifact@v2.2.1
-      with:
-        name: SkinnyPackages
-        path: SkinnyControllers/Pack
-        retention-days: 1
+    # - name: upload nuget
+    #   uses: actions/upload-artifact@v2.2.1
+    #   with:
+    #     name: SkinnyPackages
+    #     path: SkinnyControllers/Pack
+    #     retention-days: 1
 
-    - name: Build Aop
-      run: |
-        cd AOPMethods
-        dotnet build
-        cd AOPMethodsCommon                
-        dotnet pack  --include-symbols --include-source -o ../Pack
-        cd ..
-        cd AOPMethods
-        dotnet pack  --include-symbols --include-source -o ../Pack
+    # - name: Build Aop
+    #   run: |
+    #     cd AOPMethods
+    #     dotnet build
+    #     cd AOPMethodsCommon                
+    #     dotnet pack  --include-symbols --include-source -o ../Pack
+    #     cd ..
+    #     cd AOPMethods
+    #     dotnet pack  --include-symbols --include-source -o ../Pack
         
-    - name: upload nuget
-      uses: actions/upload-artifact@v2.2.1
-      with:
-        name: AOPPackages
-        path: AOPMethods/Pack
-        retention-days: 1
+    # - name: upload nuget
+    #   uses: actions/upload-artifact@v2.2.1
+    #   with:
+    #     name: AOPPackages
+    #     path: AOPMethods/Pack
+    #     retention-days: 1
