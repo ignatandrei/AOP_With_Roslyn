@@ -6,7 +6,7 @@ namespace RoslynInspectorTemplateGenerator;
 [Generator]
 public class RoslynTemplateClassGenerator : IIncrementalGenerator
 {
-    const string autoClass = "RoslynTemplateClassAttribute";//typeof(AutoActionsAttribute).Name;
+    const string autoClass = "RoslynTemplateClass";//typeof(AutoActionsAttribute).Name;
     const string autoClassFullName = "RoslynInspectorTemplateCommon.RoslynTemplateClassAttribute";//typeof(AutoActionsAttribute).FullName;
     const string endFileName = ".razor";
     public void Initialize(IncrementalGeneratorInitializationContext context)
@@ -49,6 +49,27 @@ public class RoslynTemplateClassGenerator : IIncrementalGenerator
             {
                 context.ReportDiagnostic(DoDiagnostic(DiagnosticSeverity.Error, "please add partial declaration to class "+ item.Nts.Name, cds.GetLocation()));
                 continue;
+            }
+            var myClass = item.Nts;
+            string? Namespace = myClass.ContainingNamespace.IsGlobalNamespace ? null : myClass.ContainingNamespace.ToString();
+            var atts = myClass
+                    .GetAttributes()
+                    .Where(it => it.AttributeClass.Name.StartsWith(autoClass))
+                    .ToArray()
+                    ;
+            foreach (var att in atts)
+            {
+
+                var namedArgs = att.NamedArguments;
+                var temp = namedArgs.FirstOrDefault(it => it.Key == "InterceptDataOnClass");
+                if (temp.Value.Value == null)
+                    continue;
+                var template = temp
+                        .Value
+                        .Value
+                        .ToString();
+                var intercept = (InterceptDataOnClass)long.Parse(template);
+
             }
         }
     }

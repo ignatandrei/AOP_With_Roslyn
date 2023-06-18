@@ -2,7 +2,7 @@
 
 namespace RoslynInspectorTemplateCommon;
 
-[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
 public class RoslynTemplateClassAttribute : Attribute
 {
     public TemplateMethod template { get; set; }
